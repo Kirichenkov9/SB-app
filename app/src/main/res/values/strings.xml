@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">S&amp;B</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">User name</string>
+    <string name="nav_header_subtitle">User_mail@android.com</string>
+    <string name="action_add">add</string>
+    <string name="search">Поиск объявлений</string>
+    <string name="my_ads">Мои объявления</string>
+    <string name="add_ad">Подать объявление</string>
+    <string name="title_activity_login">Войти</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Логин</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Войти или зарегистрироваться</string>
+    <string name="action_sign_in_short">Войти</string>
+    <string name="error_invalid_email">Некоректный логин</string>
+    <string name="error_invalid_password">Слишком короткий пароль</string>
+    <string name="error_incorrect_password">Некорректный пароль</string>
+    <string name="error_field_required">Поле должно быть заполнено</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="nav_header_desc"/>
+    <string name="account">Настройки аккаунта</string>
+    <!-- Strings related to registration -->
+    <string name="registration">Регистрация</string>
+    <string name="email_registration">Email</string>
+    <string name="last_name_registration">Фамилия</string>
+    <string name="first_name_registration">Имя</string>
+    <string name="phone_number_registration">Номер телефона</string>
+    <string name="about_registration">Информация о себе</string>
+    <string name="to_registr">Зарегистрироваться</string>
+    <string name="title_registration">Регистрация</string>
+    <string name="entry">Войти</string>
+    <string name="to_registration">Зарегистрироваться</string>
+    <string name="title_add">Подать объявление</string>
+    <string name="title_add_ad">Название</string>
+    <string name="title_ad_add">Название объявления</string>
+    <string name="about_ad_add">Описание</string>
+    <string name="price_ad_add">Стоимость</string>
+    <string name="city_ad_add">Город</string>
+    <string name="password_registration">Пароль</string>
+</resources>

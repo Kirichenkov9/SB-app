@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              tools:context=".ui.activities.RegistrationActivity">
+
+    <EditText
+            android:id="@+id/first_name_registration"
+            android:hint="@string/first_name_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </EditText>
+
+    <EditText
+            android:id="@+id/last_name_registration"
+            android:hint="@string/last_name_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </EditText>
+
+    <EditText
+            android:id="@+id/email_registration"
+            android:hint="@string/email_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </EditText>
+    <EditText
+            android:id="@+id/phone_number_registration"
+            android:hint="@string/phone_number_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    </EditText>
+
+    <EditText
+            android:id="@+id/about_registration"
+            android:hint="@string/about_registration"
+            android:gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="110dp">
+    </EditText>
+
+    <EditText
+            android:id="@+id/password_registration"
+            android:hint="@string/password_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    </EditText>
+
+
+    <Button
+            android:id="@+id/button_registration"
+            android:text="@string/to_registr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

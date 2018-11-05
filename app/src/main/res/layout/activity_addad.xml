@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              tools:context=".ui.activities.RegistrationActivity">
+
+    <EditText
+            android:id="@+id/title_ad"
+            android:hint="@string/title_ad_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </EditText>
+
+    <EditText
+            android:id="@+id/about_ad"
+            android:hint="@string/about_ad_add"
+            android:gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="110dp">
+
+    </EditText>
+
+    <EditText
+            android:id="@+id/price_ad"
+            android:hint="@string/price_ad_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </EditText>
+    <EditText
+            android:id="@+id/city_ad"
+            android:hint="@string/city_ad_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    </EditText>
+
+    <ImageButton
+            android:id="@+id/ad_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="left"
+            android:src="@drawable/ic_menu_add"/>
+
+    <Button
+            android:id="@+id/button_registration"
+            android:text="@string/add_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</LinearLayout>
