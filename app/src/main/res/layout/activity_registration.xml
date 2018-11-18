@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -13,7 +14,8 @@
             android:id="@+id/first_name_registration"
             android:hint="@string/first_name_registration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+    android:inputType="textShortMessage">
 
     </EditText>
 
@@ -21,7 +23,8 @@
             android:id="@+id/last_name_registration"
             android:hint="@string/last_name_registration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+    android:inputType="textShortMessage">
 
     </EditText>
 
@@ -29,14 +32,16 @@
             android:id="@+id/email_registration"
             android:hint="@string/email_registration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+    android:inputType="textEmailAddress">
 
     </EditText>
     <EditText
             android:id="@+id/phone_number_registration"
             android:hint="@string/phone_number_registration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+    android:inputType="phone">
     </EditText>
 
     <EditText
@@ -44,14 +49,24 @@
             android:hint="@string/about_registration"
             android:gravity="top"
             android:layout_width="match_parent"
-            android:layout_height="110dp">
+            android:layout_height="110dp"
+    android:inputType="textLongMessage">
     </EditText>
 
     <EditText
             android:id="@+id/password_registration"
             android:hint="@string/password_registration"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:inputType="textPassword">
+    </EditText>
+
+    <EditText
+            android:id="@+id/repeat_password_registration"
+            android:hint="@string/repeat_password_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword">
     </EditText>
 
 

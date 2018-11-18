@@ -10,41 +10,26 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.example.anton.sb.R
-import com.example.anton.sb.data.Request
-import com.example.anton.sb.ui.adapters.AddListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
-import org.jetbrains.anko.longToast
-import org.jetbrains.anko.uiThread
-
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private val items = listOf(
-        ""
-    )
 
     private val flag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
         val AddList = find<RecyclerView>(R.id.add_list)
         AddList.layoutManager = LinearLayoutManager(this)
-        AddList.adapter = AddListAdapter(items)
+       // AddList.adapter = AddListAdapter(items)
 
-        val url = "http://api.openweathermap.org/data/2.5/forecast/daily?" +
-                "APPID=15646a06818f61f7b8d7823ca833e1ce&q=94043&mode=json&units=metric&cnt=7"
-
-        doAsync {
-            Request(url).run()
-            uiThread { longToast("Request performed") }
-        }
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
@@ -68,7 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.account -> {
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, UserSettingsActivity::class.java)
                 startActivity(intent)
             }
             R.id.my_ads -> {

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">S&amp;B</string>
+
+    <!-- Strings to related to menu -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">User name</string>
@@ -9,6 +11,7 @@
     <string name="my_ads">Мои объявления</string>
     <string name="add_ad">Подать объявление</string>
     <string name="title_activity_login">Войти</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Логин</string>
     <string name="prompt_password">Пароль</string>
@@ -21,6 +24,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="nav_header_desc"/>
     <string name="account">Настройки аккаунта</string>
+
     <!-- Strings related to registration -->
     <string name="registration">Регистрация</string>
     <string name="email_registration">Email</string>
@@ -39,4 +43,16 @@
     <string name="price_ad_add">Стоимость</string>
     <string name="city_ad_add">Город</string>
     <string name="password_registration">Пароль</string>
+    <string name="add_ad_photo">Добавить фото</string>
+    <string name="repeat_password_registration">Повторите пароль</string>
+    <string name="error_same_password">Пароли не совпадают</string>
+    <string name="ad_was_aded">Объявление добавлено!</string>
+    <string name="user_email">Email</string>
+    <string name="user_name">User name</string>
+    <string name="user_city">Moscow</string>
+    <string name="exit">Выйти</string>
+    <string name="title_settings_account">Настройки аккаунта</string>
+    <string name="user_was_aded">Пользователь зарегистрирован!</string>
+    <string name="success_login">Вы успешно вошли в аккаунт!</string>
+    <string name="exit_user">Вы успешно вышли из аккаунта!</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center_horizontal"
@@ -11,16 +11,18 @@
               tools:context=".ui.activities.RegistrationActivity">
 
     <EditText
-            android:id="@+id/title_ad"
+            android:id="@+id/name"
             android:hint="@string/title_ad_add"
+            android:inputType="textShortMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
     </EditText>
 
     <EditText
-            android:id="@+id/about_ad"
+            android:id="@+id/about"
             android:hint="@string/about_ad_add"
+            android:inputType="textLongMessage"
             android:gravity="top"
             android:layout_width="match_parent"
             android:layout_height="110dp">
@@ -28,28 +30,44 @@
     </EditText>
 
     <EditText
-            android:id="@+id/price_ad"
+            android:id="@+id/price"
             android:hint="@string/price_ad_add"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
     </EditText>
     <EditText
-            android:id="@+id/city_ad"
+            android:id="@+id/city"
             android:hint="@string/city_ad_add"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
     </EditText>
 
-    <ImageButton
-            android:id="@+id/ad_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+    <Button
+            android:id="@+id/button_ad_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:src="@drawable/ic_menu_add"/>
+            android:text="@string/add_ad_photo"/>
+
+    <HorizontalScrollView
+            android:id="@+id/horizontal_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:orientation="horizontal" >
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <Button
-            android:id="@+id/button_registration"
+            android:id="@+id/button_ad_add"
             android:text="@string/add_ad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
