@@ -110,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
         return password.length > 6
     }
 
-    private  fun login() {
+    private fun login() {
 
         val emailStr = email.text.toString()
         val passwordStr = password.text.toString()
@@ -120,8 +120,7 @@ class LoginActivity : AppCompatActivity() {
         apiService.login_user(emailStr, passwordStr)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe ({
-                    result ->
+            .subscribe({ result ->
                 Log.d("Result", "Success. Token: {${result.token}")
                 createFile(result.token)
                 showToast(this)

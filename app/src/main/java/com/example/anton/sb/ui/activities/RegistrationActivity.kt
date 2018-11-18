@@ -137,7 +137,7 @@ class RegistrationActivity : AppCompatActivity() {
         return password.length > 6
     }
 
-    private  fun adUser() {
+    private fun adUser() {
 
         val first_nameStr = first_name_registration.text.toString()
         val last_nameStr = last_name_registration.text.toString()
@@ -151,8 +151,7 @@ class RegistrationActivity : AppCompatActivity() {
         apiService.create_user(first_nameStr, last_nameStr, emailStr, passwordStr, tel_numberStr, aboutStr)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe ({
-                    result ->
+            .subscribe({ result ->
                 Log.d("Result", "Success")
                 showToast(this)
             }, { error ->

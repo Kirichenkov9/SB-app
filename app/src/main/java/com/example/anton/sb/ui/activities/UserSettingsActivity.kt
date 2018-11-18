@@ -50,8 +50,7 @@ class UserSettingsActivity : AppCompatActivity() {
         apiService.logout_user(token)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe ({
-                    result ->
+            .subscribe({ result ->
                 Log.d("Result", "Success.")
                 removeFile()
                 showToast(this)
@@ -59,7 +58,8 @@ class UserSettingsActivity : AppCompatActivity() {
                 error.printStackTrace()
             })
     }
-    private fun removeFile(){}
+
+    private fun removeFile() {}
     private fun showToast(view: UserSettingsActivity) {
         // Create and show message
         val toast = Toast.makeText(
@@ -71,7 +71,7 @@ class UserSettingsActivity : AppCompatActivity() {
         toast.show()
     }
 
-    }
+}
 
 
 

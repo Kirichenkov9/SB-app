@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val AddList = find<RecyclerView>(R.id.add_list)
         AddList.layoutManager = LinearLayoutManager(this)
-       // AddList.adapter = AddListAdapter(items)
+        // AddList.adapter = AddListAdapter(items)
 
 
         val toggle = ActionBarDrawerToggle(
@@ -64,8 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 if (flag == true) {
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
-                }
-                else {
+                } else {
                     val intent = Intent(this, AddadActivity::class.java)
                     startActivity(intent)
                 }
