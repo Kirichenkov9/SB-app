@@ -11,7 +11,7 @@ import com.example.anton.sb.data.ResponseClasses.ResultAd
 import org.jetbrains.anko.find
 
 
-class MyAdapter(private val ads: List<ResultAd>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+class MyAdapter(private val ads: ArrayList<ResultAd>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

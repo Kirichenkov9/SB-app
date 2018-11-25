@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme.AppBarOverlay">
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
@@ -31,6 +31,6 @@
                 app:queryHint="@string/search_hint"/>
 
     </android.support.v7.widget.Toolbar>
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

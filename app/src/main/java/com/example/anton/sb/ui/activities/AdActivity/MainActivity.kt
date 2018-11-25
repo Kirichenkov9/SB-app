@@ -15,15 +15,17 @@ import android.view.View
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
+import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserAdActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MyAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.uiThread
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -40,7 +42,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         token = read(key_token)
 
-        getAd(20, 0)
+
+        var list: ArrayList<ResultAd> = ArrayList()
+
+        val recyclerView = find<RecyclerView>(R.id.ad_list)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        doAsync {
+            list = getAd(10, 0)
+            uiThread {
+                recyclerView.adapter = MyAdapter(list)
+
+            }
+        }
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
@@ -137,21 +151,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return string
     }
 
-    private fun getAd(limit: Int, offset: Int) {
+    private fun getAd(limit: Int, offset: Int): ArrayList<ResultAd> {
+
+        var ads: ArrayList<ResultAd> = ArrayList()
 
         val apiService: ApiService = ApiService.create()
+
         apiService.get_ads(token.toString(), offset, limit)
             .observeOn(mainThread())
-            .subscribeOn(Schedulers.io())
             .subscribe({ result ->
 
-
-                val recyclerView = find<RecyclerView>(R.id.ad_list)
-                recyclerView.layoutManager = LinearLayoutManager(this)
-                recyclerView.adapter = MyAdapter(result)
+                ads.addAll(result)
+               // toast("$ads")
 
             }, { error ->
                 //handleError(error, "Что-то пошло не так")
             })
+        return ads
     }
 }

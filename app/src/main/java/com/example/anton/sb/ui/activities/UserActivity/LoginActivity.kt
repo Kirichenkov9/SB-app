@@ -141,7 +141,7 @@ class LoginActivity : AppCompatActivity() {
 
             } ,{ error -> error.stackTrace
 
-                 //handleError(error, "Что-то пошло не так")
+                 handleError(error, "Что-то пошло не так")
             })
     }
 

@@ -36,6 +36,7 @@ class AddadActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelec
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addad)
+        setSupportActionBar(toolbar_settings)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_add_ad, toolbar_settings
