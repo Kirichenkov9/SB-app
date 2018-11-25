@@ -7,7 +7,7 @@
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cv"
+            android:id="@+id/user_cv"
             style="@style/Base.CardView">
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -16,14 +16,14 @@
             <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:id="@+id/ad_photo"
+                    android:id="@+id/user_ad_photo"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="16dp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ad_title"
+                    android:id="@+id/user_ad_title"
                     android:layout_toRightOf="@+id/ad_photo"
                     android:layout_alignParentTop="true"
                     android:textSize="25sp"
@@ -31,14 +31,14 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ad_city"
+                    android:id="@+id/user_ad_city"
                     android:layout_toRightOf="@+id/ad_photo"
                     android:layout_below="@+id/ad_title"
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:textStyle="italic"/>
             <TextView
-                    android:id="@+id/ad_price"
+                    android:id="@+id/user_ad_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

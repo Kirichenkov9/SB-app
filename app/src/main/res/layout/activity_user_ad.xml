@@ -3,13 +3,13 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/drawer_layout"
+        android:id="@+id/drawer_layout_user_ad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
-    <RelativeLayout
 
+    <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
-                android:id="@+id/ad_list"
+                android:id="@+id/user_ad"
                 android:paddingTop="?attr/actionBarSize"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -25,7 +25,7 @@
                 tools:context=".ui.activities.AdActivity.MainActivity"/>
 
         <include
-                layout="@layout/app_bar_main"
+                layout="@layout/app_bar_myads"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
@@ -33,7 +33,7 @@
 
 
     <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
+            android:id="@+id/nav_view_user_ad"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"

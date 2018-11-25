@@ -5,21 +5,32 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activities.MainActivity">
-
-    <android.support.design.widget.AppBarLayout
-            android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:titleTextColor="@color/white"
+            app:subtitleTextColor="@color/white"
+            app:collapseIcon="@color/white"
+            app:title="@string/search_hint"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?android:attr/colorSecondary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            tools:targetApi="n_mr1">
 
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+        <android.support.v7.widget.SearchView
+                android:id="@+id/search_view"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?android:attr/colorSecondary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                tools:targetApi="n_mr1"/>
+                android:layout_height="wrap_content"
+                app:searchIcon="@drawable/ic_search_ads"
+                app:closeIcon="@drawable/ic_clear"
+                app:goIcon="@color/white"
+                app:queryHint="@string/search_hint"/>
 
-    </android.support.design.widget.AppBarLayout>
+    </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

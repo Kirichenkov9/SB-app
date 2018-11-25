@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities
+package com.example.anton.sb.ui.activities.AdActivity
 
 import android.content.Intent
 import android.os.Bundle

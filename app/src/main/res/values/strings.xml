@@ -55,4 +55,10 @@
     <string name="user_was_aded">Пользователь зарегистрирован!</string>
     <string name="success_login">Вы успешно вошли в аккаунт!</string>
     <string name="exit_user">Вы успешно вышли из аккаунта!</string>
+    <string name="changeUser">Изменение данных пользователя</string>
+    <string name="save_change">Сохранить изменения</string>
+    <string name="delete_user">Удалить аккаунт</string>
+    <string name="change_user">Измнение данных</string>
+    <string name="Enter_registration">Войти / Зарегистрироваться</string>
+    <string name="search_hint">Поиск</string>
 </resources>
