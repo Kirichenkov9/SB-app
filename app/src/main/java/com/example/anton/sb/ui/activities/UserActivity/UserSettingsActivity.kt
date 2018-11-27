@@ -16,6 +16,7 @@ import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.ui.activities.AdActivity.AddadActivity
 import com.example.anton.sb.ui.activities.AdActivity.MainActivity
+import com.example.anton.sb.ui.activities.AdActivity.MyAdActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_user_settings.*
@@ -49,10 +50,10 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
         nav_view_settings.setNavigationItemSelectedListener(this)
 
 
-        var header = find<NavigationView>(R.id.nav_view_settings).getHeaderView(0)
+        val header = find<NavigationView>(R.id.nav_view_settings).getHeaderView(0)
 
-        var name_user = header.find<TextView>(R.id.user_first_name)
-        var user_email = header.find<TextView>(R.id.mail)
+        val name_user = header.find<TextView>(R.id.user_first_name)
+        val user_email = header.find<TextView>(R.id.mail)
 
         name_user.text = read(name)
         user_email.text = read(mail)
@@ -106,7 +107,7 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.my_ads -> {
-                val intent = Intent(this, UserAdActivity::class.java)
+                val intent = Intent(this, MyAdActivity::class.java)
                 startActivity(intent)
             }
             R.id.search -> {

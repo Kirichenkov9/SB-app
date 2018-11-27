@@ -63,13 +63,25 @@
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme">
         </activity>
-
         <activity
-                android:name=".ui.activities.UserActivity.UserAdActivity"
+                android:name=".ui.activities.AdActivity.MyAdActivity"
                 android:label="@string/my_ads"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
-
+        </activity>
+        <activity
+                android:name=".ui.activities.UserActivity.UserViewActivity"
+                android:label="@string/user"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.activities.AdActivity.MySettingsActivity"
+                android:label="@string/ad"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.activities.AdActivity.UserAdActivity"
+                  android:label="@string/ads"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 

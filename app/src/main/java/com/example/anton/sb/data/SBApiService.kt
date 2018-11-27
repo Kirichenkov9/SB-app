@@ -75,13 +75,22 @@ interface ApiService {
 
     @Headers("User-agent: Android_app")
     @GET("ads")
-    fun get_ads(@Header("Cookie") token: String,
-                @Query("offset") offset: Int,
+    fun get_ads(@Query("offset") offset: Int,
                 @Query("limit") limit: Int): Single<ArrayList<ResultAd>>
 
     @Headers("User-agent: Android_app")
     @GET("users/{id}?show_ads=true")
     fun get_user_ad(@Path(value = "id")id: Long): Single<ArrayList<ResultAd>>
+
+    @Headers("User-agent: Android_app")
+    @GET("ads/{id}")
+    fun get_ad(@Path(value = "id")id: Long): Single<ResultAd>
+
+    @Headers("User-agent: Android_app")
+    @GET("users/{id}")
+    fun get_user(@Path(value = "id")id: Long): Single<ResultUser>
+
+
 
     /**
      * Companion object to create the GithubApiService

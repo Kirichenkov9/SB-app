@@ -32,7 +32,7 @@ data class ResultAd(
     var city: String,
     val subway_station: String,
     var images_url: List<String>,
-    val agent_info: User,
+    val owner_ad: User,
     val description: String,
     val time_cre: String
 )

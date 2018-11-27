@@ -63,21 +63,27 @@
                     android:gravity="center_horizontal">
                 <Button
                         android:id="@+id/email_sign_in_button"
-                        style="?android:textAppearanceSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/entry"
-                        android:textStyle="bold"/>
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/button"
+                        android:theme="@style/RoundedCornerButton"/>
 
                 <Button
                         android:id="@+id/action_go_to_registration"
-                        style="?android:textAppearanceSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/to_registration"
-                        android:textStyle="bold"/>
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/button"
+                        android:theme="@style/RoundedCornerButton"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

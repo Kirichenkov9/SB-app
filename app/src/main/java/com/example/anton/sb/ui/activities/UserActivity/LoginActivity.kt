@@ -135,13 +135,12 @@ class LoginActivity : AppCompatActivity() {
 
                 saveUsername(result.body()!!.first_name, emailStr, result.body()!!.id)
 
-
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
 
-            } ,{ error -> error.stackTrace
+            } ,{ error ->
 
-                 handleError(error, "Что-то пошло не так")
+                //` handleError(error, "Что-то пошло не так")
             })
     }
 

@@ -12,8 +12,7 @@
             android:id="@+id/toolbar_settings"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?android:attr/colorSecondary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            tools:targetApi="n_mr1"/>
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
 </android.support.design.widget.AppBarLayout>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -17,9 +18,8 @@ import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
-import com.example.anton.sb.ui.activities.UserActivity.UserAdActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
-import com.example.anton.sb.ui.adapters.MyAdapter
+import com.example.anton.sb.ui.adapters.MainAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -51,8 +51,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         doAsync {
             list = getAd(10, 0)
             uiThread {
-                recyclerView.adapter = MyAdapter(list)
-
+                recyclerView.adapter = MainAdapter(list,
+                    object  : MainAdapter.OnItemClickListener {
+                        override fun invoke(ad: ResultAd) {
+                            startAdViewActivity(ad.id)
+                        }
+                    })
             }
         }
 
@@ -74,6 +78,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val name_user = header.find<TextView>(R.id.user_first_name)
         val user_email = header.find<TextView>(R.id.mail)
         val nave_view_header = header.find<View>(R.id.nav_view_header)
+        val floatingActionButton = find<FloatingActionButton>(R.id.floatingActionButton)
+
+        floatingActionButton.setOnClickListener {
+            
+            if (token.isNullOrEmpty()) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, AddadActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
         setUsername(name_user, user_email)
 
@@ -112,7 +128,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 } else {
-                    val intent = Intent(this, UserAdActivity::class.java)
+                    val intent = Intent(this, MyAdActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -128,6 +144,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun startAdViewActivity(id: Long) {
+        val intent = Intent(this, AdViewActivity::class.java)
+        intent.putExtra("ad_id", id)
+        startActivity(intent)
     }
 
     private fun setUsername(name_user: TextView, user_email: TextView) {
@@ -153,16 +175,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun getAd(limit: Int, offset: Int): ArrayList<ResultAd> {
 
-        var ads: ArrayList<ResultAd> = ArrayList()
+        val ads: ArrayList<ResultAd> = ArrayList()
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.get_ads(token.toString(), offset, limit)
+        apiService.get_ads(offset , limit)
             .observeOn(mainThread())
             .subscribe({ result ->
 
                 ads.addAll(result)
-               // toast("$ads")
 
             }, { error ->
                 //handleError(error, "Что-то пошло не так")

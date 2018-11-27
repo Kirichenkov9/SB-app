@@ -1,31 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/drawer_layout_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:openDrawer="start">
-
-<ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+        tools:context=".ui.activities.UserActivity.UserViewActivity">
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-        <include
-                layout="@layout/app_bar_other"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
         <ImageView
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:srcCompat="@mipmap/ic_launcher_round"
+                android:src="@mipmap/ic_launcher_round"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
                 android:contentDescription="@string/nav_header_desc"/>
 
@@ -39,12 +28,11 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"/>
         <TextView
-                android:id="@+id/first_user_name"
+                android:id="@+id/first_user_name_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_username"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_change_user"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
@@ -58,14 +46,12 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"/>
         <TextView
-                android:id="@+id/last_user_name"
+                android:id="@+id/last_user_name_view"
                 android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_username"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_change_user"
-                android:text="@string/user_name"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
@@ -80,13 +66,12 @@
                 android:textColor="@android:color/black"/>
 
         <TextView
-                android:id="@+id/user_email"
+                android:id="@+id/user_email_view"
                 android:layout_marginVertical="10dp"
                 android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/user_email"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
@@ -101,11 +86,10 @@
                 android:textColor="@android:color/black"/>
 
         <TextView
-                android:id="@+id/user_phone_number"
+                android:id="@+id/user_phone_number_view"
                 android:layout_marginVertical="10dp"
                 android:drawableStart="@drawable/ic_telephone"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_change_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -122,53 +106,15 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"/>
         <TextView
-                android:id="@+id/user_about"
+                android:id="@+id/user_about_view"
                 android:layout_marginVertical="10dp"
                 android:drawableStart="@drawable/ic_about_me"
                 android:drawablePadding="10dp"
-                android:drawableEnd="@drawable/ic_change_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
                 android:textColor="@android:color/black"/>
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center">
-            <Button
-                    android:id="@+id/exit_account"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/exit"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/button"
-                    android:theme="@style/RoundedCornerButton"/>
-            <Button
-                    android:id="@+id/delete_account"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delete_user"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/button"
-                    android:theme="@style/RoundedCornerButton"/>
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>
-
-    <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer"/>
-</android.support.v4.widget.DrawerLayout>

@@ -61,4 +61,22 @@
     <string name="change_user">Измнение данных</string>
     <string name="Enter_registration">Войти / Зарегистрироваться</string>
     <string name="search_hint">Поиск</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="email">Email</string>
+    <string name="tel_number">Номер телефона</string>
+    <string name="about">О себе</string>
+    <string name="title">Название</string>
+    <string name="city">Город</string>
+    <string name="description">Описание</string>
+    <string name="user_agent_ad">Контактные данные</string>
+    <string name="go_to_user_ad">Перейти к объявлениям пользователя</string>
+    <string name="change_name">Измените имя</string>
+    <string name="change_last_name">Измените фамилию</string>
+    <string name="change_telephone">Измените номер телефона</string>
+    <string name="change_information">Измените информацию о себе</string>
+    <string name="delete_ad">Удалить объявление</string>
+    <string name="ad">Объявление</string>
+    <string name="ads">Объявления</string>
+    <string name="user">Пользователь</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.UserActivity
+package com.example.anton.sb.ui.activities.AdActivity
 
 import android.content.Context
 import android.content.Intent
@@ -14,16 +14,18 @@ import android.view.MenuItem
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.ui.activities.AdActivity.AddadActivity
-import com.example.anton.sb.ui.activities.AdActivity.MainActivity
-import com.example.anton.sb.ui.adapters.MyAdapter
+import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
+import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
+import com.example.anton.sb.ui.adapters.MainAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_user_ad.*
+import kotlinx.android.synthetic.main.activity_my_ad.*
 import kotlinx.android.synthetic.main.app_bar_myads.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.uiThread
 
-class UserAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
     private var token: String? = null
@@ -35,12 +37,30 @@ class UserAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_ad)
+        setContentView(R.layout.activity_my_ad)
         setSupportActionBar(toolbar_my_ads)
 
         token = read(key_token)
 
-        getUserAd()
+        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val id_user: Long = read.getLong(id, 0)
+
+        var list: ArrayList<ResultAd> = ArrayList()
+
+        val recyclerView = find<RecyclerView>(R.id.user_ad)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        doAsync {
+            list = getUserAd(id_user)
+            uiThread {
+                recyclerView.adapter = MainAdapter(list,
+                    object  : MainAdapter.OnItemClickListener {
+                        override fun invoke(ad: ResultAd) {
+                            startAdViewActivity(ad.id)
+                        }
+                    })
+            }
+        }
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_user_ad, toolbar_my_ads,
@@ -71,6 +91,12 @@ class UserAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
 
         }
+    }
+
+    private fun startAdViewActivity(id: Long) {
+        val intent = Intent(this, MySettingsActivity::class.java)
+        intent.putExtra("ad_id", id)
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
@@ -136,24 +162,20 @@ class UserAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         return string
     }
 
-    private fun getUserAd() {
-        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val id_user: Long = read.getLong(id, 0)
+    private fun getUserAd(id_user: Long): ArrayList<ResultAd> {
+
+        val ads: ArrayList<ResultAd> = ArrayList()
 
         val apiService: ApiService = ApiService.create()
         apiService.get_user_ad(id_user)
             .observeOn(mainThread())
-            .subscribeOn(Schedulers.io())
             .subscribe({ result ->
 
-                //Toast.makeText(this, "$result", Toast.LENGTH_SHORT).show()
-
-                val recyclerView = find<RecyclerView>(R.id.user_ad)
-                recyclerView.layoutManager = LinearLayoutManager(this)
-                recyclerView.adapter = MyAdapter(result)
+                ads.addAll(result)
 
             }, { error ->
                 //handleError(error, "Что-то пошло не так")
             })
+        return ads
     }
 }

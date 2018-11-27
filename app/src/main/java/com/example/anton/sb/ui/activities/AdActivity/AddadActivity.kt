@@ -16,11 +16,10 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.ui.activities.UserActivity.UserAdActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_addad.*
+import kotlinx.android.synthetic.main.activity_add_ad.*
 import kotlinx.android.synthetic.main.activity_user_settings.*
 import kotlinx.android.synthetic.main.app_bar_other.*
 import org.jetbrains.anko.find
@@ -35,7 +34,7 @@ class AddadActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelec
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_addad)
+        setContentView(R.layout.activity_add_ad)
         setSupportActionBar(toolbar_settings)
 
         val toggle = ActionBarDrawerToggle(
@@ -84,7 +83,7 @@ class AddadActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelec
                 startActivity(intent)
             }
             R.id.my_ads -> {
-                val intent = Intent(this, UserAdActivity::class.java)
+                val intent = Intent(this, MyAdActivity::class.java)
                 startActivity(intent)
             }
         }
