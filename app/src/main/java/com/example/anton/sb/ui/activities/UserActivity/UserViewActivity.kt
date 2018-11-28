@@ -15,7 +15,7 @@ import org.jetbrains.anko.uiThread
 
 class UserViewActivity : AppCompatActivity() {
 
-    private var ad_id: Long = 0
+    private var adId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,19 +26,19 @@ class UserViewActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         val intent = intent
-        val id = intent.getLongExtra("user_id", 0)
-        ad_id = intent.getLongExtra("ad_id", 0)
+        val id = intent.getLongExtra("userId", 0)
+        adId = intent.getLongExtra("adId", 0)
 
 
-        val first_name = find<TextView>(R.id.first_user_name_view)
-        val last_name = find<TextView>(R.id.last_user_name_view)
+        val firstName = find<TextView>(R.id.first_user_name_view)
+        val lastName = find<TextView>(R.id.last_user_name_view)
         val email = find<TextView>(R.id.user_email_view)
         val telephone = find<TextView>(R.id.user_phone_number_view)
         val about = find<TextView>(R.id.user_about_view)
 
         doAsync {
-            userData(first_name, last_name, email, telephone, about, id)
-            uiThread { actionBar.title = first_name.text.toString() + " " + last_name.text.toString()}
+            userData(firstName, lastName, email, telephone, about, id)
+            uiThread { actionBar.title = firstName.text.toString() + " " + lastName.text.toString()}
         }
     }
 
@@ -49,7 +49,7 @@ class UserViewActivity : AppCompatActivity() {
             }
         }
         val intent = Intent(this, AdViewActivity::class.java)
-        intent.putExtra("ad_id", ad_id)
+        intent.putExtra("adId", adId)
         startActivity(intent)
         return true
     }
@@ -64,15 +64,15 @@ class UserViewActivity : AppCompatActivity() {
     ) {
         val apiService: ApiService = ApiService.create()
 
-        apiService.get_user(id)
+        apiService.getUser(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
 
-                first_name.text = result.first_name
-                last_name.text = result.last_name
-                email.text = result.email
-                telephone.text = result.tel_number
-                about.text = result.about
+                first_name.text = result.body()!!.first_name
+                last_name.text = result.body()!!.last_name
+                email.text = result.body()!!.email
+                telephone.text = result.body()!!.tel_number
+                about.text = result.body()!!.about
 
             }, { error ->
                 //

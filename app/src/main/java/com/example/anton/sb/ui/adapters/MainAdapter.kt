@@ -11,7 +11,8 @@ import com.example.anton.sb.data.ResponseClasses.ResultAd
 import org.jetbrains.anko.find
 
 
-class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: MainAdapter.OnItemClickListener) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: MainAdapter.OnItemClickListener) :
+    RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,16 +28,14 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
     }
 
     class ViewHolder(itemView: View, private val itemClick: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
-        val photoView = itemView.find<ImageView>(R.id.ad_photo)
-        val titleView = itemView.find<TextView>(R.id.ad_title)
-        val cityView = itemView.find<TextView>(R.id.ad_city)
-        val priceView = itemView.find<TextView>(R.id.ad_price)
+        private val photoView = itemView.find<ImageView>(R.id.ad_photo)
+        private val titleView = itemView.find<TextView>(R.id.ad_title)
+        private val cityView = itemView.find<TextView>(R.id.ad_city)
 
         fun bindAd(ad: ResultAd) {
             with(ad) {
                 titleView.text = title
                 cityView.text = city
-                priceView.text = price.toString()
                 itemView.setOnClickListener { itemClick(this) }
             }
         }

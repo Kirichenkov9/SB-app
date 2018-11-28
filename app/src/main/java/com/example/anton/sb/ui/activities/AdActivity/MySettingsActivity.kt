@@ -23,7 +23,7 @@ class MySettingsActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         val intent = intent
-        val id_ad = intent.getLongExtra("ad_id", 0)
+        val idAd = intent.getLongExtra("adId", 0)
 
 
         val title = find<TextView>(R.id.title_ad_settings)
@@ -32,7 +32,7 @@ class MySettingsActivity : AppCompatActivity() {
         val price = find<TextView>(R.id.price_ad_settings)
 
         doAsync {
-            AdData(id_ad, title, city, description, price)
+            adData(idAd, title, city, description, price)
             uiThread { actionBar.title = title.text }
         }
     }
@@ -48,7 +48,7 @@ class MySettingsActivity : AppCompatActivity() {
         return true
     }
 
-    private fun AdData(
+    private fun adData(
         id: Long,
         title: TextView,
         city: TextView,
@@ -58,14 +58,14 @@ class MySettingsActivity : AppCompatActivity() {
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.get_ad(id)
+        apiService.getAd(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
 
-                title.text = result.title
-                city.text = result.city
-                description.text = result.description
-                price.text = result.price.toString()
+                title.text = result.body()!!.title
+                city.text = result.body()!!.city
+                description.text = result.body()!!.description
+                price.text = result.body()!!.price.toString()
 
             }, { error ->
                 // handleError(error, "")

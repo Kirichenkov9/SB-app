@@ -46,7 +46,7 @@
         <activity android:name=".ui.activities.AdActivity.AdViewActivity">
         </activity>
         <activity
-                android:name=".ui.activities.AdActivity.AddadActivity"
+                android:name=".ui.activities.AdActivity.AddAdActivity"
                 android:label="@string/title_add"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">

@@ -29,9 +29,9 @@ class RegistrationActivity : AppCompatActivity() {
         actionBar!!.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        val button_to_registr = findViewById<Button>(R.id.button_registration)
+        val buttonRegistration = findViewById<Button>(R.id.button_registration)
 
-        button_to_registr.setOnClickListener { attemptForm() }
+        buttonRegistration.setOnClickListener { attemptForm() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -55,60 +55,60 @@ class RegistrationActivity : AppCompatActivity() {
         repeat_password_registration.error = null
 
         // Store values
-        val first_name_registrationStr = first_name_registration.text.toString()
-        val last_name_registrationStr = last_name_registration.text.toString()
-        val email_registrationStr = email_registration.text.toString()
-        val phone_numberStr = phone_number_registration.text.toString()
-        val password_registrationStr = password_registration.text.toString()
-        val repeat_pass_registrationStr = repeat_password_registration.text.toString()
+        val firstNameRegistrationStr = first_name_registration.text.toString()
+        val lastNameRegistrationStr = last_name_registration.text.toString()
+        val emailRegistrationStr = email_registration.text.toString()
+        val phoneNumberStr = phone_number_registration.text.toString()
+        val passwordRegistrationStr = password_registration.text.toString()
+        val repeatPassRegistrationStr = repeat_password_registration.text.toString()
 
         var cancel = false
         var focusView: View? = null
 
         // Field check
-        if (TextUtils.isEmpty(first_name_registrationStr)) {
+        if (TextUtils.isEmpty(firstNameRegistrationStr)) {
             first_name_registration.error = getString(R.string.error_field_required)
             focusView = first_name_registration
             cancel = true
         }
 
-        if (TextUtils.isEmpty(last_name_registrationStr)) {
+        if (TextUtils.isEmpty(lastNameRegistrationStr)) {
             last_name_registration.error = getString(R.string.error_field_required)
             focusView = last_name_registration
             cancel = true
         }
 
-        if (TextUtils.isEmpty(email_registrationStr)) {
+        if (TextUtils.isEmpty(emailRegistrationStr)) {
             email_registration.error = getString(R.string.error_field_required)
             focusView = email_registration
             cancel = true
-        } else if (!isEmailValid(email_registrationStr)) {
+        } else if (!isEmailValid(emailRegistrationStr)) {
             email_registration.error = getString(R.string.error_invalid_email)
             focusView = email_registration
             cancel = true
         }
 
-        if (TextUtils.isEmpty(phone_numberStr)) {
+        if (TextUtils.isEmpty(phoneNumberStr)) {
             phone_number_registration.error = getString(R.string.error_field_required)
             focusView = phone_number_registration
             cancel = true
         }
 
-        if (TextUtils.isEmpty(password_registrationStr)) {
+        if (TextUtils.isEmpty(passwordRegistrationStr)) {
             password_registration.error = getString(R.string.error_field_required)
             focusView = password_registration
             cancel = true
-        } else if (!isPasswordValid(password_registrationStr)) {
+        } else if (!isPasswordValid(passwordRegistrationStr)) {
             password_registration.error = getString(R.string.error_invalid_password)
             focusView = password_registration
             cancel = true
         }
 
-        if (TextUtils.isEmpty(repeat_pass_registrationStr)) {
+        if (TextUtils.isEmpty(repeatPassRegistrationStr)) {
             repeat_password_registration.error = getString(R.string.error_field_required)
             focusView = repeat_password_registration
             cancel = true
-        } else if (password_registrationStr != repeat_pass_registrationStr) {
+        } else if (passwordRegistrationStr != repeatPassRegistrationStr) {
             password_registration.error = getString(R.string.error_same_password)
             focusView = repeat_password_registration
             cancel = true
@@ -137,16 +137,16 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun adUser() {
 
-        val first_nameStr = first_name_registration.text.toString()
-        val last_nameStr = last_name_registration.text.toString()
+        val firstNameStr = first_name_registration.text.toString()
+        val lastNameStr = last_name_registration.text.toString()
         val emailStr = email_registration.text.toString()
-        val tel_numberStr = phone_number_registration.text.toString()
+        val telNumberStr = phone_number_registration.text.toString()
         val passwordStr = password_registration.text.toString()
         val aboutStr = about_registration.text.toString()
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.create_user(first_nameStr, last_nameStr, emailStr, passwordStr, tel_numberStr, aboutStr)
+        apiService.createUser(firstNameStr, lastNameStr, emailStr, passwordStr, telNumberStr, aboutStr)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
@@ -164,10 +164,9 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun handleError(throwable: Throwable, string: String) {
         if (throwable is retrofit2.HttpException) {
-            val httpException = throwable
-            val statusCode = httpException.code()
+            val statusCode = throwable.code()
 
-            val errorJsonString = httpException.response().errorBody()?.string()
+            val errorJsonString = throwable.response().errorBody()?.string()
 
             val message = JsonParser().parse(errorJsonString).asJsonObject["message"].asString
             val error = JsonParser().parse(errorJsonString).asJsonObject["error"].asString

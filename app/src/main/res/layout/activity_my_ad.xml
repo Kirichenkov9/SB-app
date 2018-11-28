@@ -25,7 +25,7 @@
                 tools:context=".ui.activities.AdActivity.MainActivity"/>
 
         <include
-                layout="@layout/app_bar_myads"
+                layout="@layout/app_bar_my_ads"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

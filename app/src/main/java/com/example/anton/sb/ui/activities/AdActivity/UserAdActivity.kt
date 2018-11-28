@@ -17,8 +17,8 @@ import org.jetbrains.anko.uiThread
 
 class UserAdActivity : AppCompatActivity() {
 
-    private var user_id: Long = 0
-    private var pre_ad_id: Long = 0
+    private var userId: Long = 0
+    private var preAdId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +29,8 @@ class UserAdActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         val intent = intent
-        user_id = intent.getLongExtra("user_id", 0)
-        pre_ad_id = intent.getLongExtra("pre_ad_id", 0)
+        userId = intent.getLongExtra("userId", 0)
+        preAdId = intent.getLongExtra("preAdId", 0)
 
         var list: ArrayList<ResultAd> = ArrayList()
 
@@ -38,7 +38,7 @@ class UserAdActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         doAsync {
-            list = getUserAd(user_id)
+            list = getUserAd(userId)
             uiThread {
                 recyclerView.adapter = MainAdapter(list,
                     object : MainAdapter.OnItemClickListener {
@@ -57,16 +57,16 @@ class UserAdActivity : AppCompatActivity() {
             }
         }
         val intent = Intent(this, AdViewActivity::class.java)
-        intent.putExtra("pre_ad_id", pre_ad_id)
+        intent.putExtra("preAdId", preAdId)
         startActivity(intent)
         return true
     }
 
-    private fun startAdViewActivity(ad_id: Long) {
+    private fun startAdViewActivity(adId: Long) {
         val intent = Intent(this, AdViewActivity::class.java)
-        intent.putExtra("ad_id", ad_id)
-        intent.putExtra("pre_ad_id", pre_ad_id)
-        intent.putExtra("user_id", user_id)
+        intent.putExtra("adId", adId)
+        intent.putExtra("preAdId", preAdId)
+        intent.putExtra("userId", userId)
         startActivity(intent)
     }
 
@@ -75,11 +75,11 @@ class UserAdActivity : AppCompatActivity() {
         val ads: ArrayList<ResultAd> = ArrayList()
 
         val apiService: ApiService = ApiService.create()
-        apiService.get_user_ad(id_user)
+        apiService.getUserAd(id_user)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
 
-                ads.addAll(result)
+                ads.addAll(result.body()!!)
 
             }, { error ->
                 //handleError(error, "Что-то пошло не так")

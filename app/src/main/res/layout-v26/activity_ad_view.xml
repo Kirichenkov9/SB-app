@@ -2,7 +2,6 @@
 <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,11 +13,10 @@
 
         <ImageView
                 android:id="@+id/ad_photos"
-                android:layout_width="match_parent"
                 android:src="@drawable/ic_image_ad"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"/>
-
-
+        
         <TextView
                 android:text="@string/title"
                 android:layout_width="match_parent"
@@ -29,11 +27,10 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"/>
         <TextView
-                android:id="@+id/title_ad_settings"
+                android:id="@+id/title_ad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_ad"
-                android:drawableEnd="@drawable/ic_change_user"
                 android:drawablePadding="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -50,11 +47,10 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"/>
         <TextView
-                android:id="@+id/city_ad_settings"
+                android:id="@+id/city_ad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_place"
-                android:drawableEnd="@drawable/ic_change_user"
                 android:drawablePadding="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -71,11 +67,10 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"/>
         <TextView
-                android:id="@+id/about_ad_settings"
+                android:id="@+id/about_ad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_about_ad"
-                android:drawableEnd="@drawable/ic_change_user"
                 android:drawablePadding="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -94,24 +89,57 @@
 
 
         <TextView
-                android:id="@+id/price_ad_settings"
+                android:id="@+id/price_ad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_price"
-                android:drawableEnd="@drawable/ic_change_user"
                 android:drawablePadding="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
                 android:textColor="@android:color/black"/>
 
+        <TextView
+                android:text="@string/user_agent_ad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="30dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+
+
+        <TextView
+                android:id="@+id/username_ad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_username"
+                android:drawableEnd="@drawable/ic_change_user"
+                android:drawablePadding="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
+        <TextView
+                android:id="@+id/user_phone_number_ad"
+                android:layout_marginVertical="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_telephone"
+                android:drawablePadding="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"/>
         <Button
-                android:id="@+id/delete_ad"
+                android:id="@+id/go_to_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_gravity="center"
-                android:text="@string/delete_ad"
+                android:text="@string/go_to_user_ad"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:textColor="@color/white"

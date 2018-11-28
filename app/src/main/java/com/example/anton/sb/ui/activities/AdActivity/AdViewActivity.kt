@@ -16,10 +16,10 @@ import org.jetbrains.anko.uiThread
 
 class AdViewActivity : AppCompatActivity() {
 
-    private var user_id: Long = 0
-    private var pre_user_id: Long = 0
-    private var pre_ad_id: Long = 0
-    private var ad_id: Long = 0
+    private var userId: Long = 0
+    private var preUserId: Long = 0
+    private var preAdId: Long = 0
+    private var adId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +30,12 @@ class AdViewActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         val intent = intent
-        ad_id = intent.getLongExtra("ad_id", 0)
-        pre_user_id = intent.getLongExtra("user_id", 0)
-        pre_ad_id = intent.getLongExtra("pre_ad_id", 0)
+        adId = intent.getLongExtra("adId", 0)
+        preUserId = intent.getLongExtra("userId", 0)
+        preAdId = intent.getLongExtra("preAdId", 0)
 
-        if (ad_id == 0L)
-            ad_id = pre_ad_id
+        if (adId == 0L)
+            adId = preAdId
 
         val title = find<TextView>(R.id.title_ad)
         val city = find<TextView>(R.id.city_ad)
@@ -47,21 +47,21 @@ class AdViewActivity : AppCompatActivity() {
 
 
         doAsync {
-                AdData(ad_id, title, city, description, price, username, telephone)
+                adData(adId, title, city, description, price, username, telephone)
             uiThread { actionBar.title = title.text }
         }
 
         button.setOnClickListener {
             val intent = Intent(this, UserAdActivity::class.java)
-            intent.putExtra("user_id", user_id)
-            intent.putExtra("pre_ad_id", ad_id)
+            intent.putExtra("userId", userId)
+            intent.putExtra("preAdId", adId)
             startActivity(intent)
         }
 
         username.setOnClickListener {
             val intent = Intent(this, UserViewActivity::class.java)
-            intent.putExtra("user_id", user_id)
-            intent.putExtra("ad_id", ad_id)
+            intent.putExtra("userId", userId)
+            intent.putExtra("adId", adId)
             startActivity(intent)
         }
     }
@@ -73,21 +73,21 @@ class AdViewActivity : AppCompatActivity() {
             }
         }
         val zero: Long = 0
-        if (pre_user_id == zero) {
+        if (preUserId == zero) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         } else {
             val intent = Intent(this, UserAdActivity::class.java)
-            intent.putExtra("user_id", user_id)
-            intent.putExtra("pre_ad_id", pre_ad_id)
+            intent.putExtra("userId", userId)
+            intent.putExtra("preAdId", preAdId)
             startActivity(intent)
         }
 
         return true
     }
 
-    private fun AdData(
-        ad_id: Long,
+    private fun adData(
+        adId: Long,
         title: TextView,
         city: TextView,
         description: TextView,
@@ -98,17 +98,17 @@ class AdViewActivity : AppCompatActivity() {
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.get_ad(ad_id)
+        apiService.getAd(adId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
 
-                title.text = result.title
-                city.text = result.city
-                description.text = result.description
-                price.text = result.price.toString()
-                username.text = (result.owner_ad.first_name + " " + result.owner_ad.last_name)
-                telephone.text = result.owner_ad.tel_number
-                user_id = result.owner_ad.id
+                title.text = result.body()!!.title
+                city.text = result.body()!!.city
+                description.text = result.body()!!.description
+                price.text = result.body()!!.price.toString()
+                username.text = (result.body()!!.owner_ad.first_name + " " + result.body()!!.owner_ad.last_name)
+                telephone.text = result.body()!!.owner_ad.tel_number
+                userId = result.body()!!.owner_ad.id
 
             }, { error ->
                 // handleError(error, "")

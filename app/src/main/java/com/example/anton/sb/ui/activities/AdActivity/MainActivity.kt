@@ -31,8 +31,8 @@ import org.jetbrains.anko.uiThread
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var token: String? = null
-    private val key_token = "token"
-    private val name: String = "first_name"
+    private val keyToken = "token"
+    private val name: String = "name"
     private val mail: String = "email"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        token = read(key_token)
+        token = read(keyToken)
 
 
-        var list: ArrayList<ResultAd> = ArrayList()
+        var list: ArrayList<ResultAd>
 
         val recyclerView = find<RecyclerView>(R.id.ad_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -75,9 +75,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val header = find<NavigationView>(R.id.nav_view).getHeaderView(0)
 
-        val name_user = header.find<TextView>(R.id.user_first_name)
-        val user_email = header.find<TextView>(R.id.mail)
-        val nave_view_header = header.find<View>(R.id.nav_view_header)
+        val nameUser = header.find<TextView>(R.id.user_first_name)
+        val userEmail = header.find<TextView>(R.id.mail)
+        val navViewHeader = header.find<View>(R.id.nav_view_header)
         val floatingActionButton = find<FloatingActionButton>(R.id.floatingActionButton)
 
         floatingActionButton.setOnClickListener {
@@ -86,14 +86,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             } else {
-                val intent = Intent(this, AddadActivity::class.java)
+                val intent = Intent(this, AddAdActivity::class.java)
                 startActivity(intent)
             }
         }
 
-        setUsername(name_user, user_email)
+        setUsername(nameUser, userEmail)
 
-        nave_view_header.setOnClickListener {
+        navViewHeader.setOnClickListener {
             if (token.isNullOrEmpty()) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 } else {
-                    val intent = Intent(this, AddadActivity::class.java)
+                    val intent = Intent(this, AddAdActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -148,17 +148,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun startAdViewActivity(id: Long) {
         val intent = Intent(this, AdViewActivity::class.java)
-        intent.putExtra("ad_id", id)
+        intent.putExtra("adId", id)
         startActivity(intent)
     }
 
-    private fun setUsername(name_user: TextView, user_email: TextView) {
+    private fun setUsername(name_user: TextView, userEmail: TextView) {
         if (token.isNullOrEmpty()) {
-            user_email.text = getString(R.string.Enter_registration)
+            userEmail.text = getString(R.string.Enter_registration)
             name_user.text = read(mail)
         } else {
             name_user.text = read(name)
-            user_email.text = read(mail)
+            userEmail.text = read(mail)
         }
 
     }
@@ -179,11 +179,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.get_ads(offset , limit)
+        apiService.getAds(offset , limit)
             .observeOn(mainThread())
             .subscribe({ result ->
 
-                ads.addAll(result)
+                ads.addAll(result.body()!!)
 
             }, { error ->
                 //handleError(error, "Что-то пошло не так")

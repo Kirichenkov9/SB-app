@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.ui.activities.AdActivity.MainActivity
@@ -16,6 +15,7 @@ import com.google.gson.JsonParser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.toast
 import java.io.IOException
 import java.net.SocketTimeoutException
 
@@ -23,7 +23,6 @@ import java.net.SocketTimeoutException
 /**
  * A login screen that offers login via email/password.
  */
-@Suppress("UNREACHABLE_CODE")
 class LoginActivity : AppCompatActivity() {
 
     /**
@@ -125,68 +124,67 @@ class LoginActivity : AppCompatActivity() {
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.login_user(emailStr, passwordStr)
+        apiService.loginUser(emailStr, passwordStr)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
 
-                Toast.makeText(this, "Вы успешно вошли в аккаунт!", Toast.LENGTH_SHORT).show()
+                toast("Вы успешно вошли в аккаунт!")
                 saveToken(result.headers().get("set-cookie"))
 
-                saveUsername(result.body()!!.first_name, emailStr, result.body()!!.id)
+                saveUsername(result.body()!!.first_name, result.body()!!.last_name, emailStr, result.body()!!.id)
 
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
 
-            } ,{ error ->
+            }, { error ->
 
-                //` handleError(error, "Что-то пошло не так")
+                handleError(error)
             })
     }
 
     private fun saveToken(string: String?) {
         if (string != null) {
-            val save_token: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = save_token.edit()
+            val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = saveToken.edit()
             editor.putString("token", string)
             editor.apply()
         }
     }
 
-    private fun saveUsername(first_name: String, email: String, id: Long) {
+    private fun saveUsername(firstName: String, lastName: String, email: String, id: Long) {
         val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = save.edit()
-        editor.putString("first_name", first_name)
+        editor.putString("name", firstName + " " +lastName)
         editor.putString("email", email)
         editor.putLong("id", id)
         editor.apply()
     }
 
-    private fun handleError(throwable: Throwable, string: String) {
+    private fun handleError(throwable: Throwable) {
         if (throwable is retrofit2.HttpException) {
-            val httpException = throwable
-            val statusCode = httpException.code()
-            val errorJsonString = httpException.response().errorBody()?.string()
+            val statusCode = throwable.code()
+            val errorJsonString = throwable.response().errorBody()?.string()
 
             val message = JsonParser().parse(errorJsonString).asJsonObject["message"].asString
             val error = JsonParser().parse(errorJsonString).asJsonObject["error"].asString
             val description = JsonParser().parse(errorJsonString).asJsonObject["description"].asString
 
             if (statusCode == 400) {
-                Toast.makeText(this, message + error + description, Toast.LENGTH_SHORT).show()
+                toast("$message + $error + $description}")
 
             }
-                if (statusCode == 500) {
-                    Toast.makeText(this, message + error + description, Toast.LENGTH_SHORT).show()
-                }
-
-            } else if (throwable is SocketTimeoutException) {
-                Toast.makeText(this, "Нет соединения с сервером", Toast.LENGTH_SHORT).show()
-            } else if (throwable is IOException) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
+            if (statusCode == 500) {
+                toast("$message + $error + $description")
             }
 
+        } else if (throwable is SocketTimeoutException) {
+            toast("Нет соединения с сервером")
+        } else if (throwable is IOException) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            toast("Что-то пошло не так...")
         }
+
+    }
 }

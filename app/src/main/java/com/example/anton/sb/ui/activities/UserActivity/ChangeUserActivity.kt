@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.ui.activities.AdActivity.MainActivity
@@ -19,14 +18,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_change_user.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import java.io.IOException
 import java.net.SocketTimeoutException
 
 class ChangeUserActivity : AppCompatActivity() {
 
 
-    private val key_token = "token"
-    private val name: String = "first_name"
+    private val keyToken = "token"
+    private val name: String = "name"
     private val mail: String = "email"
 
     private var token: String? = null
@@ -39,12 +39,12 @@ class ChangeUserActivity : AppCompatActivity() {
         actionBar!!.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        val first_name = find<EditText>(R.id.change_first_name)
-        val last_name = find<EditText>(R.id.change_last_name)
-        val tel_number = find<EditText>(R.id.change_tel_number)
+        val firstName = find<EditText>(R.id.change_first_name)
+        val lastName = find<EditText>(R.id.change_last_name)
+        val telNumber = find<EditText>(R.id.change_tel_number)
         val about = find<EditText>(R.id.change_about)
 
-        userData(first_name, last_name, tel_number, about)
+        userData(firstName, lastName, telNumber, about)
 
 
         change_user.setOnClickListener {
@@ -111,7 +111,7 @@ class ChangeUserActivity : AppCompatActivity() {
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.change_user(
+        apiService.changeUser(
             token.toString(), firstname,
             lastname, telephone,
             about
@@ -122,47 +122,47 @@ class ChangeUserActivity : AppCompatActivity() {
                 Log.d("Result", "Success.")
 
             }, { error ->
-                handleError(error, "Вы успешно изменили данные!", firstname)
+                handleError(error, firstname)
             })
     }
 
-    private fun userData(first_name: TextView, last_name: TextView, tel_number: TextView, about: TextView) {
+    private fun userData(firstName: TextView, lastName: TextView, telNumber: TextView, about: TextView) {
 
         token = readToken()
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.get_user_data(token.toString())
+        apiService.getUserData(token.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
 
-                first_name.text = result.first_name
-                last_name.text = result.last_name
-                tel_number.text = result.tel_number
-                about.text = result.about
+                firstName.text = result.body()!!.first_name
+                lastName.text = result.body()!!.last_name
+                telNumber.text = result.body()!!.tel_number
+                about.text = result.body()!!.about
 
             }, { error ->
-                handleError(error, "Что-то пошло не так", "")
+                handleError(error, "")
             })
     }
 
     private fun readToken(): String? {
         var string: String? = null
-        var save_token: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
 
-        if (save_token.contains("token")) {
-            string = save_token.getString("token", null)
+        if (saveToken.contains("token")) {
+            string = saveToken.getString("token", null)
         }
 
         return string
     }
 
     private fun removeToken() {
-        val save_token: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = save_token.edit()
+        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = saveToken.edit()
 
-        editor.remove(key_token)
+        editor.remove(keyToken)
         editor.remove(name)
         editor.remove(mail)
         editor.clear()
@@ -170,13 +170,12 @@ class ChangeUserActivity : AppCompatActivity() {
     }
 
 
-    private fun handleError(throwable: Throwable, string: String, fname: String) {
+    private fun handleError(throwable: Throwable, fname: String) {
         if (throwable is retrofit2.HttpException) {
-            val httpException = throwable
-            val statusCode = httpException.code()
+            val statusCode = throwable.code()
 
             if (statusCode == 400) {
-                Toast.makeText(this, "Имя не должно быть пустым", Toast.LENGTH_SHORT).show()
+                toast("Имя не должно быть пустым")
             }
 
             if (statusCode == 401) {
@@ -186,11 +185,11 @@ class ChangeUserActivity : AppCompatActivity() {
             }
 
             if (statusCode == 500) {
-                Toast.makeText(this, "Нет соединения с сервером", Toast.LENGTH_SHORT).show()
+                toast("Нет соединения с сервером")
             }
 
         } else if (throwable is SocketTimeoutException) {
-            Toast.makeText(this, "Нет соединения с сервером", Toast.LENGTH_SHORT).show()
+            toast("Нет соединения с сервером")
         } else if (throwable is IOException) {
 
             val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
@@ -201,9 +200,8 @@ class ChangeUserActivity : AppCompatActivity() {
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
+            toast("Что-то пошло не так...")
         }
-
     }
 }
 

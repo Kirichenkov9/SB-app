@@ -20,7 +20,7 @@ import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MainAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import kotlinx.android.synthetic.main.activity_my_ad.*
-import kotlinx.android.synthetic.main.app_bar_myads.*
+import kotlinx.android.synthetic.main.app_bar_my_ads.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
@@ -29,8 +29,8 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     private var token: String? = null
-    private val key_token = "token"
-    private val name: String = "first_name"
+    private val keyToken = "token"
+    private val name: String = "name"
     private val mail: String = "email"
     private val id: String = "id"
 
@@ -40,18 +40,18 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_my_ad)
         setSupportActionBar(toolbar_my_ads)
 
-        token = read(key_token)
+        token = read(keyToken)
 
         val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val id_user: Long = read.getLong(id, 0)
+        val idUser: Long = read.getLong(id, 0)
 
-        var list: ArrayList<ResultAd> = ArrayList()
+        var list: ArrayList<ResultAd>
 
         val recyclerView = find<RecyclerView>(R.id.user_ad)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         doAsync {
-            list = getUserAd(id_user)
+            list = getUserAd(idUser)
             uiThread {
                 recyclerView.adapter = MainAdapter(list,
                     object  : MainAdapter.OnItemClickListener {
@@ -76,12 +76,12 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val header = find<NavigationView>(R.id.nav_view_user_ad).getHeaderView(0)
 
-        val name_user = header.find<TextView>(R.id.user_first_name)
-        val user_email = header.find<TextView>(R.id.mail)
+        val nameUser = header.find<TextView>(R.id.user_first_name)
+        val userEmail = header.find<TextView>(R.id.mail)
 
-        setUsername(name_user, user_email)
+        setUsername(nameUser, userEmail)
 
-        user_email.setOnClickListener {
+        userEmail.setOnClickListener {
             if (token.isNullOrEmpty()) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -95,7 +95,7 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun startAdViewActivity(id: Long) {
         val intent = Intent(this, MySettingsActivity::class.java)
-        intent.putExtra("ad_id", id)
+        intent.putExtra("adId", id)
         startActivity(intent)
     }
 
@@ -132,7 +132,7 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 } else {
-                    val intent = Intent(this, AddadActivity::class.java)
+                    val intent = Intent(this, AddAdActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -141,13 +141,13 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun setUsername(name_user: TextView, user_email: TextView) {
+    private fun setUsername(name_user: TextView, userEmail: TextView) {
         if (token.isNullOrEmpty()) {
-            user_email.text = getString(R.string.Enter_registration)
+            userEmail.text = getString(R.string.Enter_registration)
             name_user.text = read(mail)
         } else {
             name_user.text = read(name)
-            user_email.text = read(mail)
+            userEmail.text = read(mail)
         }
 
     }
@@ -162,16 +162,16 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return string
     }
 
-    private fun getUserAd(id_user: Long): ArrayList<ResultAd> {
+    private fun getUserAd(idUser: Long): ArrayList<ResultAd> {
 
         val ads: ArrayList<ResultAd> = ArrayList()
 
         val apiService: ApiService = ApiService.create()
-        apiService.get_user_ad(id_user)
+        apiService.getUserAd(idUser)
             .observeOn(mainThread())
             .subscribe({ result ->
 
-                ads.addAll(result)
+                ads.addAll(result.body()!!)
 
             }, { error ->
                 //handleError(error, "Что-то пошло не так")

@@ -8,6 +8,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@color/white"
         tools:context=".ui.activities.UserActivity.RegistrationActivity">
 
     <android.support.design.widget.TextInputLayout
@@ -118,7 +119,7 @@
     <Button
             android:id="@+id/button_registration"
             android:layout_marginVertical="10dp"
-            android:text="@string/to_registr"
+            android:text="@string/button_registration"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textColor="@color/white"

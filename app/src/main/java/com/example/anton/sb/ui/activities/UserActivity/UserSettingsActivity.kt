@@ -11,10 +11,9 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.ui.activities.AdActivity.AddadActivity
+import com.example.anton.sb.ui.activities.AdActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.AdActivity.MainActivity
 import com.example.anton.sb.ui.activities.AdActivity.MyAdActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,15 +21,16 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_user_settings.*
 import kotlinx.android.synthetic.main.app_bar_other.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import java.io.IOException
 import java.net.SocketTimeoutException
 
-class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedListener {
+class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var token: String? = null
 
-    private val key_token = "token"
-    private val name: String = "first_name"
+    private val keyToken = "token"
+    private val name: String = "name"
     private val mail: String = "email"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,26 +52,26 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
 
         val header = find<NavigationView>(R.id.nav_view_settings).getHeaderView(0)
 
-        val name_user = header.find<TextView>(R.id.user_first_name)
-        val user_email = header.find<TextView>(R.id.mail)
+        val nameUser = header.find<TextView>(R.id.user_first_name)
+        val userEmail = header.find<TextView>(R.id.mail)
 
-        name_user.text = read(name)
-        user_email.text = read(mail)
+        nameUser.text = read(name)
+        userEmail.text = read(mail)
 
-        val first_name = find<TextView>(R.id.first_user_name)
-        val last_name = find<TextView>(R.id.last_user_name)
+        val firstName = find<TextView>(R.id.first_user_name)
+        val lastName = find<TextView>(R.id.last_user_name)
         val email = find<TextView>(R.id.user_email)
         val telephone = find<TextView>(R.id.user_phone_number)
         val about = find<TextView>(R.id.user_about)
 
-        userData(first_name, last_name, email, telephone, about)
+        userData(firstName, lastName, email, telephone, about)
 
-        first_name.setOnClickListener {
+        firstName.setOnClickListener {
             val intent = Intent(this, ChangeUserActivity::class.java)
             startActivity(intent)
         }
 
-        last_name.setOnClickListener {
+        lastName.setOnClickListener {
             val intent = Intent(this, ChangeUserActivity::class.java)
             startActivity(intent)
         }
@@ -115,7 +115,7 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
                 startActivity(intent)
             }
             R.id.add_ad -> {
-                val intent = Intent(this, AddadActivity::class.java)
+                val intent = Intent(this, AddAdActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -126,28 +126,26 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
 
     private fun logout() {
 
-        token = read(key_token)
+        token = read(keyToken)
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.logout_user(token.toString())
+        apiService.logoutUser(token.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
-                Log.d("Result", "Success.")
-                // Toast.makeText(this, "Вы успешно вышли из аккаунта", Toast.LENGTH_SHORT).show()
-            }, { error ->
-                handleError(error, "Вы успешно вышли из аккаунта")
-            })
+            .subscribe({},
+                { error ->
+                    handleError(error, "Вы успешно вышли из аккаунта")
+                })
     }
 
     private fun delete() {
 
-        token = read(key_token)
+        token = read(keyToken)
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.delete_user(token.toString())
+        apiService.deleteUser(token.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
@@ -158,28 +156,28 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
     }
 
     private fun userData(
-        first_name: TextView,
-        last_name: TextView,
+        firstName: TextView,
+        lastName: TextView,
         email: TextView,
         telephone: TextView,
         about: TextView
     ) {
 
-        token = read(key_token)
+        token = read(keyToken)
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.get_user_data(token.toString())
+        apiService.getUserData(token.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
                 Log.d("Result", "Success.")
 
-                first_name.text = result.first_name
-                last_name.text = result.last_name
-                email.text = result.email
-                telephone.text = result.tel_number
-                about.text = result.about
+                firstName.text = result.body()!!.first_name
+                lastName.text = result.body()!!.last_name
+                email.text = result.body()!!.email
+                telephone.text = result.body()!!.tel_number
+                about.text = result.body()!!.about
 
             }, { error ->
                 handleError(error, "")
@@ -187,10 +185,10 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
     }
 
     private fun removeToken() {
-        val save_token: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = save_token.edit()
+        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = saveToken.edit()
 
-        editor.remove(key_token)
+        editor.remove(keyToken)
         editor.remove(name)
         editor.remove(mail)
         editor.clear()
@@ -199,7 +197,7 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
 
     private fun read(key: String): String? {
         var string: String? = null
-        var read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
 
         if (read.contains(key)) {
             string = read.getString(key, " ")
@@ -209,8 +207,7 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
 
     private fun handleError(throwable: Throwable, string: String) {
         if (throwable is retrofit2.HttpException) {
-            val httpException = throwable
-            val statusCode = httpException.code()
+            val statusCode = throwable.code()
 
             if (statusCode == 401) {
                 removeToken()
@@ -219,16 +216,16 @@ class UserSettingsActivity : AppCompatActivity(),  NavigationView.OnNavigationIt
             }
 
             if (statusCode == 500) {
-                Toast.makeText(this, "Нет соединения с сервером", Toast.LENGTH_SHORT).show()
+                toast("Нет соединения с сервером")
             }
 
         } else if (throwable is SocketTimeoutException) {
-            Toast.makeText(this, "Нет соединения с сервером", Toast.LENGTH_SHORT).show()
+            toast("Нет соединения с сервером")
         } else if (throwable is IOException) {
             removeToken()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
+            toast(string)
 
         }
     }

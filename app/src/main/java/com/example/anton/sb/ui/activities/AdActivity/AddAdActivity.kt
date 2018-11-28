@@ -9,11 +9,9 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
@@ -23,13 +21,14 @@ import kotlinx.android.synthetic.main.activity_add_ad.*
 import kotlinx.android.synthetic.main.activity_user_settings.*
 import kotlinx.android.synthetic.main.app_bar_other.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 
 
-class AddadActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedListener {
+class AddAdActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedListener {
 
     private var token: String? = null
-    private val key_token = "token"
-    private val username: String = "first_name"
+    private val keyToken = "token"
+    private val username: String = "name"
     private val mail: String = "email"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +49,11 @@ class AddadActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelec
 
         val header = find<NavigationView>(R.id.nav_view_add_ad).getHeaderView(0)
 
-        val name_user = header.find<TextView>(R.id.user_first_name)
-        val user_email = header.find<TextView>(R.id.mail)
+        val nameUser = header.find<TextView>(R.id.user_first_name)
+        val userEmail = header.find<TextView>(R.id.mail)
 
-        name_user.text = read(username)
-        user_email.text = read(mail)
+        nameUser.text = read(username)
+        userEmail.text = read(mail)
 
         // Adding photo to ad after pressing button
         button_ad_photo.setOnClickListener { }
@@ -133,7 +132,7 @@ class AddadActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelec
 
     private fun addAd() {
 
-        token = read(key_token)
+        token = read(keyToken)
 
         val titleStr = name.text.toString()
         val price: Int = price.text.toString().toInt()
@@ -141,12 +140,13 @@ class AddadActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelec
         val description: String = about.text.toString()
         val apiService: ApiService = ApiService.create()
 
-        apiService.create_ad(token.toString(), titleStr, price, cityStr, description)
+        apiService.createAd(token.toString(), titleStr, price, cityStr, description)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
-                Log.d("Result", "Success.")
-                Toast.makeText(this, "Объявление добавлено!", Toast.LENGTH_SHORT).show()
+
+                toast("Объявление добавлено!")
+
             }, { error ->
                 error.printStackTrace()
             })
