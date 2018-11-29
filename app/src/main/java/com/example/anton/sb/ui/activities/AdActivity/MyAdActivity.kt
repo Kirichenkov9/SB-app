@@ -54,7 +54,7 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             list = getUserAd(idUser)
             uiThread {
                 recyclerView.adapter = MainAdapter(list,
-                    object  : MainAdapter.OnItemClickListener {
+                    object : MainAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
                             startAdViewActivity(ad.id)
                         }
@@ -109,6 +109,10 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.my_ads -> {
+                val intent = Intent(this, MyAdActivity::class.java)
+                startActivity(intent)
+            }
             R.id.account -> {
                 if (token.isNullOrEmpty()) {
                     val intent = Intent(this, LoginActivity::class.java)

@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
@@ -45,7 +44,6 @@ class ChangeUserActivity : AppCompatActivity() {
         val about = find<EditText>(R.id.change_about)
 
         userData(firstName, lastName, telNumber, about)
-
 
         change_user.setOnClickListener {
             changeUser()
@@ -105,24 +103,23 @@ class ChangeUserActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeData(firstname: String, lastname: String, telephone: String, about: String) {
+    private fun changeData(firstName: String, lastName: String, telephone: String, about: String) {
 
         token = readToken()
 
         val apiService: ApiService = ApiService.create()
 
         apiService.changeUser(
-            token.toString(), firstname,
-            lastname, telephone,
+            token.toString(), firstName,
+            lastName, telephone,
             about
         )
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
-                Log.d("Result", "Success.")
+            .subscribe({},
+                { error ->
+                handleError(error, firstName, lastName)
 
-            }, { error ->
-                handleError(error, firstname)
             })
     }
 
@@ -143,7 +140,7 @@ class ChangeUserActivity : AppCompatActivity() {
                 about.text = result.body()!!.about
 
             }, { error ->
-                handleError(error, "")
+               // handleError(error, "")
             })
     }
 
@@ -170,7 +167,7 @@ class ChangeUserActivity : AppCompatActivity() {
     }
 
 
-    private fun handleError(throwable: Throwable, fname: String) {
+    private fun handleError(throwable: Throwable, firstName:  String, lastName: String) {
         if (throwable is retrofit2.HttpException) {
             val statusCode = throwable.code()
 
@@ -195,8 +192,9 @@ class ChangeUserActivity : AppCompatActivity() {
             val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
             val editor: SharedPreferences.Editor = save.edit()
             editor.remove(name)
-            editor.putString(name, fname)
+            editor.putString("name", firstName + " " + lastName)
             editor.apply()
+
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

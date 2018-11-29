@@ -91,6 +91,17 @@ interface ApiService {
     @GET("users/{id}")
     fun getUser(@Path(value = "id") id: Long): Single<Response<ResultUser>>
 
+    @FormUrlEncoded
+    @Headers("User-agent: Android_app")
+    @POST("ads/edit/{id}")
+    fun changeAd(
+        @Path(value = "id") id: Long,
+        @Header("Cookie") token: String,
+        @Field("title") title: String,
+        @Field("price") price: Int,
+        @Field("city") city: String,
+        @Field("description_ad") description: String
+    ): Single<Response<ResultAd>>
 
     /**
      * Companion object to create the GithubApiService

@@ -170,7 +170,7 @@ class RegistrationActivity : AppCompatActivity() {
 
             val message = JsonParser().parse(errorJsonString).asJsonObject["message"].asString
             val error = JsonParser().parse(errorJsonString).asJsonObject["error"].asString
-            val description = JsonParser().parse(errorJsonString).asJsonObject["description"].asString
+            val description = JsonParser().parse(errorJsonString).asJsonObject["description_ad"].asString
 
             if (statusCode == 400) {
                 Toast.makeText(this, "Неверный логин и пароль", Toast.LENGTH_SHORT).show()

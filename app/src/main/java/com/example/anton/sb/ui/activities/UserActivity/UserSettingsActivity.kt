@@ -106,6 +106,10 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.account -> {
+                val intent = Intent(this, UserSettingsActivity::class.java)
+                startActivity(intent)
+            }
             R.id.my_ads -> {
                 val intent = Intent(this, MyAdActivity::class.java)
                 startActivity(intent)

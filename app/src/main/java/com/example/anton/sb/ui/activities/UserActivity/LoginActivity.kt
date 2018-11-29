@@ -139,7 +139,7 @@ class LoginActivity : AppCompatActivity() {
 
             }, { error ->
 
-                handleError(error)
+               // handleError(error)
             })
     }
 
@@ -155,7 +155,7 @@ class LoginActivity : AppCompatActivity() {
     private fun saveUsername(firstName: String, lastName: String, email: String, id: Long) {
         val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = save.edit()
-        editor.putString("name", firstName + " " +lastName)
+        editor.putString("name", firstName + " " + lastName)
         editor.putString("email", email)
         editor.putLong("id", id)
         editor.apply()
@@ -168,7 +168,7 @@ class LoginActivity : AppCompatActivity() {
 
             val message = JsonParser().parse(errorJsonString).asJsonObject["message"].asString
             val error = JsonParser().parse(errorJsonString).asJsonObject["error"].asString
-            val description = JsonParser().parse(errorJsonString).asJsonObject["description"].asString
+            val description = JsonParser().parse(errorJsonString).asJsonObject["description_ad"].asString
 
             if (statusCode == 400) {
                 toast("$message + $error + $description}")

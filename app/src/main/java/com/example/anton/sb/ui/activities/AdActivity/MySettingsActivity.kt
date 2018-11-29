@@ -23,7 +23,7 @@ class MySettingsActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         val intent = intent
-        val idAd = intent.getLongExtra("adId", 0)
+        val adId = intent.getLongExtra("adId", 0)
 
 
         val title = find<TextView>(R.id.title_ad_settings)
@@ -32,8 +32,33 @@ class MySettingsActivity : AppCompatActivity() {
         val price = find<TextView>(R.id.price_ad_settings)
 
         doAsync {
-            adData(idAd, title, city, description, price)
+            adData(adId, title, city, description, price)
             uiThread { actionBar.title = title.text }
+        }
+
+
+        title.setOnClickListener {
+            val intent = Intent(this, ChangeAdActivity::class.java)
+            intent.putExtra("adId", adId)
+            startActivity(intent)
+        }
+
+        city.setOnClickListener {
+            val intent = Intent(this, ChangeAdActivity::class.java)
+            intent.putExtra("adId", adId)
+            startActivity(intent)
+        }
+
+        description.setOnClickListener {
+            val intent = Intent(this, ChangeAdActivity::class.java)
+            intent.putExtra("adId", adId)
+            startActivity(intent)
+        }
+
+        price.setOnClickListener {
+            val intent = Intent(this, ChangeAdActivity::class.java)
+            intent.putExtra("adId", adId)
+            startActivity(intent)
         }
     }
 
@@ -64,7 +89,7 @@ class MySettingsActivity : AppCompatActivity() {
 
                 title.text = result.body()!!.title
                 city.text = result.body()!!.city
-                description.text = result.body()!!.description
+                description.text = result.body()!!.description_ad
                 price.text = result.body()!!.price.toString()
 
             }, { error ->

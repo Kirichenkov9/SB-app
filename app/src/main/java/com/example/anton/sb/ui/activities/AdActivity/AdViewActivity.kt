@@ -104,7 +104,7 @@ class AdViewActivity : AppCompatActivity() {
 
                 title.text = result.body()!!.title
                 city.text = result.body()!!.city
-                description.text = result.body()!!.description
+                description.text = result.body()!!.description_ad
                 price.text = result.body()!!.price.toString()
                 username.text = (result.body()!!.owner_ad.first_name + " " + result.body()!!.owner_ad.last_name)
                 telephone.text = result.body()!!.owner_ad.tel_number

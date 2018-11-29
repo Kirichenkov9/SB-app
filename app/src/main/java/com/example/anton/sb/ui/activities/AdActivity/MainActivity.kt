@@ -42,17 +42,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         token = read(keyToken)
 
-
         var list: ArrayList<ResultAd>
 
         val recyclerView = find<RecyclerView>(R.id.ad_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         doAsync {
-            list = getAd(10, 0)
+            list = getAd(20, 0)
             uiThread {
                 recyclerView.adapter = MainAdapter(list,
-                    object  : MainAdapter.OnItemClickListener {
+                    object : MainAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
                             startAdViewActivity(ad.id)
                         }
@@ -81,7 +80,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val floatingActionButton = find<FloatingActionButton>(R.id.floatingActionButton)
 
         floatingActionButton.setOnClickListener {
-            
+
             if (token.isNullOrEmpty()) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -114,6 +113,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.search -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
             R.id.account -> {
                 if (token.isNullOrEmpty()) {
                     val intent = Intent(this, LoginActivity::class.java)
@@ -179,7 +182,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.getAds(offset , limit)
+        apiService.getAds(offset, limit)
             .observeOn(mainThread())
             .subscribe({ result ->
 

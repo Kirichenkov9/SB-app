@@ -2,12 +2,13 @@
 <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:context=".ui.activities.AdActivity.AdViewActivity">
 
@@ -22,10 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:layout_marginVertical="10dp"
                 android:layout_marginStart="30dp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
         <TextView
                 android:id="@+id/title_ad"
                 android:layout_width="match_parent"
@@ -35,17 +35,23 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/colorPrimary">
+        </View>
 
         <TextView
                 android:text="@string/city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:layout_marginVertical="10dp"
                 android:layout_marginStart="30dp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
         <TextView
                 android:id="@+id/city_ad"
                 android:layout_width="match_parent"
@@ -55,17 +61,23 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/colorPrimary">
+        </View>
 
         <TextView
                 android:text="@string/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:layout_marginVertical="10dp"
                 android:layout_marginStart="30dp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
         <TextView
                 android:id="@+id/about_ad"
                 android:layout_width="match_parent"
@@ -75,17 +87,24 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/colorPrimary">
+        </View>
+
 
         <TextView
                 android:text="@string/price_ad_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:layout_marginVertical="10dp"
                 android:layout_marginStart="30dp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
 
 
         <TextView
@@ -97,17 +116,23 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/colorPrimary">
+        </View>
 
         <TextView
                 android:text="@string/user_agent_ad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:layout_marginVertical="10dp"
                 android:layout_marginStart="30dp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
 
 
         <TextView
@@ -120,19 +145,20 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
         <TextView
                 android:id="@+id/user_phone_number_ad"
-                android:layout_marginVertical="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_telephone"
                 android:drawablePadding="10dp"
+                android:layout_marginVertical="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
         <Button
                 android:id="@+id/go_to_user"
                 android:layout_width="wrap_content"
@@ -142,7 +168,7 @@
                 android:text="@string/go_to_user_ad"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
-                android:textColor="@color/white"
+                android:textColor="@color/design_default_color_primary_dark"
                 android:background="@drawable/button"
                 android:theme="@style/RoundedCornerButton"/>
 

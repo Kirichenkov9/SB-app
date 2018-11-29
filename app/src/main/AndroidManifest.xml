@@ -79,9 +79,12 @@
                 android:label="@string/ad"
                 android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activities.AdActivity.UserAdActivity"
-                  android:label="@string/ads"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".ui.activities.AdActivity.UserAdActivity"
+                android:label="@string/ads"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.activities.AdActivity.ChangeAdActivity">
         </activity>
     </application>
 

@@ -28,7 +28,7 @@
             android:paddingLeft="15dp"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@android:color/white"
+            android:textColor="@color/design_default_color_primary_dark"
             android:textSize="18sp"/>
 
     <TextView
@@ -36,7 +36,7 @@
             android:paddingLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
+            android:textColor="@color/design_default_color_primary_dark"
             android:textSize="14sp"/>
 
 </LinearLayout>

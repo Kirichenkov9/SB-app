@@ -73,6 +73,10 @@ class AddAdActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelec
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.add_ad -> {
+                val intent = Intent(this, AddAdActivity::class.java)
+                startActivity(intent)
+            }
             R.id.account -> {
                 val intent = Intent(this, UserSettingsActivity::class.java)
                 startActivity(intent)

@@ -7,10 +7,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:background="@color/white"
+        android:background="@color/background"
         tools:openDrawer="start">
 
-<ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +40,7 @@
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="30dp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
         <TextView
                 android:id="@+id/first_user_name"
                 android:layout_width="match_parent"
@@ -49,7 +51,15 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/colorPrimary">
+        </View>
+
         <TextView
                 android:text="@string/last_name"
                 android:layout_width="match_parent"
@@ -57,7 +67,7 @@
                 android:layout_marginStart="30dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
         <TextView
                 android:id="@+id/last_user_name"
                 android:layout_marginVertical="10dp"
@@ -66,11 +76,18 @@
                 android:drawableStart="@drawable/ic_username"
                 android:drawablePadding="10dp"
                 android:drawableEnd="@drawable/ic_change_user"
-                android:text="@string/user_name"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/colorPrimary">
+        </View>
+
         <TextView
                 android:text="@string/email"
                 android:layout_width="match_parent"
@@ -78,7 +95,7 @@
                 android:layout_marginStart="30dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
                 android:id="@+id/user_email"
@@ -87,11 +104,18 @@
                 android:drawablePadding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/user_email"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/colorPrimary">
+        </View>
+
         <TextView
                 android:text="@string/tel_number"
                 android:layout_width="match_parent"
@@ -99,7 +123,7 @@
                 android:layout_marginStart="30dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
                 android:id="@+id/user_phone_number"
@@ -112,7 +136,14 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/colorPrimary">
+        </View>
 
         <TextView
                 android:text="@string/about"
@@ -121,7 +152,7 @@
                 android:layout_marginStart="30dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorPrimaryDark"/>
         <TextView
                 android:id="@+id/user_about"
                 android:layout_marginVertical="10dp"
@@ -133,7 +164,15 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="20sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/colorAccent"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="15dp"
+                android:background="@color/colorPrimary">
+        </View>
+
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -147,7 +186,7 @@
                     android:text="@string/exit"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorPrimaryDark"
                     android:background="@drawable/button"
                     android:theme="@style/RoundedCornerButton"/>
             <Button
@@ -157,7 +196,7 @@
                     android:text="@string/delete_user"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorPrimaryDark"
                     android:background="@drawable/button"
                     android:theme="@style/RoundedCornerButton"/>
         </LinearLayout>
@@ -170,6 +209,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
+            android:background="@color/design_default_color_primary"
+            app:itemTextColor="@color/colorAccent"
+            app:itemIconTint="@color/colorAccent"
             app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer"/>
+            app:menu="@menu/activity_main_drawer"/>>
 </android.support.v4.widget.DrawerLayout>
