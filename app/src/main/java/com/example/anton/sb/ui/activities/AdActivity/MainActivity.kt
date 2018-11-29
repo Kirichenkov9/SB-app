@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
+import com.example.anton.sb.data.Extensions.updateDataList
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
@@ -42,20 +43,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         token = read(keyToken)
 
-        var list: ArrayList<ResultAd>
+        var dataList: ArrayList<ResultAd>
+        val list: ArrayList<ResultAd> = ArrayList()
 
         val recyclerView = find<RecyclerView>(R.id.ad_list)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
+        var adapter: MainAdapter
 
         doAsync {
-            list = getAd(20, 0)
+          dataList = updateDataList(list)
             uiThread {
-                recyclerView.adapter = MainAdapter(list,
-                    object : MainAdapter.OnItemClickListener {
-                        override fun invoke(ad: ResultAd) {
-                            startAdViewActivity(ad.id)
-                        }
-                    })
+                adapter = MainAdapter(updateDataList(dataList), object : MainAdapter.OnItemClickListener {
+                    override fun invoke(ad: ResultAd) {
+                        startAdViewActivity(ad.id)
+                    }
+                })
+                recyclerView.layoutManager = layoutManager
+                recyclerView.adapter = adapter
+                recyclerView.addOnScrollListener(MainAdapter.OnScrollListener(layoutManager, adapter, dataList))
             }
         }
 
@@ -176,9 +181,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return string
     }
 
-    private fun getAd(limit: Int, offset: Int): ArrayList<ResultAd> {
-
-        val ads: ArrayList<ResultAd> = ArrayList()
+    private fun getAd(ads: ArrayList<ResultAd>, limit: Int, offset: Int) {
 
         val apiService: ApiService = ApiService.create()
 
@@ -191,6 +194,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }, { error ->
                 //handleError(error, "Что-то пошло не так")
             })
-        return ads
     }
 }
