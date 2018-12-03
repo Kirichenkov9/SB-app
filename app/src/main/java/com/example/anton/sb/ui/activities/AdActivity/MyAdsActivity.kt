@@ -11,21 +11,24 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
+import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
-import com.example.anton.sb.ui.adapters.MainAdapter
+import com.example.anton.sb.ui.adapters.SearchAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import kotlinx.android.synthetic.main.activity_my_ad.*
 import kotlinx.android.synthetic.main.app_bar_my_ads.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
-class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
     private var token: String? = null
@@ -45,22 +48,20 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val idUser: Long = read.getLong(id, 0)
 
-        var list: ArrayList<ResultAd>
-
         val recyclerView = find<RecyclerView>(R.id.user_ad)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        doAsync {
-            list = getUserAd(idUser)
-            uiThread {
-                recyclerView.adapter = MainAdapter(list,
-                    object : MainAdapter.OnItemClickListener {
-                        override fun invoke(ad: ResultAd) {
-                            startAdViewActivity(ad.id)
-                        }
-                    })
-            }
-        }
+
+        val header = find<NavigationView>(R.id.nav_view_user_ad).getHeaderView(0)
+
+        val nameUser = header.find<TextView>(R.id.user_first_name)
+        val userEmail = header.find<TextView>(R.id.mail)
+        val navViewHeader = header.find<View>(R.id.nav_view_header)
+
+
+        setUsername(nameUser, userEmail)
+
+        displayAds(recyclerView, idUser)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_user_ad, toolbar_my_ads,
@@ -74,14 +75,7 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view_user_ad.getHeaderView(0)
 
-        val header = find<NavigationView>(R.id.nav_view_user_ad).getHeaderView(0)
-
-        val nameUser = header.find<TextView>(R.id.user_first_name)
-        val userEmail = header.find<TextView>(R.id.mail)
-
-        setUsername(nameUser, userEmail)
-
-        userEmail.setOnClickListener {
+        navViewHeader.setOnClickListener {
             if (token.isNullOrEmpty()) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -93,8 +87,23 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    private fun displayAds(recyclerView: RecyclerView, idUser: Long) {
+
+        doAsync {
+            val list = getUserAd(idUser)
+            uiThread {
+                recyclerView.adapter = SearchAdapter(list,
+                    object : SearchAdapter.OnItemClickListener {
+                        override fun invoke(ad: ResultAd) {
+                            startAdViewActivity(ad.id)
+                        }
+                    })
+            }
+        }
+    }
+
     private fun startAdViewActivity(id: Long) {
-        val intent = Intent(this, MySettingsActivity::class.java)
+        val intent = Intent(this, MyAdSettingsActivity::class.java)
         intent.putExtra("adId", id)
         startActivity(intent)
     }
@@ -110,7 +119,7 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.my_ads -> {
-                val intent = Intent(this, MyAdActivity::class.java)
+                val intent = Intent(this, MyAdsActivity::class.java)
                 startActivity(intent)
             }
             R.id.account -> {
@@ -161,7 +170,7 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
 
         if (read.contains(key)) {
-            string = read.getString(key, " ")
+            string = read.getString(key, "")
         }
         return string
     }
@@ -175,11 +184,29 @@ class MyAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .observeOn(mainThread())
             .subscribe({ result ->
 
-                ads.addAll(result.body()!!)
+                ads.addAll(result)
+
+                if (result.isEmpty())
+                    toast("Объявлений нет")
 
             }, { error ->
-                //handleError(error, "Что-то пошло не так")
+                val errorStr = handleError(error)
+                if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
+                    removeToken()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                } else  toast(errorStr)
             })
         return ads
+    }
+    private fun removeToken() {
+        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = saveToken.edit()
+
+        editor.remove(keyToken)
+        editor.remove(name)
+        editor.remove(mail)
+        editor.clear()
+        editor.apply()
     }
 }

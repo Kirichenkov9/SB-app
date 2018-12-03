@@ -7,10 +7,12 @@ import android.view.MenuItem
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
+import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.AdActivity.AdViewActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class UserViewActivity : AppCompatActivity() {
@@ -38,7 +40,7 @@ class UserViewActivity : AppCompatActivity() {
 
         doAsync {
             userData(firstName, lastName, email, telephone, about, id)
-            uiThread { actionBar.title = firstName.text.toString() + " " + lastName.text.toString()}
+            uiThread { actionBar.title = firstName.text.toString() + " " + lastName.text.toString() }
         }
     }
 
@@ -68,15 +70,14 @@ class UserViewActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
 
-                first_name.text = result.body()!!.first_name
-                last_name.text = result.body()!!.last_name
-                email.text = result.body()!!.email
-                telephone.text = result.body()!!.tel_number
-                about.text = result.body()!!.about
+                first_name.text = result.first_name
+                last_name.text = result.last_name
+                email.text = result.email
+                telephone.text = result.tel_number
+                about.text = result.about
 
             }, { error ->
-                //
-                // handleError(error, "")
+                toast(handleError(error))
             })
     }
 }

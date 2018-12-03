@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_search"
+            android:layout_width="match_parent"
+            app:titleTextColor="@color/white"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <EditText
+                    android:id="@+id/search_edit_frame"
+                    android:hint="@string/search_hint"
+                    android:background="@color/background"
+                    android:layout_marginEnd="40dp"
+                    android:textColorHint="@color/colorPrimary"
+                    android:inputType="textShortMessage"
+                    android:lines="1"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:imeOptions="actionSearch"/>
+
+            <ImageButton
+                    android:id="@+id/start_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="?android:attr/actionModeWebSearchDrawable"
+                    android:layout_gravity="end"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="0dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/colorPrimary"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="1dp"/>
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+</android.support.design.widget.CoordinatorLayout>

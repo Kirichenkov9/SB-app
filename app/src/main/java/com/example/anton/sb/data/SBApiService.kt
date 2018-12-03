@@ -2,9 +2,7 @@ package com.example.anton.sb.data
 
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.data.ResponseClasses.ResultUser
-import io.reactivex.Observable
 import io.reactivex.Single
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,7 +19,7 @@ interface ApiService {
         @Field("password") password: String,
         @Field("tel_number") tel_number: String,
         @Field("about") about_me: String
-    ): Single<Response<ResultUser>>
+    ): Single<ResultUser>
 
     @FormUrlEncoded
     @Headers("User-agent: Android_app")
@@ -29,20 +27,20 @@ interface ApiService {
     fun loginUser(
         @Field("email") email: String,
         @Field("password") password: String
-    ): Single<Response<ResultUser>>
+    ): Single<retrofit2.Response<ResultUser>>
 
 
     @Headers("User-agent: Android_app")
     @POST("users/logout")
     fun logoutUser(
         @Header("Cookie") token: String
-    ): Observable<Response<ResultUser>>
+    ): Single<retrofit2.Response<Void>>
 
     @Headers("User-agent: Android_app")
     @DELETE("users/profile")
     fun deleteUser(
         @Header("Cookie") token: String
-    ): Single<Response<ResultUser>>
+    ): Single<ResultUser>
 
     @FormUrlEncoded
     @Headers("User-agent: Android_app")
@@ -53,13 +51,13 @@ interface ApiService {
         @Field("price") price: Int,
         @Field("city") city: String,
         @Field("description_ad") description: String
-    ): Single<Response<ResultAd>>
+    ): Single<ResultAd>
 
     @Headers("User-agent: Android_app")
     @GET("users/profile")
     fun getUserData(
         @Header("Cookie") token: String
-    ): Single<Response<ResultUser>>
+    ): Single<ResultUser>
 
     @FormUrlEncoded
     @Headers("User-agent: Android_app")
@@ -70,26 +68,26 @@ interface ApiService {
         @Field("last_name") last_name: String,
         @Field("tel_number") tel_number: String,
         @Field("about") about_me: String
-    ): Single<Response<ResultUser>>
+    ): Single<ResultUser>
 
     @Headers("User-agent: Android_app")
     @GET("ads")
     fun getAds(
         @Query("offset") offset: Int,
         @Query("limit") limit: Int
-    ): Single<Response<ArrayList<ResultAd>>>
+    ): Single<ArrayList<ResultAd>>
 
     @Headers("User-agent: Android_app")
     @GET("users/{id}?show_ads=true")
-    fun getUserAd(@Path(value = "id") id: Long): Single<Response<ArrayList<ResultAd>>>
+    fun getUserAd(@Path(value = "id") id: Long): Single<ArrayList<ResultAd>>
 
     @Headers("User-agent: Android_app")
     @GET("ads/{id}")
-    fun getAd(@Path(value = "id") id: Long): Single<Response<ResultAd>>
+    fun getAd(@Path(value = "id") id: Long): Single<ResultAd>
 
     @Headers("User-agent: Android_app")
     @GET("users/{id}")
-    fun getUser(@Path(value = "id") id: Long): Single<Response<ResultUser>>
+    fun getUser(@Path(value = "id") id: Long): Single<ResultUser>
 
     @FormUrlEncoded
     @Headers("User-agent: Android_app")
@@ -101,7 +99,22 @@ interface ApiService {
         @Field("price") price: Int,
         @Field("city") city: String,
         @Field("description_ad") description: String
-    ): Single<Response<ResultAd>>
+    ): Single<ResultAd>
+
+    @Headers("User-agent: Android_app")
+    @DELETE("ads/delete/{id}")
+    fun deleteAd(
+        @Path(value = "id") id: Long,
+        @Header("Cookie") token: String
+    ): Single<ResultAd>
+
+    @Headers("User-agent: Android_app")
+    @GET("ads")
+    fun getAdsSearch(
+        @Query("query") string: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
+        ): Single<ArrayList<ResultAd>>
 
     /**
      * Companion object to create the GithubApiService

@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.Extensions.updateDataList
+import com.example.anton.sb.data.Extensions.updateSearchList
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 
 
-class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: MainAdapter.OnItemClickListener) :
-    RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: SearchAdapter.OnItemClickListener) :
+    RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -51,7 +51,9 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
 
     class OnScrollListener(
         val layoutManager: LinearLayoutManager,
-        val adapter: RecyclerView.Adapter<MainAdapter.ViewHolder>, val dataList: ArrayList<ResultAd>
+        val adapter: RecyclerView.Adapter<SearchAdapter.ViewHolder>,
+        val searchList: ArrayList<ResultAd>,
+        val string: String
     ) : RecyclerView.OnScrollListener() {
         var previousTotal = 0
         var loading = true
@@ -59,6 +61,7 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
         var firstVisibleItem = 0
         var visibleItemCount = 0
         var totalItemCount = 0
+
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
@@ -75,11 +78,11 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
             }
 
             if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                val initialSize = dataList.size
+                val initialSize = searchList.size
                 doAsync {
-                    updateDataList(dataList)
+                    updateSearchList(searchList, string)
                     uiThread {
-                        val updatedSize = dataList.size
+                        val updatedSize = searchList.size
                         recyclerView.post { adapter.notifyItemRangeInserted(initialSize, updatedSize) }
                         loading = true
                     }

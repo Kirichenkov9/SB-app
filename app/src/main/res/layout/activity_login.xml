@@ -73,7 +73,7 @@
                 android:text="@string/entry"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryDark"
                 android:background="@drawable/button"
                 android:theme="@style/RoundedCornerButton"/>
 

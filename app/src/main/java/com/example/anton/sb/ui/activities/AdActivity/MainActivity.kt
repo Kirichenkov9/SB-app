@@ -13,19 +13,19 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.updateDataList
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MainAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 
@@ -43,26 +43,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         token = read(keyToken)
 
-        var dataList: ArrayList<ResultAd>
         val list: ArrayList<ResultAd> = ArrayList()
 
         val recyclerView = find<RecyclerView>(R.id.ad_list)
         val layoutManager = LinearLayoutManager(this)
-        var adapter: MainAdapter
 
-        doAsync {
-          dataList = updateDataList(list)
-            uiThread {
-                adapter = MainAdapter(updateDataList(dataList), object : MainAdapter.OnItemClickListener {
-                    override fun invoke(ad: ResultAd) {
-                        startAdViewActivity(ad.id)
-                    }
-                })
-                recyclerView.layoutManager = layoutManager
-                recyclerView.adapter = adapter
-                recyclerView.addOnScrollListener(MainAdapter.OnScrollListener(layoutManager, adapter, dataList))
-            }
-        }
+        displayAds(list, recyclerView, layoutManager)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
@@ -83,6 +69,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val userEmail = header.find<TextView>(R.id.mail)
         val navViewHeader = header.find<View>(R.id.nav_view_header)
         val floatingActionButton = find<FloatingActionButton>(R.id.floatingActionButton)
+        val searchButton = find<ImageButton>(R.id.search_button)
+
+        searchButton.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
 
         floatingActionButton.setOnClickListener {
 
@@ -104,6 +96,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             } else {
                 val intent = Intent(this, UserSettingsActivity::class.java)
                 startActivity(intent)
+            }
+        }
+    }
+
+    private fun displayAds(list: ArrayList<ResultAd>, recyclerView: RecyclerView, layoutManager: LinearLayoutManager) {
+
+        doAsync {
+            val dataList = updateDataList(list)
+            uiThread {
+                if (dataList.isEmpty())
+                    toast("Объявлений нет")
+                val adapter =
+                    MainAdapter(updateDataList(dataList), object : MainAdapter.OnItemClickListener {
+                        override fun invoke(ad: ResultAd) {
+                            startAdViewActivity(ad.id)
+                        }
+                    })
+                recyclerView.layoutManager = layoutManager
+                recyclerView.adapter = adapter
+                recyclerView.addOnScrollListener(MainAdapter.OnScrollListener(layoutManager, adapter, dataList))
             }
         }
     }
@@ -136,7 +148,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 } else {
-                    val intent = Intent(this, MyAdActivity::class.java)
+                    val intent = Intent(this, MyAdsActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -168,7 +180,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             name_user.text = read(name)
             userEmail.text = read(mail)
         }
-
     }
 
     private fun read(key: String): String? {
@@ -179,20 +190,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             string = read.getString(key, " ")
         }
         return string
-    }
-
-    private fun getAd(ads: ArrayList<ResultAd>, limit: Int, offset: Int) {
-
-        val apiService: ApiService = ApiService.create()
-
-        apiService.getAds(offset, limit)
-            .observeOn(mainThread())
-            .subscribe({ result ->
-
-                ads.addAll(result.body()!!)
-
-            }, { error ->
-                //handleError(error, "Что-то пошло не так")
-            })
     }
 }

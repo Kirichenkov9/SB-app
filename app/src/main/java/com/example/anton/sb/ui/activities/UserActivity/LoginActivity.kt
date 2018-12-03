@@ -10,14 +10,12 @@ import android.view.MenuItem
 import android.view.View
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
+import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.AdActivity.MainActivity
-import com.google.gson.JsonParser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
-import java.io.IOException
-import java.net.SocketTimeoutException
 
 
 /**
@@ -129,62 +127,34 @@ class LoginActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
 
-                toast("Вы успешно вошли в аккаунт!")
-                saveToken(result.headers().get("set-cookie"))
+                if (result.code() == 200) {
+                    toast("Привет, ${result.body()!!.first_name}")
+                    saveUsername(
+                        result.headers().get("set-cookie").toString(),
+                        result.body()!!.first_name,
+                        result.body()!!.last_name,
+                        emailStr,
+                        result.body()!!.id
+                    )
 
-                saveUsername(result.body()!!.first_name, result.body()!!.last_name, emailStr, result.body()!!.id)
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+                else
+                    toast("Неверный пароль или логин")
 
             }, { error ->
-
-               // handleError(error)
+                toast(handleError(error))
             })
     }
 
-    private fun saveToken(string: String?) {
-        if (string != null) {
-            val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = saveToken.edit()
-            editor.putString("token", string)
-            editor.apply()
-        }
-    }
-
-    private fun saveUsername(firstName: String, lastName: String, email: String, id: Long) {
+    private fun saveUsername(token: String, firstName: String, lastName: String, email: String, id: Long) {
         val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = save.edit()
+        editor.putString("token", token)
         editor.putString("name", firstName + " " + lastName)
         editor.putString("email", email)
         editor.putLong("id", id)
         editor.apply()
-    }
-
-    private fun handleError(throwable: Throwable) {
-        if (throwable is retrofit2.HttpException) {
-            val statusCode = throwable.code()
-            val errorJsonString = throwable.response().errorBody()?.string()
-
-            val message = JsonParser().parse(errorJsonString).asJsonObject["message"].asString
-            val error = JsonParser().parse(errorJsonString).asJsonObject["error"].asString
-            val description = JsonParser().parse(errorJsonString).asJsonObject["description_ad"].asString
-
-            if (statusCode == 400) {
-                toast("$message + $error + $description}")
-
-            }
-            if (statusCode == 500) {
-                toast("$message + $error + $description")
-            }
-
-        } else if (throwable is SocketTimeoutException) {
-            toast("Нет соединения с сервером")
-        } else if (throwable is IOException) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            toast("Что-то пошло не так...")
-        }
-
     }
 }

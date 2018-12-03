@@ -64,7 +64,7 @@
                 android:theme="@style/AppTheme">
         </activity>
         <activity
-                android:name=".ui.activities.AdActivity.MyAdActivity"
+                android:name=".ui.activities.AdActivity.MyAdsActivity"
                 android:label="@string/my_ads"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
@@ -72,19 +72,30 @@
         <activity
                 android:name=".ui.activities.UserActivity.UserViewActivity"
                 android:label="@string/user"
-                android:screenOrientation="portrait">
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme">
         </activity>
         <activity
-                android:name=".ui.activities.AdActivity.MySettingsActivity"
+                android:name=".ui.activities.AdActivity.MyAdSettingsActivity"
                 android:label="@string/ad"
-                android:screenOrientation="portrait">
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme">
         </activity>
         <activity
                 android:name=".ui.activities.AdActivity.UserAdActivity"
                 android:label="@string/ads"
-                android:screenOrientation="portrait">
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".ui.activities.AdActivity.ChangeAdActivity">
+        <activity
+                android:name=".ui.activities.AdActivity.ChangeAdActivity"
+                android:label="@string/change_ad"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".ui.activities.AdActivity.SearchActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

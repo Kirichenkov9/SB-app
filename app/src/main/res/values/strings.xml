@@ -38,6 +38,8 @@
     <string name="title_registration">Регистрация</string>
     <string name="entry">Войти</string>
     <string name="to_registration">Зарегистрироваться</string>
+
+    <!-- Strings related to add ad -->
     <string name="title_add">Подать объявление</string>
     <string name="title_add_ad" tools:keep="@string/title_add_ad">Название</string>
     <string name="title_ad_add">Название объявления</string>
@@ -85,4 +87,5 @@
     <string name="change_city">Измените город</string>
     <string name="change_description">Измените описание</string>
     <string name="change_price">Измените цену</string>
+    <string name="change_ad">Изменить объявление</string>
 </resources>

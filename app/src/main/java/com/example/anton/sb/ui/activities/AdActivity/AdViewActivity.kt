@@ -8,10 +8,12 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
+import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.UserActivity.UserViewActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class AdViewActivity : AppCompatActivity() {
@@ -28,6 +30,7 @@ class AdViewActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
+
 
         val intent = intent
         adId = intent.getLongExtra("adId", 0)
@@ -47,7 +50,7 @@ class AdViewActivity : AppCompatActivity() {
 
 
         doAsync {
-                adData(adId, title, city, description, price, username, telephone)
+            adData(adId, title, city, description, price, username, telephone)
             uiThread { actionBar.title = title.text }
         }
 
@@ -74,8 +77,15 @@ class AdViewActivity : AppCompatActivity() {
         }
         val zero: Long = 0
         if (preUserId == zero) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            if (!intent.hasExtra("request")) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                val string: String = intent.getStringExtra("request")
+                val intent = Intent(this, SearchActivity::class.java)
+                intent.putExtra("request", string)
+                startActivity(intent)
+            }
         } else {
             val intent = Intent(this, UserAdActivity::class.java)
             intent.putExtra("userId", userId)
@@ -102,16 +112,16 @@ class AdViewActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
 
-                title.text = result.body()!!.title
-                city.text = result.body()!!.city
-                description.text = result.body()!!.description_ad
-                price.text = result.body()!!.price.toString()
-                username.text = (result.body()!!.owner_ad.first_name + " " + result.body()!!.owner_ad.last_name)
-                telephone.text = result.body()!!.owner_ad.tel_number
-                userId = result.body()!!.owner_ad.id
+                title.text = result.title
+                city.text = result.city
+                description.text = result.description_ad
+                price.text = result.price.toString()
+                username.text = (result.owner_ad.first_name + " " + result.owner_ad.last_name)
+                telephone.text = result.owner_ad.tel_number
+                userId = result.owner_ad.id
 
             }, { error ->
-                // handleError(error, "")
+                toast(handleError(error))
             })
     }
 }

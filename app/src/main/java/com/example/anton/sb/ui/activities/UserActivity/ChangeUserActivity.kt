@@ -12,14 +12,12 @@ import android.widget.EditText
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.ui.activities.AdActivity.MainActivity
+import com.example.anton.sb.data.Extensions.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_change_user.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
-import java.io.IOException
-import java.net.SocketTimeoutException
 
 class ChangeUserActivity : AppCompatActivity() {
 
@@ -97,9 +95,6 @@ class ChangeUserActivity : AppCompatActivity() {
                 firstnameStr.toString(), lastnameStr.toString(),
                 telephoneStr.toString(), aboutStr.toString()
             )
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
         }
     }
 
@@ -116,11 +111,20 @@ class ChangeUserActivity : AppCompatActivity() {
         )
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe({},
+            .subscribe({
+                toast("Данные изменены")
+                val intent = Intent(this, UserSettingsActivity::class.java)
+                startActivity(intent)
+            },
                 { error ->
-                handleError(error, firstName, lastName)
-
-            })
+                    val errorString = handleError(error)
+                    if (errorString == "empty body") {
+                        toast("Данные изменены")
+                        val intent = Intent(this, UserSettingsActivity::class.java)
+                        startActivity(intent)
+                    } else
+                        toast(errorString)
+                })
     }
 
     private fun userData(firstName: TextView, lastName: TextView, telNumber: TextView, about: TextView) {
@@ -134,13 +138,13 @@ class ChangeUserActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
 
-                firstName.text = result.body()!!.first_name
-                lastName.text = result.body()!!.last_name
-                telNumber.text = result.body()!!.tel_number
-                about.text = result.body()!!.about
+                firstName.text = result.first_name
+                lastName.text = result.last_name
+                telNumber.text = result.tel_number
+                about.text = result.about
 
             }, { error ->
-               // handleError(error, "")
+                toast(handleError(error))
             })
     }
 
@@ -153,53 +157,6 @@ class ChangeUserActivity : AppCompatActivity() {
         }
 
         return string
-    }
-
-    private fun removeToken() {
-        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = saveToken.edit()
-
-        editor.remove(keyToken)
-        editor.remove(name)
-        editor.remove(mail)
-        editor.clear()
-        editor.apply()
-    }
-
-
-    private fun handleError(throwable: Throwable, firstName:  String, lastName: String) {
-        if (throwable is retrofit2.HttpException) {
-            val statusCode = throwable.code()
-
-            if (statusCode == 400) {
-                toast("Имя не должно быть пустым")
-            }
-
-            if (statusCode == 401) {
-                removeToken()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }
-
-            if (statusCode == 500) {
-                toast("Нет соединения с сервером")
-            }
-
-        } else if (throwable is SocketTimeoutException) {
-            toast("Нет соединения с сервером")
-        } else if (throwable is IOException) {
-
-            val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = save.edit()
-            editor.remove(name)
-            editor.putString("name", firstName + " " + lastName)
-            editor.apply()
-
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            toast("Что-то пошло не так...")
-        }
     }
 }
 

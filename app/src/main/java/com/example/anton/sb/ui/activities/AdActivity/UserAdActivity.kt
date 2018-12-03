@@ -8,11 +8,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
+import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.data.ResponseClasses.ResultAd
-import com.example.anton.sb.ui.adapters.MainAdapter
+import com.example.anton.sb.ui.adapters.SearchAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 class UserAdActivity : AppCompatActivity() {
@@ -32,7 +34,7 @@ class UserAdActivity : AppCompatActivity() {
         userId = intent.getLongExtra("userId", 0)
         preAdId = intent.getLongExtra("preAdId", 0)
 
-        var list: ArrayList<ResultAd> = ArrayList()
+        var list: ArrayList<ResultAd>
 
         val recyclerView = find<RecyclerView>(R.id.other_user_ad)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -40,8 +42,8 @@ class UserAdActivity : AppCompatActivity() {
         doAsync {
             list = getUserAd(userId)
             uiThread {
-                recyclerView.adapter = MainAdapter(list,
-                    object : MainAdapter.OnItemClickListener {
+                recyclerView.adapter = SearchAdapter(list,
+                    object : SearchAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
                             startAdViewActivity(ad.id)
                         }
@@ -79,10 +81,10 @@ class UserAdActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
 
-                ads.addAll(result.body()!!)
+                ads.addAll(result)
 
             }, { error ->
-                //handleError(error, "Что-то пошло не так")
+                toast(handleError(error))
             })
         return ads
     }

@@ -11,14 +11,13 @@ import android.widget.EditText
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
+import com.example.anton.sb.data.Extensions.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 
 class ChangeAdActivity : AppCompatActivity() {
-
-    private val keyToken = "token"
 
     private var token: String? = null
     private var adId: Long = 0
@@ -35,8 +34,6 @@ class ChangeAdActivity : AppCompatActivity() {
 
         val intent = intent
         adId = intent.getLongExtra("adId", 0)
-
-        toast("${adId}")
 
         val title = find<EditText>(R.id.change_title)
         val city = find<EditText>(R.id.change_city)
@@ -63,7 +60,7 @@ class ChangeAdActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-        val intent = Intent(this, MyAdActivity::class.java)
+        val intent = Intent(this, MyAdsActivity::class.java)
         startActivity(intent)
 
         return true
@@ -81,15 +78,21 @@ class ChangeAdActivity : AppCompatActivity() {
         apiService.changeAd(adId, token.toString(), title, price, city, description)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
-                val intent = Intent(this, MyAdActivity::class.java)
+            .subscribe({
+                toast("Объявление изменено")
+
+                val intent = Intent(this, MyAdsActivity::class.java)
                 startActivity(intent)
             }, { error ->
-                val intent = Intent(this, MyAdActivity::class.java)
-                startActivity(intent)
+                val errorStr = handleError(error)
+                if (errorStr == "empty body") {
 
+                    toast("Объявление изменено")
 
-                // handleError(error, "")
+                    val intent = Intent(this, MyAdsActivity::class.java)
+                    startActivity(intent)
+                } else
+                    toast("$errorStr")
             })
     }
 
@@ -109,13 +112,17 @@ class ChangeAdActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
 
-                title.text = result.body()!!.title
-                city.text = result.body()!!.city
-                description.text = result.body()!!.description_ad
-                price.text = result.body()!!.price.toString()
+                title.text = result.title
+                city.text = result.city
+                description.text = result.description_ad
+                price.text = result.price.toString()
 
             }, { error ->
-                // handleError(error, "")
+                val errorStr = handleError(error)
+                if (errorStr == "empty body")
+                    toast("Нет соединения с сервером")
+                else
+                    toast("$errorStr")
             })
     }
 

@@ -4,20 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
+import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.AdActivity.MainActivity
-import com.google.gson.JsonParser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_registration.*
-import java.io.IOException
-import java.net.SocketTimeoutException
+import org.jetbrains.anko.toast
 
 class RegistrationActivity : AppCompatActivity() {
 
@@ -150,40 +147,13 @@ class RegistrationActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                result ->
-                result.code()
-                Log.d("Result",  "Success" +  result.code())
-                Toast.makeText(this, "Пользователь зарегистрирован!", Toast.LENGTH_SHORT).show()
+                    toast("Пользователь зарегистрирован!")
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
 
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-
-            }, { error -> handleError(error, "Что-то пошло не так")
+            }, { error ->
+                toast(handleError(error))
             })
     }
 
-    private fun handleError(throwable: Throwable, string: String) {
-        if (throwable is retrofit2.HttpException) {
-            val statusCode = throwable.code()
-
-            val errorJsonString = throwable.response().errorBody()?.string()
-
-            val message = JsonParser().parse(errorJsonString).asJsonObject["message"].asString
-            val error = JsonParser().parse(errorJsonString).asJsonObject["error"].asString
-            val description = JsonParser().parse(errorJsonString).asJsonObject["description_ad"].asString
-
-            if (statusCode == 400) {
-                Toast.makeText(this, "Неверный логин и пароль", Toast.LENGTH_SHORT).show()
-            }
-
-            if (statusCode == 500) {
-                    Toast.makeText(this, "Пользователь уже существует", Toast.LENGTH_SHORT).show()
-            }
-
-        } else if (throwable is SocketTimeoutException) {
-            Toast.makeText(this, "Нет соединения с сервером", Toast.LENGTH_SHORT).show()
-        } else if (throwable is IOException) {
-            Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
-        }
-    }
 }
