@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -14,6 +13,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.Extensions.updateDataList
@@ -27,6 +27,8 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
+
+
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -48,7 +50,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val recyclerView = find<RecyclerView>(R.id.ad_list)
         val layoutManager = LinearLayoutManager(this)
 
+
+
         displayAds(list, recyclerView, layoutManager)
+
+        progressBar_main.visibility = ProgressBar.VISIBLE
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
@@ -68,23 +74,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val nameUser = header.find<TextView>(R.id.user_first_name)
         val userEmail = header.find<TextView>(R.id.mail)
         val navViewHeader = header.find<View>(R.id.nav_view_header)
-        val floatingActionButton = find<FloatingActionButton>(R.id.floatingActionButton)
         val searchButton = find<ImageButton>(R.id.search_button)
 
         searchButton.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
-        }
-
-        floatingActionButton.setOnClickListener {
-
-            if (token.isNullOrEmpty()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-            } else {
-                val intent = Intent(this, AddAdActivity::class.java)
-                startActivity(intent)
-            }
         }
 
         setUsername(nameUser, userEmail)
@@ -105,6 +99,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         doAsync {
             val dataList = updateDataList(list)
             uiThread {
+                progressBar_main.visibility = ProgressBar.INVISIBLE
                 if (dataList.isEmpty())
                     toast("Объявлений нет")
                 val adapter =

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
@@ -22,8 +23,10 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_ad.*
 import kotlinx.android.synthetic.main.activity_user_settings.*
 import kotlinx.android.synthetic.main.app_bar_other.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 
 class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -147,7 +150,13 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             focusView?.requestFocus()
         } else {
             // Ad add
-            addAd()
+            doAsync {
+                addAd()
+                uiThread {
+                    progressBar_add_ad.visibility = ProgressBar.INVISIBLE
+                }
+            }
+            progressBar_add_ad.visibility = ProgressBar.VISIBLE
         }
 
     }
@@ -181,6 +190,7 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 val errorStr = handleError(error)
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
                     removeToken()
+                    this.finish()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 } else

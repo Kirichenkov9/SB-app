@@ -152,6 +152,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
                 toast("Вы вышли из аккаунта")
                 removeToken()
+                this.finish()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
 
@@ -171,6 +172,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             .subscribe({ result ->
                 toast("Аккаунт удален")
                 removeToken()
+                this.finish()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             },
@@ -179,6 +181,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                     if (errorStr == "empty body") {
                         toast("Аккаунт удален")
                         removeToken()
+                        this.finish()
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {

@@ -48,10 +48,11 @@ class AdViewActivity : AppCompatActivity() {
         val telephone = find<TextView>(R.id.user_phone_number_ad)
         val button = find<Button>(R.id.go_to_user)
 
-
         doAsync {
             adData(adId, title, city, description, price, username, telephone)
-            uiThread { actionBar.title = title.text }
+            uiThread {
+                actionBar.title = title.text
+            }
         }
 
         button.setOnClickListener {
@@ -105,7 +106,6 @@ class AdViewActivity : AppCompatActivity() {
         username: TextView,
         telephone: TextView
     ) {
-
         val apiService: ApiService = ApiService.create()
 
         apiService.getAd(adId)

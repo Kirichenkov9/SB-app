@@ -49,8 +49,9 @@ class SearchActivity : AppCompatActivity() {
         searchButton.setOnClickListener {
             if (searchText.text.isNullOrEmpty())
                 toast("Вы ничего не вввели")
-            else if (list.size == 0)
+            else if (list.size == 0) {
                 displayAds(list, searchText, recyclerView, layoutManager)
+            }
         }
     }
 

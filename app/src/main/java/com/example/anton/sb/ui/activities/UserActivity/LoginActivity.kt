@@ -136,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
                         emailStr,
                         result.body()!!.id
                     )
-
+                    this.finish()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }

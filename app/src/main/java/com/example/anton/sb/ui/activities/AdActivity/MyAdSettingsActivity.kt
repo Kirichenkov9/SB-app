@@ -127,6 +127,8 @@ class MyAdSettingsActivity : AppCompatActivity() {
             .subscribe({
                 toast("Объявление удалено")
 
+                this.finish()
+
                 val intent = Intent(this, MyAdsActivity::class.java)
                 startActivity(intent)
             }, { error ->
@@ -134,6 +136,8 @@ class MyAdSettingsActivity : AppCompatActivity() {
                 val errorStr = handleError(error)
                 if (errorStr == "empty body") {
                     toast("Объявление удалено")
+
+                    this.finish()
 
                     val intent = Intent(this, MyAdsActivity::class.java)
                     startActivity(intent)

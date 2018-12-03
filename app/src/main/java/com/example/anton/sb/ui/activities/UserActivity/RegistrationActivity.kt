@@ -147,9 +147,12 @@ class RegistrationActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                    toast("Пользователь зарегистрирован!")
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                toast("Пользователь зарегистрирован!")
+
+                this.finish()
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
 
             }, { error ->
                 toast(handleError(error))

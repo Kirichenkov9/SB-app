@@ -113,6 +113,8 @@ class ChangeUserActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe({
                 toast("Данные изменены")
+                this.finish()
+
                 val intent = Intent(this, UserSettingsActivity::class.java)
                 startActivity(intent)
             },
@@ -120,6 +122,8 @@ class ChangeUserActivity : AppCompatActivity() {
                     val errorString = handleError(error)
                     if (errorString == "empty body") {
                         toast("Данные изменены")
+                        this.finish()
+
                         val intent = Intent(this, UserSettingsActivity::class.java)
                         startActivity(intent)
                     } else

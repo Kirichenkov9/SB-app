@@ -124,7 +124,7 @@ interface ApiService {
             val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://10.0.2.2:8080/")
+                .baseUrl("https://protected-bayou-62297.herokuapp.com/")
                 .build()
 
             return retrofit.create(ApiService::class.java)

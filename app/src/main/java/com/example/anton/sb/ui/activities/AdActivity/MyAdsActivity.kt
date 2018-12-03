@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
@@ -63,6 +64,8 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         displayAds(recyclerView, idUser)
 
+        progressBar_my_ad.visibility = ProgressBar.VISIBLE
+
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_user_ad, toolbar_my_ads,
             R.string.navigation_drawer_open,
@@ -92,6 +95,7 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         doAsync {
             val list = getUserAd(idUser)
             uiThread {
+                progressBar_my_ad.visibility = ProgressBar.INVISIBLE
                 recyclerView.adapter = SearchAdapter(list,
                     object : SearchAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {

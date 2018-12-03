@@ -8,14 +8,18 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_change_ad.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 class ChangeAdActivity : AppCompatActivity() {
 
@@ -44,13 +48,20 @@ class ChangeAdActivity : AppCompatActivity() {
         adData(adId, title, city, description, price)
 
         button.setOnClickListener {
-            adChange(
-                adId,
-                title.text.toString(),
-                city.text.toString(),
-                description.text.toString(),
-                price.text.toString().toInt()
-            )
+            doAsync {
+                adChange(
+                    adId,
+                    title.text.toString(),
+                    city.text.toString(),
+                    description.text.toString(),
+                    price.text.toString().toInt()
+                )
+                uiThread {
+                    progressBar_ad_change.visibility = ProgressBar.INVISIBLE
+                }
+            }
+            progressBar_ad_change.visibility = ProgressBar.VISIBLE
+
         }
     }
 
@@ -81,6 +92,8 @@ class ChangeAdActivity : AppCompatActivity() {
             .subscribe({
                 toast("Объявление изменено")
 
+                this.finish()
+
                 val intent = Intent(this, MyAdsActivity::class.java)
                 startActivity(intent)
             }, { error ->
@@ -88,6 +101,8 @@ class ChangeAdActivity : AppCompatActivity() {
                 if (errorStr == "empty body") {
 
                     toast("Объявление изменено")
+
+                    this.finish()
 
                     val intent = Intent(this, MyAdsActivity::class.java)
                     startActivity(intent)
