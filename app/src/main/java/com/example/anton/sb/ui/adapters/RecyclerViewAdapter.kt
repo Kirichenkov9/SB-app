@@ -2,10 +2,12 @@ package com.example.anton.sb.ui.adapters
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.Extensions.updateDataList
@@ -51,11 +53,12 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
 
     class OnScrollListener(
         val layoutManager: LinearLayoutManager,
-        val adapter: RecyclerView.Adapter<MainAdapter.ViewHolder>, val dataList: ArrayList<ResultAd>
+        val adapter: RecyclerView.Adapter<MainAdapter.ViewHolder>, val dataList: ArrayList<ResultAd>,
+        val progressBar: ProgressBar
     ) : RecyclerView.OnScrollListener() {
         var previousTotal = 0
         var loading = true
-        val visibleThreshold = 10
+        val visibleThreshold = 5
         var firstVisibleItem = 0
         var visibleItemCount = 0
         var totalItemCount = 0
@@ -65,7 +68,8 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
 
             visibleItemCount = recyclerView.childCount
             totalItemCount = layoutManager.itemCount
-            firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+            firstVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+
 
             if (loading) {
                 if (totalItemCount > previousTotal) {
@@ -73,6 +77,10 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
                     previousTotal = totalItemCount
                 }
             }
+            Log.d("vis", visibleItemCount.toString())
+            Log.d("tot", totalItemCount.toString())
+            Log.d("firs", firstVisibleItem.toString())
+
 
             if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                 val initialSize = dataList.size
@@ -80,11 +88,11 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
                     updateDataList(dataList)
                     uiThread {
                         val updatedSize = dataList.size
+
                         recyclerView.post { adapter.notifyItemRangeInserted(initialSize, updatedSize) }
-                        loading = true
                     }
                 }
-
+                loading = true
             }
         }
     }

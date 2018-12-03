@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
@@ -51,11 +52,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val layoutManager = LinearLayoutManager(this)
 
 
-
-        displayAds(list, recyclerView, layoutManager)
-
-        progressBar_main.visibility = ProgressBar.VISIBLE
-
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
             R.string.navigation_drawer_open,
@@ -92,6 +88,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
             }
         }
+        displayAds(list, recyclerView, layoutManager)
+
+        progressBar_main.visibility = ProgressBar.VISIBLE
     }
 
     private fun displayAds(list: ArrayList<ResultAd>, recyclerView: RecyclerView, layoutManager: LinearLayoutManager) {
@@ -110,7 +109,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     })
                 recyclerView.layoutManager = layoutManager
                 recyclerView.adapter = adapter
-                recyclerView.addOnScrollListener(MainAdapter.OnScrollListener(layoutManager, adapter, dataList))
+                Log.d("main", "1")
+                recyclerView.addOnScrollListener(MainAdapter.OnScrollListener(layoutManager, adapter, dataList, progressBar_main))
             }
         }
     }

@@ -84,10 +84,9 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
                     uiThread {
                         val updatedSize = searchList.size
                         recyclerView.post { adapter.notifyItemRangeInserted(initialSize, updatedSize) }
-                        loading = true
                     }
                 }
-
+                loading = true
             }
         }
     }

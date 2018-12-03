@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 fun updateDataList(dataList: ArrayList<ResultAd>): ArrayList<ResultAd> {
 
     val apiService: ApiService = ApiService.create()
-
     apiService.getAds(dataList.size, 10)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({ result ->
