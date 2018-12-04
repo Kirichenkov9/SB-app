@@ -19,16 +19,17 @@
             <EditText
                     android:id="@+id/search_edit_frame"
                     android:hint="@string/search_hint"
-                    android:background="@color/background"
+                    android:background="@drawable/rounded_edittext"
                     android:layout_marginEnd="40dp"
                     android:textColorHint="@color/colorPrimary"
                     android:inputType="textShortMessage"
                     android:lines="1"
                     android:paddingStart="10dp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimaryDark"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:imeOptions="actionSearch"/>
+                    android:imeOptions="actionSearch"
+                    android:textCursorDrawable="@color/colorPrimaryDark"/>
 
             <ImageButton
                     android:id="@+id/start_search"
