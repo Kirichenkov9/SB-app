@@ -16,6 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
+import java.util.regex.Pattern.compile
 
 
 /**
@@ -106,7 +107,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isEmailValid(email: String): Boolean {
         //Check entered email
-        return email.contains("@")
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        val pattern = compile(emailPattern)
+        val matcher = pattern.matcher(email)
+        return matcher.matches()
     }
 
     private fun isPasswordValid(password: String): Boolean {
@@ -139,8 +143,7 @@ class LoginActivity : AppCompatActivity() {
                     this.finish()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                }
-                else
+                } else
                     toast("Неверный пароль или логин")
 
             }, { error ->

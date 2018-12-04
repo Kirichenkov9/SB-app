@@ -15,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_registration.*
 import org.jetbrains.anko.toast
+import java.util.regex.Pattern
 
 class RegistrationActivity : AppCompatActivity() {
 
@@ -124,7 +125,10 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun isEmailValid(email: String): Boolean {
         //Check entered email
-        return email.contains("@")
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        val pattern = Pattern.compile(emailPattern)
+        val matcher = pattern.matcher(email)
+        return matcher.matches()
     }
 
     private fun isPasswordValid(password: String): Boolean {
