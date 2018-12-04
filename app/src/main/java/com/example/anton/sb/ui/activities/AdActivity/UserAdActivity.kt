@@ -43,6 +43,7 @@ class UserAdActivity : AppCompatActivity() {
         doAsync {
             list = getUserAd(userId)
             uiThread {
+                progressBar_user_ad.visibility = ProgressBar.INVISIBLE
                 recyclerView.adapter = SearchAdapter(list,
                     object : SearchAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
@@ -81,11 +82,10 @@ class UserAdActivity : AppCompatActivity() {
         val apiService: ApiService = ApiService.create()
         apiService.getUserAd(id_user)
             .subscribe({ result ->
-                progressBar_user_ad.visibility = ProgressBar.INVISIBLE
                 ads.addAll(result)
 
             }, { error ->
-                progressBar_user_ad.visibility = ProgressBar.INVISIBLE
+
                 toast(handleError(error))
             })
         return ads

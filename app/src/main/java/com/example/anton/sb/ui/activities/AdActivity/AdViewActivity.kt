@@ -50,26 +50,6 @@ class AdViewActivity : AppCompatActivity() {
         val telephone = find<TextView>(R.id.user_phone_number_ad)
         val button = find<Button>(R.id.go_to_user)
 
-        doAsync {
-            val ad: ResultAd? = adData(adId)
-
-            uiThread {
-                if (ad != null) {
-                    progressBar_ad_view.visibility = ProgressBar.INVISIBLE
-                    title.text = ad.title
-                    city.text = ad.city
-                    description.text = ad.description_ad
-                    price.text = ad.price.toString()
-                    username.text = (ad.owner_ad.first_name + " " + ad.owner_ad.last_name)
-                    telephone.text = ad.owner_ad.tel_number
-                    userId = ad.owner_ad.id
-                    actionBar.title = title.text
-                }
-            }
-        }
-
-        progressBar_ad_view.visibility = ProgressBar.VISIBLE
-
         button.setOnClickListener {
             val intent = Intent(this, UserAdActivity::class.java)
             intent.putExtra("userId", userId)
@@ -83,6 +63,28 @@ class AdViewActivity : AppCompatActivity() {
             intent.putExtra("adId", adId)
             startActivity(intent)
         }
+
+        doAsync {
+            val ad: ResultAd? = adData(adId)
+
+            uiThread {
+
+                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
+
+                if (ad != null) {
+                    title.text = ad.title
+                    city.text = ad.city
+                    description.text = ad.description_ad
+                    price.text = ad.price.toString()
+                    username.text = (ad.owner_ad.first_name + " " + ad.owner_ad.last_name)
+                    telephone.text = ad.owner_ad.tel_number
+                    userId = ad.owner_ad.id
+                    actionBar.title = title.text
+                }
+            }
+        }
+
+        progressBar_ad_view.visibility = ProgressBar.VISIBLE
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -120,12 +122,9 @@ class AdViewActivity : AppCompatActivity() {
 
         apiService.getAd(adId)
             .subscribe({ result ->
-
                 ad = result
-                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
 
             }, { error ->
-                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
 
