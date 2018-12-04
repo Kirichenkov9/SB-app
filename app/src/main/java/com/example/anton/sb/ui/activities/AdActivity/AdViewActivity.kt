@@ -50,28 +50,12 @@ class AdViewActivity : AppCompatActivity() {
         val telephone = find<TextView>(R.id.user_phone_number_ad)
         val button = find<Button>(R.id.go_to_user)
 
-        button.setOnClickListener {
-            val intent = Intent(this, UserAdActivity::class.java)
-            intent.putExtra("userId", userId)
-            intent.putExtra("preAdId", adId)
-            startActivity(intent)
-        }
-
-        username.setOnClickListener {
-            val intent = Intent(this, UserViewActivity::class.java)
-            intent.putExtra("userId", userId)
-            intent.putExtra("adId", adId)
-            startActivity(intent)
-        }
-
         doAsync {
             val ad: ResultAd? = adData(adId)
 
             uiThread {
-
-                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
-
                 if (ad != null) {
+                    progressBar_ad_view.visibility = ProgressBar.INVISIBLE
                     title.text = ad.title
                     city.text = ad.city
                     description.text = ad.description_ad
@@ -85,6 +69,20 @@ class AdViewActivity : AppCompatActivity() {
         }
 
         progressBar_ad_view.visibility = ProgressBar.VISIBLE
+
+        button.setOnClickListener {
+            val intent = Intent(this, UserAdActivity::class.java)
+            intent.putExtra("userId", userId)
+            intent.putExtra("preAdId", adId)
+            startActivity(intent)
+        }
+
+        username.setOnClickListener {
+            val intent = Intent(this, UserViewActivity::class.java)
+            intent.putExtra("userId", userId)
+            intent.putExtra("adId", adId)
+            startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -122,9 +120,12 @@ class AdViewActivity : AppCompatActivity() {
 
         apiService.getAd(adId)
             .subscribe({ result ->
+
                 ad = result
+                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
 
             }, { error ->
+                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
 
