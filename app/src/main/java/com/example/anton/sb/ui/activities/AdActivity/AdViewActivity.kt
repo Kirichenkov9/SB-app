@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
+import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.activities.UserActivity.UserViewActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.activity_ad_view.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
@@ -49,11 +51,24 @@ class AdViewActivity : AppCompatActivity() {
         val button = find<Button>(R.id.go_to_user)
 
         doAsync {
-            adData(adId, title, city, description, price, username, telephone)
+            val ad: ResultAd? = adData(adId)
+
             uiThread {
-                actionBar.title = title.text
+                if (ad != null) {
+                    progressBar_ad_view.visibility = ProgressBar.INVISIBLE
+                    title.text = ad.title
+                    city.text = ad.city
+                    description.text = ad.description_ad
+                    price.text = ad.price.toString()
+                    username.text = (ad.owner_ad.first_name + " " + ad.owner_ad.last_name)
+                    telephone.text = ad.owner_ad.tel_number
+                    userId = ad.owner_ad.id
+                    actionBar.title = title.text
+                }
             }
         }
+
+        progressBar_ad_view.visibility = ProgressBar.VISIBLE
 
         button.setOnClickListener {
             val intent = Intent(this, UserAdActivity::class.java)
@@ -98,30 +113,22 @@ class AdViewActivity : AppCompatActivity() {
     }
 
     private fun adData(
-        adId: Long,
-        title: TextView,
-        city: TextView,
-        description: TextView,
-        price: TextView,
-        username: TextView,
-        telephone: TextView
-    ) {
+        adId: Long
+    ): ResultAd? {
+        var ad: ResultAd? = null
         val apiService: ApiService = ApiService.create()
 
         apiService.getAd(adId)
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
 
-                title.text = result.title
-                city.text = result.city
-                description.text = result.description_ad
-                price.text = result.price.toString()
-                username.text = (result.owner_ad.first_name + " " + result.owner_ad.last_name)
-                telephone.text = result.owner_ad.tel_number
-                userId = result.owner_ad.id
+                ad = result
+                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
 
             }, { error ->
+                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
+
+        return ad
     }
 }

@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
@@ -42,9 +43,11 @@ class ChangeUserActivity : AppCompatActivity() {
         val about = find<EditText>(R.id.change_about)
 
         userData(firstName, lastName, telNumber, about)
+        progressBar_user_change.visibility = ProgressBar.VISIBLE
 
         change_user.setOnClickListener {
             changeUser()
+            progressBar_user_change.visibility = ProgressBar.VISIBLE
         }
 
     }
@@ -112,6 +115,7 @@ class ChangeUserActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                progressBar_user_change.visibility = ProgressBar.INVISIBLE
                 toast("Данные изменены")
                 this.finish()
 
@@ -119,6 +123,7 @@ class ChangeUserActivity : AppCompatActivity() {
                 startActivity(intent)
             },
                 { error ->
+                    progressBar_user_change.visibility = ProgressBar.INVISIBLE
                     val errorString = handleError(error)
                     if (errorString == "empty body") {
                         toast("Данные изменены")
@@ -141,13 +146,14 @@ class ChangeUserActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
-
+                progressBar_user_change.visibility = ProgressBar.INVISIBLE
                 firstName.text = result.first_name
                 lastName.text = result.last_name
                 telNumber.text = result.tel_number
                 about.text = result.about
 
             }, { error ->
+                progressBar_user_change.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
     }

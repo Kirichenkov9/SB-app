@@ -8,10 +8,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import com.example.anton.sb.R
 import com.example.anton.sb.data.Extensions.updateSearchList
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.adapters.SearchAdapter
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.app_bar_search.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
@@ -63,6 +65,7 @@ class SearchActivity : AppCompatActivity() {
         doAsync {
             val dataList = updateSearchList(list, searchText.text.toString())
             uiThread {
+                progressBar_search.visibility = ProgressBar.INVISIBLE
                 if (dataList.isEmpty())
                     toast("Объявлений не найдено")
                 val adapter =
@@ -84,6 +87,7 @@ class SearchActivity : AppCompatActivity() {
                 )
             }
         }
+        progressBar_search.visibility = ProgressBar.VISIBLE
     }
 
     private fun startAdViewActivity(id: Long, string: String) {

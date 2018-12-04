@@ -23,10 +23,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_ad.*
 import kotlinx.android.synthetic.main.activity_user_settings.*
 import kotlinx.android.synthetic.main.app_bar_other.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
 
 
 class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -150,12 +148,7 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             focusView?.requestFocus()
         } else {
             // Ad add
-            doAsync {
-                addAd()
-                uiThread {
-                    progressBar_add_ad.visibility = ProgressBar.INVISIBLE
-                }
-            }
+            addAd()
             progressBar_add_ad.visibility = ProgressBar.VISIBLE
         }
 
@@ -181,12 +174,13 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                progressBar_add_ad.visibility = ProgressBar.INVISIBLE
                 toast("Объявление добавлено")
 
                 val intent = Intent(this, MyAdsActivity::class.java)
                 startActivity(intent)
             }, { error ->
-
+                progressBar_add_ad.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
                     removeToken()

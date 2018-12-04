@@ -22,4 +22,8 @@
                 android:title="@string/add_ad"/>
     </group>
 
+    <item android:id="@+id/app_settings"
+          android:icon="@drawable/ic_settings"
+          android:title="@string/about_app"/>
+
 </menu>

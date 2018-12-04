@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
+import android.widget.ProgressBar
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
@@ -102,6 +103,7 @@ class LoginActivity : AppCompatActivity() {
             // Show a progress spinner and to
             // perform the user login attempt.
             login()
+            progressBar_login.visibility = ProgressBar.VISIBLE
         }
     }
 
@@ -130,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
-
+                progressBar_login.visibility = ProgressBar.INVISIBLE
                 if (result.code() == 200) {
                     toast("Привет, ${result.body()!!.first_name}")
                     saveUsername(
@@ -147,6 +149,7 @@ class LoginActivity : AppCompatActivity() {
                     toast("Неверный пароль или логин")
 
             }, { error ->
+                progressBar_login.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
     }

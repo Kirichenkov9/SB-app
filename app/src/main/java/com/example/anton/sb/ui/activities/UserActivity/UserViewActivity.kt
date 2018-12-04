@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.AdActivity.AdViewActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.activity_user_view.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
@@ -42,6 +44,7 @@ class UserViewActivity : AppCompatActivity() {
             userData(firstName, lastName, email, telephone, about, id)
             uiThread { actionBar.title = firstName.text.toString() + " " + lastName.text.toString() }
         }
+        progressBar_user_view.visibility = ProgressBar.VISIBLE
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -69,6 +72,7 @@ class UserViewActivity : AppCompatActivity() {
         apiService.getUser(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
+                progressBar_user_view.visibility = ProgressBar.INVISIBLE
 
                 first_name.text = result.first_name
                 last_name.text = result.last_name
@@ -77,6 +81,8 @@ class UserViewActivity : AppCompatActivity() {
                 about.text = result.about
 
             }, { error ->
+                progressBar_user_view.visibility = ProgressBar.INVISIBLE
+
                 toast(handleError(error))
             })
     }

@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
@@ -119,13 +120,14 @@ class RegistrationActivity : AppCompatActivity() {
         } else {
             // Ad add
             adUser()
+            progressBar_registration.visibility = ProgressBar.VISIBLE
         }
 
     }
 
     private fun isEmailValid(email: String): Boolean {
         //Check entered email
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        val emailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
         val pattern = Pattern.compile(emailPattern)
         val matcher = pattern.matcher(email)
         return matcher.matches()
@@ -151,6 +153,7 @@ class RegistrationActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                progressBar_registration.visibility = ProgressBar.INVISIBLE
                 toast("Пользователь зарегистрирован!")
 
                 this.finish()
@@ -159,6 +162,7 @@ class RegistrationActivity : AppCompatActivity() {
                 startActivity(intent)
 
             }, { error ->
+                progressBar_registration.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
     }

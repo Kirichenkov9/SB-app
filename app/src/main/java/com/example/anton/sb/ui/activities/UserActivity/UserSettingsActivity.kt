@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
@@ -78,6 +79,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         val about = find<TextView>(R.id.user_about)
 
         userData(firstName, lastName, email, telephone, about)
+        progressBar_user_settings.visibility = ProgressBar.VISIBLE
 
         firstName.setOnClickListener {
             val intent = Intent(this, ChangeUserActivity::class.java)
@@ -101,10 +103,12 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
         exit_account.setOnClickListener {
             logout()
+            progressBar_user_settings.visibility = ProgressBar.VISIBLE
         }
 
         delete_account.setOnClickListener {
             delete()
+            progressBar_user_settings.visibility = ProgressBar.VISIBLE
         }
 
     }
@@ -149,17 +153,17 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-
+                progressBar_user_settings.visibility = ProgressBar.INVISIBLE
                 toast("Вы вышли из аккаунта")
                 removeToken()
                 this.finish()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
 
-            },
-                { error ->
-                    toast(handleError(error))
-                })
+            }, { error ->
+                progressBar_user_settings.visibility = ProgressBar.INVISIBLE
+                toast(handleError(error))
+            })
     }
 
     private fun delete() {
@@ -170,6 +174,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
+                progressBar_user_settings.visibility = ProgressBar.INVISIBLE
                 toast("Аккаунт удален")
                 removeToken()
                 this.finish()
@@ -177,6 +182,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 startActivity(intent)
             },
                 { error ->
+                    progressBar_user_settings.visibility = ProgressBar.INVISIBLE
                     val errorStr = handleError(error)
                     if (errorStr == "empty body") {
                         toast("Аккаунт удален")
@@ -193,7 +199,6 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 })
     }
 
-
     private fun userData(
         firstName: TextView,
         lastName: TextView,
@@ -208,6 +213,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
+                progressBar_user_settings.visibility = ProgressBar.INVISIBLE
 
                 firstName.text = result.first_name
                 lastName.text = result.last_name
@@ -216,6 +222,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 about.text = result.about
 
             }, { error ->
+                progressBar_user_settings.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
                 if (errorStr == "empty body") {
                     toast("Объявление удалено")

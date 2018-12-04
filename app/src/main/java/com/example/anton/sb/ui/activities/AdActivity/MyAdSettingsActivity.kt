@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
@@ -14,6 +15,7 @@ import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_my_ad_settings.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
@@ -50,6 +52,8 @@ class MyAdSettingsActivity : AppCompatActivity() {
             uiThread { actionBar.title = title.text }
         }
 
+        progressBar_ad_settings.visibility = ProgressBar.VISIBLE
+
 
         title.setOnClickListener {
             val intent = Intent(this, ChangeAdActivity::class.java)
@@ -77,8 +81,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             deleteAd()
-            val intent = Intent(this, MyAdsActivity::class.java)
-            startActivity(intent)
+            progressBar_ad_settings.visibility = ProgressBar.VISIBLE
         }
     }
 
@@ -106,13 +109,14 @@ class MyAdSettingsActivity : AppCompatActivity() {
         apiService.getAd(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->
-
+                progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
                 title.text = result.title
                 city.text = result.city
                 description.text = result.description_ad
                 price.text = result.price.toString()
 
             }, { error ->
+                progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
     }
@@ -125,6 +129,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
                 toast("Объявление удалено")
 
                 this.finish()
@@ -132,7 +137,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
                 val intent = Intent(this, MyAdsActivity::class.java)
                 startActivity(intent)
             }, { error ->
-
+                progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
                 if (errorStr == "empty body") {
                     toast("Объявление удалено")

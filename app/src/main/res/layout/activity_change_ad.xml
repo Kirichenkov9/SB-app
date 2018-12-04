@@ -13,15 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <ProgressBar
-                android:id="@+id/progressBar_ad_change"
-                android:visibility="invisible"
-                android:layout_height="150dp"
-                android:layout_width="150dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -156,5 +147,16 @@
                     android:theme="@style/RoundedCornerButton"
                     android:layout_gravity="center"/>
         </LinearLayout>
+
+        <ProgressBar
+                android:id="@+id/progressBar_ad_change"
+                android:visibility="invisible"
+                android:layout_height="100dp"
+                android:layout_width="100dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

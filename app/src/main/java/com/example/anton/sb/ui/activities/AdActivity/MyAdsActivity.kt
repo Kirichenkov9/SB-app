@@ -95,7 +95,6 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         doAsync {
             val list = getUserAd(idUser)
             uiThread {
-                progressBar_my_ad.visibility = ProgressBar.INVISIBLE
                 recyclerView.adapter = SearchAdapter(list,
                     object : SearchAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
@@ -187,13 +186,14 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         apiService.getUserAd(idUser)
             .observeOn(mainThread())
             .subscribe({ result ->
-
+                progressBar_my_ad.visibility = ProgressBar.INVISIBLE
                 ads.addAll(result)
 
                 if (result.isEmpty())
                     toast("Объявлений нет")
 
             }, { error ->
+                progressBar_my_ad.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
                     removeToken()
