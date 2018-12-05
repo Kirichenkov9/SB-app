@@ -81,7 +81,7 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
     }
 
-   override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.search -> {
                 val intent = Intent(this, MainActivity::class.java)

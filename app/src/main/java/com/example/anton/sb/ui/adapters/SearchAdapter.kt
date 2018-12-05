@@ -14,10 +14,8 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 
-
 class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: SearchAdapter.OnItemClickListener) :
     RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.content_main, parent, false)
@@ -25,7 +23,6 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
     }
 
     override fun getItemCount() = ads.size
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindAd(ads[position])
@@ -61,7 +58,6 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
         var firstVisibleItem = 0
         var visibleItemCount = 0
         var totalItemCount = 0
-
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)

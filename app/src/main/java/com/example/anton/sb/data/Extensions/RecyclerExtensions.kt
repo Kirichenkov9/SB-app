@@ -3,7 +3,6 @@ package com.example.anton.sb.data.Extensions
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 
-
 fun updateDataList(dataList: ArrayList<ResultAd>): ArrayList<ResultAd> {
 
     val apiService: ApiService = ApiService.create()
@@ -11,9 +10,7 @@ fun updateDataList(dataList: ArrayList<ResultAd>): ArrayList<ResultAd> {
         .subscribe({ result ->
 
             dataList.addAll(result)
-
-        }, {}
-        )
+        }, {})
     return dataList
 }
 
@@ -28,8 +25,6 @@ fun updateSearchList(
         .subscribe({ result ->
 
             searchList.addAll(result)
-
-        }, {}
-        )
+        }, {})
     return searchList
 }

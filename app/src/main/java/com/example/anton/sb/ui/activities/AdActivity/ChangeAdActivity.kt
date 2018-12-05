@@ -109,7 +109,6 @@ class ChangeAdActivity : AppCompatActivity() {
             })
     }
 
-
     private fun adData(
         adId: Long,
         title: TextView,
@@ -129,7 +128,6 @@ class ChangeAdActivity : AppCompatActivity() {
                 city.text = result.city
                 description.text = result.description_ad
                 price.text = result.price.toString()
-
             }, { error ->
                 progressBar_ad_change.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)

@@ -33,7 +33,6 @@ class AdViewActivity : AppCompatActivity() {
         actionBar!!.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-
         val intent = intent
         adId = intent.getLongExtra("adId", 0)
         preUserId = intent.getLongExtra("userId", 0)
@@ -123,7 +122,6 @@ class AdViewActivity : AppCompatActivity() {
 
                 ad = result
                 progressBar_ad_view.visibility = ProgressBar.INVISIBLE
-
             }, { error ->
                 progressBar_ad_view.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))

@@ -40,7 +40,6 @@ class MyAdSettingsActivity : AppCompatActivity() {
         val intent = intent
         adId = intent.getLongExtra("adId", 0)
 
-
         val title = find<TextView>(R.id.title_ad_settings)
         val city = find<TextView>(R.id.city_ad_settings)
         val description = find<TextView>(R.id.about_ad_settings)
@@ -53,7 +52,6 @@ class MyAdSettingsActivity : AppCompatActivity() {
         }
 
         progressBar_ad_settings.visibility = ProgressBar.VISIBLE
-
 
         title.setOnClickListener {
             val intent = Intent(this, ChangeAdActivity::class.java)
@@ -114,7 +112,6 @@ class MyAdSettingsActivity : AppCompatActivity() {
                 city.text = result.city
                 description.text = result.description_ad
                 price.text = result.price.toString()
-
             }, { error ->
                 progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
@@ -152,7 +149,6 @@ class MyAdSettingsActivity : AppCompatActivity() {
                     startActivity(intent)
                 } else
                     toast(errorStr)
-
             })
     }
 

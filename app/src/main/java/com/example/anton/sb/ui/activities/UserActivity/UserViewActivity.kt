@@ -33,7 +33,6 @@ class UserViewActivity : AppCompatActivity() {
         val id = intent.getLongExtra("userId", 0)
         adId = intent.getLongExtra("adId", 0)
 
-
         val firstName = find<TextView>(R.id.first_user_name_view)
         val lastName = find<TextView>(R.id.last_user_name_view)
         val email = find<TextView>(R.id.user_email_view)
@@ -79,7 +78,6 @@ class UserViewActivity : AppCompatActivity() {
                 email.text = result.email
                 telephone.text = result.tel_number
                 about.text = result.about
-
             }, { error ->
                 progressBar_user_view.visibility = ProgressBar.INVISIBLE
 

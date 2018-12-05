@@ -32,7 +32,6 @@ import org.jetbrains.anko.uiThread
 
 class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-
     private var token: String? = null
     private val keyToken = "token"
     private val name: String = "name"
@@ -53,13 +52,11 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val recyclerView = find<RecyclerView>(R.id.user_ad)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-
         val header = find<NavigationView>(R.id.nav_view_user_ad).getHeaderView(0)
 
         val nameUser = header.find<TextView>(R.id.user_first_name)
         val userEmail = header.find<TextView>(R.id.mail)
         val navViewHeader = header.find<View>(R.id.nav_view_header)
-
 
         setUsername(nameUser, userEmail)
 
@@ -87,7 +84,6 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 val intent = Intent(this, UserSettingsActivity::class.java)
                 startActivity(intent)
             }
-
         }
     }
 
@@ -170,7 +166,6 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             name_user.text = read(name)
             userEmail.text = read(mail)
         }
-
     }
 
     private fun read(key: String): String? {
@@ -196,7 +191,6 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
                 if (result.isEmpty())
                     toast("Объявлений нет")
-
             }, { error ->
                 progressBar_my_ad.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
@@ -204,10 +198,11 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                     removeToken()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
-                } else  toast(errorStr)
+                } else toast(errorStr)
             })
         return ads
     }
+
     private fun removeToken() {
         val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = saveToken.edit()

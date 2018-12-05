@@ -44,7 +44,6 @@ class ChangeUserActivity : AppCompatActivity() {
             changeUser()
             progressBar_user_change.visibility = ProgressBar.VISIBLE
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -151,7 +150,6 @@ class ChangeUserActivity : AppCompatActivity() {
                 lastName.text = result.last_name
                 telNumber.text = result.tel_number
                 about.text = result.about
-
             }, { error ->
                 progressBar_user_change.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
@@ -177,4 +175,3 @@ class ChangeUserActivity : AppCompatActivity() {
         editor.apply()
     }
 }
-

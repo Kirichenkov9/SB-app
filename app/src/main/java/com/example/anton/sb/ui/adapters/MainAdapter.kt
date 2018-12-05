@@ -16,18 +16,14 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 
-
 class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: MainAdapter.OnItemClickListener) :
     RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.content_main, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder { val view = LayoutInflater.from(parent.context).inflate(R.layout.content_main, parent, false)
         return ViewHolder(view, itemClick)
     }
 
     override fun getItemCount() = ads.size
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindAd(ads[position])
@@ -53,7 +49,8 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
 
     class OnScrollListener(
         val layoutManager: LinearLayoutManager,
-        val adapter: RecyclerView.Adapter<MainAdapter.ViewHolder>, val dataList: ArrayList<ResultAd>,
+        val adapter: RecyclerView.Adapter<MainAdapter.ViewHolder>,
+        val dataList: ArrayList<ResultAd>,
         val progressBar: ProgressBar
     ) : RecyclerView.OnScrollListener() {
         var previousTotal = 0
@@ -70,7 +67,6 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
             totalItemCount = layoutManager.itemCount
             firstVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
 
-
             if (loading) {
                 if (totalItemCount > previousTotal) {
                     loading = false
@@ -80,7 +76,6 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
             Log.d("vis", visibleItemCount.toString())
             Log.d("tot", totalItemCount.toString())
             Log.d("firs", firstVisibleItem.toString())
-
 
             if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                 val initialSize = dataList.size

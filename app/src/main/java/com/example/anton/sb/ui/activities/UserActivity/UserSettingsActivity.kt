@@ -42,8 +42,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         token = read(keyToken)
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout_settings, toolbar_settings
-            ,
+            this, drawer_layout_settings, toolbar_settings,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
@@ -52,8 +51,6 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         toggle.syncState()
 
         nav_view_settings.setNavigationItemSelectedListener(this)
-
-
         val header = find<NavigationView>(R.id.nav_view_settings).getHeaderView(0)
 
         val nameUser = header.find<TextView>(R.id.user_first_name)
@@ -111,7 +108,6 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             delete()
             progressBar_user_settings.visibility = ProgressBar.VISIBLE
         }
-
     }
 
     override fun onBackPressed() {
@@ -164,7 +160,6 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 this.finish()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-
             }, { error ->
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
@@ -225,7 +220,6 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 email.text = result.email
                 telephone.text = result.tel_number
                 about.text = result.about
-
             }, { error ->
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
@@ -263,8 +257,4 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }
         return string
     }
-
 }
-
-
-

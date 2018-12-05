@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.app_bar_other.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 
-
 class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var token: String? = null
@@ -156,7 +155,6 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             addAd()
             progressBar_add_ad.visibility = ProgressBar.VISIBLE
         }
-
     }
 
     private fun addAd() {
@@ -173,7 +171,6 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val cityStr = city.text.toString()
         val description: String = about.text.toString()
         val apiService: ApiService = ApiService.create()
-
 
         apiService.createAd(token.toString(), titleStr, priceAd, cityStr, description)
             .observeOn(AndroidSchedulers.mainThread())
@@ -218,4 +215,3 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         editor.apply()
     }
 }
-

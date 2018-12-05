@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 import java.util.regex.Pattern.compile
 
-
 /**
  * A login screen that offers login via email/password.
  */
@@ -108,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isEmailValid(email: String): Boolean {
-        //Check entered email
+        // Check entered email
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         val pattern = compile(emailPattern)
         val matcher = pattern.matcher(email)
@@ -116,10 +115,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isPasswordValid(password: String): Boolean {
-        //Check entered password
+        // Check entered password
         return password.length >= 6
     }
-
 
     private fun login() {
 
@@ -147,7 +145,6 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
                 } else
                     toast("Неверный пароль или логин")
-
             }, { error ->
                 progressBar_login.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))

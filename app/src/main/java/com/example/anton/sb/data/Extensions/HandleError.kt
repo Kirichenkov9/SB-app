@@ -35,14 +35,12 @@ fun handleError(throwable: Throwable): String {
             else
                 string = "Нет соединения с сервером"
         }
-
     } else if (throwable is SocketTimeoutException)
         string = "Нет соединения с сервером"
     else if (throwable is EOFException)
         string = "empty body"
     else if (throwable is IOException)
         string = "Нет соединения с сервером"
-
 
     return string
 }

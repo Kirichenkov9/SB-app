@@ -6,7 +6,15 @@ import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.*
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Header
+import retrofit2.http.Headers
+import retrofit2.http.POST
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface ApiService {
     @FormUrlEncoded
@@ -28,7 +36,6 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): Single<retrofit2.Response<ResultUser>>
-
 
     @Headers("User-agent: Android_app")
     @POST("users/logout")
@@ -114,7 +121,7 @@ interface ApiService {
         @Query("query") string: String,
         @Query("offset") offset: Int,
         @Query("limit") limit: Int
-        ): Single<ArrayList<ResultAd>>
+    ): Single<ArrayList<ResultAd>>
 
     /**
      * Companion object to create the GithubApiService

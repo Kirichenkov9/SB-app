@@ -122,11 +122,10 @@ class RegistrationActivity : AppCompatActivity() {
             adUser()
             progressBar_registration.visibility = ProgressBar.VISIBLE
         }
-
     }
 
     private fun isEmailValid(email: String): Boolean {
-        //Check entered email
+        // Check entered email
         val emailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
         val pattern = Pattern.compile(emailPattern)
         val matcher = pattern.matcher(email)
@@ -134,7 +133,7 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun isPasswordValid(password: String): Boolean {
-        //Check entered password
+        // Check entered password
         return password.length >= 6
     }
 
@@ -160,11 +159,9 @@ class RegistrationActivity : AppCompatActivity() {
 
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-
             }, { error ->
                 progressBar_registration.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
     }
-
 }

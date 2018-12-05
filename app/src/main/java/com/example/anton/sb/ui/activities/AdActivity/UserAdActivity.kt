@@ -83,7 +83,6 @@ class UserAdActivity : AppCompatActivity() {
             .subscribe({ result ->
                 progressBar_user_ad.visibility = ProgressBar.INVISIBLE
                 ads.addAll(result)
-
             }, { error ->
                 progressBar_user_ad.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))

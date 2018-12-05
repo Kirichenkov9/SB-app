@@ -1,6 +1,5 @@
 package com.example.anton.sb.data.ResponseClasses
 
-
 data class ResultAd(
     val id: Long,
     var title: String,

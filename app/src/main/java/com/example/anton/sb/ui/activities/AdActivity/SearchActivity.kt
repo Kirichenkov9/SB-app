@@ -20,7 +20,6 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
-
 class SearchActivity : AppCompatActivity() {
 
     private var request: String = ""
@@ -33,7 +32,6 @@ class SearchActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
-
 
         val searchText = find<EditText>(R.id.search_edit_frame)
         val searchButton = find<ImageButton>(R.id.start_search)
@@ -53,11 +51,11 @@ class SearchActivity : AppCompatActivity() {
         searchButton.setOnClickListener {
             if (searchText.text.isNullOrEmpty())
                 toast("Вы ничего не вввели")
-            if (list.size == 0) {
+            else if (list.size == 0) {
+                searchString = searchText.text.toString()
                 displayAds(list, searchText, recyclerView, layoutManager)
                 searchString = searchText.text.toString()
-            }
-            if(searchText.text.toString() != searchString) {
+            } else if (searchText.text.toString() != searchString) {
                 list.clear()
                 displayAds(list, searchText, recyclerView, layoutManager)
                 searchString = searchText.text.toString()
@@ -67,7 +65,8 @@ class SearchActivity : AppCompatActivity() {
 
     private fun displayAds(
         list: ArrayList<ResultAd>,
-        searchText: EditText, recyclerView: RecyclerView,
+        searchText: EditText,
+        recyclerView: RecyclerView,
         layoutManager: LinearLayoutManager
     ) {
         doAsync {

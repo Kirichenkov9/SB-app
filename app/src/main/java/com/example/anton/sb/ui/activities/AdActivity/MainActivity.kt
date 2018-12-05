@@ -30,9 +30,6 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
-
-
-
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var token: String? = null
@@ -52,7 +49,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val recyclerView = find<RecyclerView>(R.id.ad_list)
         val layoutManager = LinearLayoutManager(this)
 
-
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
             R.string.navigation_drawer_open,
@@ -60,7 +56,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
 
         nav_view.setNavigationItemSelectedListener(this)
 
