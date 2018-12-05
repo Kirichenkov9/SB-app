@@ -43,16 +43,24 @@ class SearchActivity : AppCompatActivity() {
         val recyclerView = find<RecyclerView>(R.id.search_list_ad)
         val layoutManager = LinearLayoutManager(this)
 
+        var searchString: String = ""
         if (intent.hasExtra("request")) {
-            searchText.setText(intent.getStringExtra("request"))
+            searchString = intent.getStringExtra("request")
+            searchText.setText(request)
             displayAds(list, searchText, recyclerView, layoutManager)
         }
 
         searchButton.setOnClickListener {
             if (searchText.text.isNullOrEmpty())
                 toast("Вы ничего не вввели")
-            else if (list.size == 0) {
+            if (list.size == 0) {
                 displayAds(list, searchText, recyclerView, layoutManager)
+                searchString = searchText.text.toString()
+            }
+            if(searchText.text.toString() != searchString) {
+                list.clear()
+                displayAds(list, searchText, recyclerView, layoutManager)
+                searchString = searchText.text.toString()
             }
         }
     }
