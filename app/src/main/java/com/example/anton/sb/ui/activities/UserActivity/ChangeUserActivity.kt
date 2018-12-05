@@ -22,11 +22,6 @@ import org.jetbrains.anko.toast
 
 class ChangeUserActivity : AppCompatActivity() {
 
-
-    private val keyToken = "token"
-    private val name: String = "name"
-    private val mail: String = "email"
-
     private var token: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -117,6 +112,9 @@ class ChangeUserActivity : AppCompatActivity() {
             .subscribe({
                 progressBar_user_change.visibility = ProgressBar.INVISIBLE
                 toast("Данные изменены")
+
+                changeUser(firstName + " " + lastName)
+
                 this.finish()
 
                 val intent = Intent(this, UserSettingsActivity::class.java)
@@ -127,6 +125,8 @@ class ChangeUserActivity : AppCompatActivity() {
                     val errorString = handleError(error)
                     if (errorString == "empty body") {
                         toast("Данные изменены")
+                        changeUser(firstName + " " + lastName)
+
                         this.finish()
 
                         val intent = Intent(this, UserSettingsActivity::class.java)
@@ -167,6 +167,14 @@ class ChangeUserActivity : AppCompatActivity() {
         }
 
         return string
+    }
+
+    private fun changeUser(name: String) {
+        val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = save.edit()
+        editor.remove(name)
+        editor.putString("name", name)
+        editor.apply()
     }
 }
 

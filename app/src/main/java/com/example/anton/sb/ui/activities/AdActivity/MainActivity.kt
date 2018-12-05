@@ -19,6 +19,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.Extensions.updateDataList
 import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MainAdapter
@@ -155,6 +156,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val intent = Intent(this, AddAdActivity::class.java)
                     startActivity(intent)
                 }
+            }
+            R.id.about_app -> {
+                val intent = Intent(this, AboutApp::class.java)
+                startActivity(intent)
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)

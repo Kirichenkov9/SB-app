@@ -3,27 +3,34 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-                android:id="@+id/account"
-                android:icon="@drawable/ic_menu_user"
-                android:title="@string/account"/>
-        <item
-                android:id="@+id/search"
-                android:icon="@drawable/ic_menu_search"
-                android:title="@string/search"/>
-        <item
-                android:id="@+id/my_ads"
-                android:icon="@drawable/ic_menu_my_ads"
-                android:title="@string/my_ads"/>
-        <item
-                android:id="@+id/add_ad"
-                android:icon="@drawable/ic_menu_add"
-                android:title="@string/add_ad"/>
-    </group>
+    <item android:title="@string/ads">
+        <menu>
+            <item
+                    android:id="@+id/search"
+                    android:icon="@drawable/ic_menu_search"
+                    android:title="@string/search"/>
+            <item
+                    android:id="@+id/my_ads"
+                    android:icon="@drawable/ic_menu_my_ads"
+                    android:title="@string/my_ads"/>
+            <item
+                    android:id="@+id/add_ad"
+                    android:icon="@drawable/ic_menu_add"
+                    android:title="@string/add_ad"/>
+        </menu>
+    </item>
 
-    <item android:id="@+id/app_settings"
-          android:icon="@drawable/ic_settings"
-          android:title="@string/about_app"/>
+    <item android:title="@string/settings">
+        <menu>
+            <item
+                    android:id="@+id/account"
+                    android:icon="@drawable/ic_menu_user"
+                    android:title="@string/account"/>
 
+            <item
+                    android:id="@+id/about_app"
+                    android:icon="@drawable/ic_settings"
+                    android:title="@string/about_app"/>
+        </menu>
+    </item>
 </menu>

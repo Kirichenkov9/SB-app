@@ -18,6 +18,7 @@ import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.SearchAdapter
@@ -151,6 +152,10 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                     val intent = Intent(this, AddAdActivity::class.java)
                     startActivity(intent)
                 }
+            }
+            R.id.about_app -> {
+                val intent = Intent(this, AboutApp::class.java)
+                startActivity(intent)
             }
         }
         drawer_layout_user_ad.closeDrawer(GravityCompat.START)

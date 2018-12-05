@@ -15,6 +15,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
+import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.AdActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.AdActivity.MainActivity
 import com.example.anton.sb.ui.activities.AdActivity.MyAdsActivity
@@ -137,6 +138,10 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             }
             R.id.add_ad -> {
                 val intent = Intent(this, AddAdActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.about_app -> {
+                val intent = Intent(this, AboutApp::class.java)
                 startActivity(intent)
             }
         }

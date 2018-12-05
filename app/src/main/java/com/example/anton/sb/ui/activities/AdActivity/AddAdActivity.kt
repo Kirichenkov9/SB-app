@@ -16,6 +16,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
+import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -102,6 +103,10 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             }
             R.id.my_ads -> {
                 val intent = Intent(this, MyAdsActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.about_app -> {
+                val intent = Intent(this, AboutApp::class.java)
                 startActivity(intent)
             }
         }
