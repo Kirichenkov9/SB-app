@@ -1,7 +1,6 @@
 package com.example.anton.sb.ui.activities.AdActivity
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -15,8 +14,9 @@ import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_change_ad.*
+import kotlinx.android.synthetic.main.activity_change_ad.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class ChangeAdActivity : AppCompatActivity() {
@@ -64,10 +64,7 @@ class ChangeAdActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-        val intent = Intent(this, MyAdSettingsActivity::class.java)
-        intent.putExtra("adId", adId)
-        startActivity(intent)
-
+        startActivity<MyAdSettingsActivity>("adId" to adId)
         return true
     }
 
@@ -89,9 +86,7 @@ class ChangeAdActivity : AppCompatActivity() {
 
                 this.finish()
 
-                val intent = Intent(this, MyAdSettingsActivity::class.java)
-                intent.putExtra("adId", adId)
-                startActivity(intent)
+                startActivity<MyAdSettingsActivity>("adId" to adId)
             }, { error ->
                 progressBar_ad_change.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
@@ -101,9 +96,7 @@ class ChangeAdActivity : AppCompatActivity() {
 
                     this.finish()
 
-                    val intent = Intent(this, MyAdSettingsActivity::class.java)
-                    intent.putExtra("adId", adId)
-                    startActivity(intent)
+                    startActivity<MyAdSettingsActivity>("adId" to adId)
                 } else
                     toast("$errorStr")
             })
@@ -124,12 +117,14 @@ class ChangeAdActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
                 progressBar_ad_change.visibility = ProgressBar.INVISIBLE
+
                 title.text = result.title
                 city.text = result.city
                 description.text = result.description_ad
                 price.text = result.price.toString()
             }, { error ->
                 progressBar_ad_change.visibility = ProgressBar.INVISIBLE
+
                 val errorStr = handleError(error)
                 if (errorStr == "empty body")
                     toast("Нет соединения с сервером")

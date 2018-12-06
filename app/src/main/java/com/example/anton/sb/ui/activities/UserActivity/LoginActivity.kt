@@ -1,7 +1,6 @@
 package com.example.anton.sb.ui.activities.UserActivity
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -15,7 +14,8 @@ import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.AdActivity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.util.regex.Pattern.compile
 
@@ -39,8 +39,7 @@ class LoginActivity : AppCompatActivity() {
         email_sign_in_button.setOnClickListener { attemptLogin() }
 
         action_go_to_registration.setOnClickListener {
-            val intent = Intent(this, RegistrationActivity::class.java)
-            startActivity(intent)
+            startActivity<RegistrationActivity>()
         }
     }
 
@@ -50,8 +49,7 @@ class LoginActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        startActivity<MainActivity>()
         return true
     }
 
@@ -141,8 +139,7 @@ class LoginActivity : AppCompatActivity() {
                         result.body()!!.id
                     )
                     this.finish()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity<MainActivity>()
                 } else
                     toast("Неверный пароль или логин")
             }, { error ->

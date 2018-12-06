@@ -16,8 +16,9 @@ import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_change_user.*
+import kotlinx.android.synthetic.main.activity_change_user.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class ChangeUserActivity : AppCompatActivity() {
@@ -52,8 +53,7 @@ class ChangeUserActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-        val intent = Intent(this, UserSettingsActivity::class.java)
-        startActivity(intent)
+        startActivity<UserSettingsActivity>()
         return true
     }
 
@@ -95,7 +95,12 @@ class ChangeUserActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeData(firstName: String, lastName: String, telephone: String, about: String) {
+    private fun changeData(
+        firstName: String,
+        lastName: String,
+        telephone: String,
+        about: String
+    ) {
 
         token = readToken()
 
@@ -127,16 +132,18 @@ class ChangeUserActivity : AppCompatActivity() {
                         changeUser(firstName + " " + lastName)
 
                         this.finish()
-
-                        val intent = Intent(this, UserSettingsActivity::class.java)
-                        startActivity(intent)
+                        startActivity<UserSettingsActivity>()
                     } else
                         toast(errorString)
                 })
     }
 
-    private fun userData(firstName: TextView, lastName: TextView, telNumber: TextView, about: TextView) {
-
+    private fun userData(
+        firstName: TextView,
+        lastName: TextView,
+        telNumber: TextView,
+        about: TextView
+    ) {
         token = readToken()
 
         val apiService: ApiService = ApiService.create()

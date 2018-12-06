@@ -15,11 +15,8 @@ import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_my_ad_settings.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import kotlinx.android.synthetic.main.activity_my_ad_settings.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 class MyAdSettingsActivity : AppCompatActivity() {
 
@@ -54,27 +51,19 @@ class MyAdSettingsActivity : AppCompatActivity() {
         progressBar_ad_settings.visibility = ProgressBar.VISIBLE
 
         title.setOnClickListener {
-            val intent = Intent(this, ChangeAdActivity::class.java)
-            intent.putExtra("adId", adId)
-            startActivity(intent)
+            startActivity<ChangeAdActivity>("adId" to adId)
         }
 
         city.setOnClickListener {
-            val intent = Intent(this, ChangeAdActivity::class.java)
-            intent.putExtra("adId", adId)
-            startActivity(intent)
+            startActivity<ChangeAdActivity>("adId" to adId)
         }
 
         description.setOnClickListener {
-            val intent = Intent(this, ChangeAdActivity::class.java)
-            intent.putExtra("adId", adId)
-            startActivity(intent)
+            startActivity<ChangeAdActivity>("adId" to adId)
         }
 
         price.setOnClickListener {
-            val intent = Intent(this, ChangeAdActivity::class.java)
-            intent.putExtra("adId", adId)
-            startActivity(intent)
+            startActivity<ChangeAdActivity>("adId" to adId)
         }
 
         button.setOnClickListener {
@@ -141,12 +130,10 @@ class MyAdSettingsActivity : AppCompatActivity() {
 
                     this.finish()
 
-                    val intent = Intent(this, MyAdsActivity::class.java)
-                    startActivity(intent)
+                    startActivity<MyAdsActivity>()
                 } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
                     removeToken()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    startActivity<LoginActivity>()
                 } else
                     toast(errorStr)
             })

@@ -1,9 +1,7 @@
 package com.example.anton.sb.ui.activities
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -18,9 +16,12 @@ import com.example.anton.sb.ui.activities.AdActivity.MainActivity
 import com.example.anton.sb.ui.activities.AdActivity.MyAdsActivity
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
-import kotlinx.android.synthetic.main.activity_about_app.*
-import kotlinx.android.synthetic.main.app_bar_other.*
+import kotlinx.android.synthetic.main.activity_about_app.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.browse
+import org.jetbrains.anko.email
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 
 class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -58,18 +59,20 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
         navViewHeader.setOnClickListener {
             if (token.isNullOrEmpty()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                startActivity<LoginActivity>()
             } else {
-                val intent = Intent(this, UserSettingsActivity::class.java)
-                startActivity(intent)
+                startActivity<UserSettingsActivity>()
             }
         }
         val web = find<TextView>(R.id.web)
+        val email = find<TextView>(R.id.author_email)
+
+        email.setOnClickListener {
+            email(email.text.toString())
+        }
 
         web.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://protected-bayou-62297.herokuapp.com/ads"))
-            startActivity(browserIntent)
+            browse("https://protected-bayou-62297.herokuapp.com/ads")
         }
     }
 
@@ -83,40 +86,20 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.search -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+            R.id.add_ad -> {
+                startActivity<AddAdActivity>()
             }
             R.id.account -> {
-                if (token.isNullOrEmpty()) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    val intent = Intent(this, UserSettingsActivity::class.java)
-                    startActivity(intent)
-                }
+                startActivity<UserSettingsActivity>()
+            }
+            R.id.search -> {
+                startActivity<MainActivity>()
             }
             R.id.my_ads -> {
-                if (token.isNullOrEmpty()) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    val intent = Intent(this, MyAdsActivity::class.java)
-                    startActivity(intent)
-                }
-            }
-            R.id.add_ad -> {
-                if (token.isNullOrEmpty()) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    val intent = Intent(this, AddAdActivity::class.java)
-                    startActivity(intent)
-                }
+                startActivity<MyAdsActivity>()
             }
             R.id.about_app -> {
-                val intent = Intent(this, AboutApp::class.java)
-                startActivity(intent)
+                startActivity<AboutApp>()
             }
         }
         drawer_layout_about_app.closeDrawer(GravityCompat.START)

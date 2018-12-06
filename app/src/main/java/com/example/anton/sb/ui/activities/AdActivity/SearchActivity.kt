@@ -1,6 +1,5 @@
 package com.example.anton.sb.ui.activities.AdActivity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -13,12 +12,9 @@ import com.example.anton.sb.R
 import com.example.anton.sb.data.Extensions.updateSearchList
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.adapters.SearchAdapter
-import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.app_bar_search.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import kotlinx.android.synthetic.main.activity_search.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.app_bar_search.*  // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 class SearchActivity : AppCompatActivity() {
 
@@ -80,7 +76,10 @@ class SearchActivity : AppCompatActivity() {
                         updateSearchList(dataList, searchText.text.toString()),
                         object : SearchAdapter.OnItemClickListener {
                             override fun invoke(ad: ResultAd) {
-                                startAdViewActivity(ad.id, searchText.text.toString())
+                                startActivity<AdViewActivity>(
+                                    "adId" to ad.id,
+                                    "request" to searchText.text.toString()
+                                )
                             }
                         })
                 recyclerView.layoutManager = layoutManager
@@ -97,21 +96,13 @@ class SearchActivity : AppCompatActivity() {
         progressBar_search.visibility = ProgressBar.VISIBLE
     }
 
-    private fun startAdViewActivity(id: Long, string: String) {
-        val intent = Intent(this, AdViewActivity::class.java)
-        intent.putExtra("adId", id)
-        intent.putExtra("request", string)
-        startActivity(intent)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {
                 this.finish()
             }
         }
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        startActivity<MainActivity>()
 
         return true
     }

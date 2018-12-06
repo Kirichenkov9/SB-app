@@ -1,6 +1,5 @@
 package com.example.anton.sb.ui.activities.AdActivity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -12,11 +11,8 @@ import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.adapters.SearchAdapter
-import kotlinx.android.synthetic.main.activity_user_ad.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import kotlinx.android.synthetic.main.activity_user_ad.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 class UserAdActivity : AppCompatActivity() {
 
@@ -46,7 +42,11 @@ class UserAdActivity : AppCompatActivity() {
                 recyclerView.adapter = SearchAdapter(list,
                     object : SearchAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
-                            startAdViewActivity(ad.id)
+                            startActivity<AdViewActivity>(
+                                "preAdId" to preAdId,
+                                "adId" to ad.id,
+                                "userId" to userId
+                            )
                         }
                     })
             }
@@ -60,18 +60,8 @@ class UserAdActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-        val intent = Intent(this, AdViewActivity::class.java)
-        intent.putExtra("preAdId", preAdId)
-        startActivity(intent)
+        startActivity<AdViewActivity>("preAdId" to preAdId)
         return true
-    }
-
-    private fun startAdViewActivity(adId: Long) {
-        val intent = Intent(this, AdViewActivity::class.java)
-        intent.putExtra("adId", adId)
-        intent.putExtra("preAdId", preAdId)
-        intent.putExtra("userId", userId)
-        startActivity(intent)
     }
 
     private fun getUserAd(id_user: Long): ArrayList<ResultAd> {

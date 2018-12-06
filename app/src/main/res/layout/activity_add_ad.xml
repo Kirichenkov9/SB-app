@@ -33,7 +33,7 @@
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="20dp">
+                    android:layout_marginTop="20dp">
 
                 <EditText
                         android:id="@+id/name"
@@ -60,7 +60,7 @@
                         android:textColorHint="@color/colorAccent"
                         android:drawableStart="@drawable/ic_about_ad"
                         android:drawablePadding="10dp"
-                        android:layout_marginVertical="15dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:inputType="textMultiLine"
@@ -81,7 +81,7 @@
                         android:textColorHint="@color/colorAccent"
                         android:drawableStart="@drawable/ic_price"
                         android:drawablePadding="10dp"
-                        android:layout_marginVertical="15dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:inputType="number"
@@ -100,7 +100,7 @@
                         android:textColorHint="@color/colorAccent"
                         android:drawableStart="@drawable/ic_place"
                         android:drawablePadding="10dp"
-                        android:layout_marginVertical="15dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:inputType="text"
@@ -113,7 +113,7 @@
 
             <Button
                     android:id="@+id/button_ad_photo"
-                    android:layout_marginVertical="15dp"
+                    android:layout_marginTop="15dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_width="wrap_content"

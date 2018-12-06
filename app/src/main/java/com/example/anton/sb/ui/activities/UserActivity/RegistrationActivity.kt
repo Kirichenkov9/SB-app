@@ -1,6 +1,5 @@
 package com.example.anton.sb.ui.activities.UserActivity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -14,7 +13,8 @@ import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.AdActivity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_registration.*
+import kotlinx.android.synthetic.main.activity_registration.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.util.regex.Pattern
 
@@ -39,8 +39,7 @@ class RegistrationActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        startActivity<LoginActivity>()
         return true
     }
 
@@ -157,8 +156,7 @@ class RegistrationActivity : AppCompatActivity() {
 
                 this.finish()
 
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity<MainActivity>()
             }, { error ->
                 progressBar_registration.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))

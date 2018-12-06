@@ -1,7 +1,6 @@
 package com.example.anton.sb.ui.activities.UserActivity
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -21,9 +20,10 @@ import com.example.anton.sb.ui.activities.AdActivity.MainActivity
 import com.example.anton.sb.ui.activities.AdActivity.MyAdsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_user_settings.*
-import kotlinx.android.synthetic.main.app_bar_other.*
+import kotlinx.android.synthetic.main.activity_user_settings.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -59,11 +59,9 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
         navViewHeader.setOnClickListener {
             if (token.isNullOrEmpty()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                startActivity<LoginActivity>()
             } else {
-                val intent = Intent(this, UserSettingsActivity::class.java)
-                startActivity(intent)
+                startActivity<UserSettingsActivity>()
             }
         }
 
@@ -80,23 +78,19 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         progressBar_user_settings.visibility = ProgressBar.VISIBLE
 
         firstName.setOnClickListener {
-            val intent = Intent(this, ChangeUserActivity::class.java)
-            startActivity(intent)
+            startActivity<ChangeUserActivity>()
         }
 
         lastName.setOnClickListener {
-            val intent = Intent(this, ChangeUserActivity::class.java)
-            startActivity(intent)
+            startActivity<ChangeUserActivity>()
         }
 
         telephone.setOnClickListener {
-            val intent = Intent(this, ChangeUserActivity::class.java)
-            startActivity(intent)
+            startActivity<ChangeUserActivity>()
         }
 
         about.setOnClickListener {
-            val intent = Intent(this, ChangeUserActivity::class.java)
-            startActivity(intent)
+            startActivity<ChangeUserActivity>()
         }
 
         exit_account.setOnClickListener {
@@ -120,28 +114,22 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.account -> {
-                val intent = Intent(this, UserSettingsActivity::class.java)
-                startActivity(intent)
+            R.id.add_ad -> {
+                startActivity<AddAdActivity>()
             }
-            R.id.my_ads -> {
-                val intent = Intent(this, MyAdsActivity::class.java)
-                startActivity(intent)
+            R.id.account -> {
+                startActivity<UserSettingsActivity>()
             }
             R.id.search -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity<MainActivity>()
             }
-            R.id.add_ad -> {
-                val intent = Intent(this, AddAdActivity::class.java)
-                startActivity(intent)
+            R.id.my_ads -> {
+                startActivity<MyAdsActivity>()
             }
             R.id.about_app -> {
-                val intent = Intent(this, AboutApp::class.java)
-                startActivity(intent)
+                startActivity<AboutApp>()
             }
         }
-
         drawer_layout_settings.closeDrawer(GravityCompat.START)
         return true
     }
@@ -158,8 +146,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 toast("Вы вышли из аккаунта")
                 removeToken()
                 this.finish()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity<MainActivity>()
             }, { error ->
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
@@ -173,13 +160,12 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         apiService.deleteUser(token.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
+            .subscribe({
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
                 toast("Аккаунт удален")
                 removeToken()
                 this.finish()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity<MainActivity>()
             },
                 { error ->
                     progressBar_user_settings.visibility = ProgressBar.INVISIBLE
@@ -188,12 +174,10 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                         toast("Аккаунт удален")
                         removeToken()
                         this.finish()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
+                        startActivity<MainActivity>()
                     } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
                         removeToken()
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
+                        startActivity<LoginActivity>()
                     } else
                         toast(errorStr)
                 })
@@ -226,12 +210,10 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 if (errorStr == "empty body") {
                     toast("Объявление удалено")
 
-                    val intent = Intent(this, MyAdsActivity::class.java)
-                    startActivity(intent)
+                    startActivity<MyAdsActivity>()
                 } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
                     removeToken()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    startActivity<LoginActivity>()
                 } else
                     toast(errorStr)
             })

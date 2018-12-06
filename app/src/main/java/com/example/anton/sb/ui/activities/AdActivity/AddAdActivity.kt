@@ -1,7 +1,6 @@
 package com.example.anton.sb.ui.activities.AdActivity
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -21,10 +20,11 @@ import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_add_ad.*
-import kotlinx.android.synthetic.main.activity_user_settings.*
-import kotlinx.android.synthetic.main.app_bar_other.*
+import kotlinx.android.synthetic.main.activity_add_ad.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_user_settings.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -63,11 +63,9 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         navViewHeader.setOnClickListener {
             if (token.isNullOrEmpty()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                startActivity<LoginActivity>()
             } else {
-                val intent = Intent(this, UserSettingsActivity::class.java)
-                startActivity(intent)
+                startActivity<UserSettingsActivity>()
             }
         }
 
@@ -89,24 +87,19 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_ad -> {
-                val intent = Intent(this, AddAdActivity::class.java)
-                startActivity(intent)
+                startActivity<AddAdActivity>()
             }
             R.id.account -> {
-                val intent = Intent(this, UserSettingsActivity::class.java)
-                startActivity(intent)
+                startActivity<UserSettingsActivity>()
             }
             R.id.search -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity<MainActivity>()
             }
             R.id.my_ads -> {
-                val intent = Intent(this, MyAdsActivity::class.java)
-                startActivity(intent)
+                startActivity<MyAdsActivity>()
             }
             R.id.about_app -> {
-                val intent = Intent(this, AboutApp::class.java)
-                startActivity(intent)
+                startActivity<AboutApp>()
             }
         }
         drawer_layout_add_ad.closeDrawer(GravityCompat.START)
@@ -161,7 +154,7 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         token = read(keyToken)
 
-        var priceAd = 0
+        var priceAd: Int
         if (price.text.isNullOrEmpty())
             priceAd = 0
         else
@@ -179,16 +172,13 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 progressBar_add_ad.visibility = ProgressBar.INVISIBLE
                 toast("Объявление добавлено")
 
-                val intent = Intent(this, MyAdsActivity::class.java)
-                startActivity(intent)
+                startActivity<MyAdsActivity>()
             }, { error ->
                 progressBar_add_ad.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
                     removeToken()
-                    this.finish()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    startActivity<LoginActivity>()
                 } else
                     toast("$errorStr")
             })

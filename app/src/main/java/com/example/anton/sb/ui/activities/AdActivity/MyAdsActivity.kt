@@ -1,7 +1,6 @@
 package com.example.anton.sb.ui.activities.AdActivity
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -23,12 +22,9 @@ import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.SearchAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
-import kotlinx.android.synthetic.main.activity_my_ad.*
-import kotlinx.android.synthetic.main.app_bar_my_ads.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import kotlinx.android.synthetic.main.activity_my_ad.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.app_bar_my_ads.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -78,11 +74,9 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         navViewHeader.setOnClickListener {
             if (token.isNullOrEmpty()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                startActivity<LoginActivity>()
             } else {
-                val intent = Intent(this, UserSettingsActivity::class.java)
-                startActivity(intent)
+                startActivity<UserSettingsActivity>()
             }
         }
     }
@@ -95,17 +89,11 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 recyclerView.adapter = SearchAdapter(list,
                     object : SearchAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
-                            startAdViewActivity(ad.id)
+                            startActivity<MyAdSettingsActivity>("adId" to ad.id)
                         }
                     })
             }
         }
-    }
-
-    private fun startAdViewActivity(id: Long) {
-        val intent = Intent(this, MyAdSettingsActivity::class.java)
-        intent.putExtra("adId", id)
-        startActivity(intent)
     }
 
     override fun onBackPressed() {
@@ -118,40 +106,20 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.my_ads -> {
-                val intent = Intent(this, MyAdsActivity::class.java)
-                startActivity(intent)
+            R.id.add_ad -> {
+                startActivity<AddAdActivity>()
             }
             R.id.account -> {
-                if (token.isNullOrEmpty()) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    val intent = Intent(this, UserSettingsActivity::class.java)
-                    startActivity(intent)
-                }
+                startActivity<UserSettingsActivity>()
             }
             R.id.search -> {
-                if (token.isNullOrEmpty()) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                }
+                startActivity<MainActivity>()
             }
-            R.id.add_ad -> {
-                if (token.isNullOrEmpty()) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    val intent = Intent(this, AddAdActivity::class.java)
-                    startActivity(intent)
-                }
+            R.id.my_ads -> {
+                startActivity<MyAdsActivity>()
             }
             R.id.about_app -> {
-                val intent = Intent(this, AboutApp::class.java)
-                startActivity(intent)
+                startActivity<AboutApp>()
             }
         }
         drawer_layout_user_ad.closeDrawer(GravityCompat.START)
@@ -196,8 +164,7 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 val errorStr = handleError(error)
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
                     removeToken()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    startActivity<LoginActivity>()
                 } else toast(errorStr)
             })
         return ads

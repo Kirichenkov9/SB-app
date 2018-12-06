@@ -1,7 +1,6 @@
 package com.example.anton.sb.ui.activities.AdActivity
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -23,12 +22,9 @@ import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MainAdapter
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import kotlinx.android.synthetic.main.activity_main.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.app_bar_main.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -69,19 +65,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val searchButton = find<ImageButton>(R.id.search_button)
 
         searchButton.setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
+            startActivity<SearchActivity>()
         }
 
         setUsername(nameUser, userEmail)
 
         navViewHeader.setOnClickListener {
             if (token.isNullOrEmpty()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                startActivity<LoginActivity>()
             } else {
-                val intent = Intent(this, UserSettingsActivity::class.java)
-                startActivity(intent)
+                startActivity<UserSettingsActivity>()
             }
         }
         displayAds(list, recyclerView, layoutManager)
@@ -89,7 +82,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         progressBar_main.visibility = ProgressBar.VISIBLE
     }
 
-    private fun displayAds(list: ArrayList<ResultAd>, recyclerView: RecyclerView, layoutManager: LinearLayoutManager) {
+    private fun displayAds(
+        list: ArrayList<ResultAd>,
+        recyclerView: RecyclerView,
+        layoutManager: LinearLayoutManager
+    ) {
 
         doAsync {
             val dataList = updateDataList(list)
@@ -100,13 +97,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val adapter =
                     MainAdapter(updateDataList(dataList), object : MainAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
-                            startAdViewActivity(ad.id)
+                            startActivity<AdViewActivity>("adId" to ad.id)
                         }
                     })
                 recyclerView.layoutManager = layoutManager
                 recyclerView.adapter = adapter
                 Log.d("main", "1")
-                recyclerView.addOnScrollListener(MainAdapter.OnScrollListener(layoutManager, adapter, dataList, progressBar_main))
+                recyclerView.addOnScrollListener(
+                    MainAdapter.OnScrollListener(
+                        layoutManager,
+                        adapter,
+                        dataList,
+                        progressBar_main
+                    )
+                )
             }
         }
     }
@@ -122,49 +126,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.search -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity<MainActivity>()
             }
             R.id.account -> {
                 if (token.isNullOrEmpty()) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    startActivity<LoginActivity>()
                 } else {
-                    val intent = Intent(this, UserSettingsActivity::class.java)
-                    startActivity(intent)
+                    startActivity<UserSettingsActivity>()
                 }
             }
             R.id.my_ads -> {
                 if (token.isNullOrEmpty()) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    startActivity<LoginActivity>()
                 } else {
-                    val intent = Intent(this, MyAdsActivity::class.java)
-                    startActivity(intent)
+                    startActivity<MyAdsActivity>()
                 }
             }
             R.id.add_ad -> {
                 if (token.isNullOrEmpty()) {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    startActivity<LoginActivity>()
                 } else {
-                    val intent = Intent(this, AddAdActivity::class.java)
-                    startActivity(intent)
+                    startActivity<AddAdActivity>()
                 }
             }
             R.id.about_app -> {
-                val intent = Intent(this, AboutApp::class.java)
-                startActivity(intent)
+                startActivity<AboutApp>()
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    private fun startAdViewActivity(id: Long) {
-        val intent = Intent(this, AdViewActivity::class.java)
-        intent.putExtra("adId", id)
-        startActivity(intent)
     }
 
     private fun setUsername(name_user: TextView, userEmail: TextView) {

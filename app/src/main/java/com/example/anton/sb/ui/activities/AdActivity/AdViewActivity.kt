@@ -1,8 +1,8 @@
 package com.example.anton.sb.ui.activities.AdActivity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ProgressBar
@@ -12,11 +12,8 @@ import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.activities.UserActivity.UserViewActivity
-import kotlinx.android.synthetic.main.activity_ad_view.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import kotlinx.android.synthetic.main.activity_ad_view.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 class AdViewActivity : AppCompatActivity() {
 
@@ -37,7 +34,7 @@ class AdViewActivity : AppCompatActivity() {
         adId = intent.getLongExtra("adId", 0)
         preUserId = intent.getLongExtra("userId", 0)
         preAdId = intent.getLongExtra("preAdId", 0)
-
+        Log.d("ad", adId.toString())
         if (adId == 0L)
             adId = preAdId
 
@@ -70,17 +67,21 @@ class AdViewActivity : AppCompatActivity() {
         progressBar_ad_view.visibility = ProgressBar.VISIBLE
 
         button.setOnClickListener {
-            val intent = Intent(this, UserAdActivity::class.java)
-            intent.putExtra("userId", userId)
-            intent.putExtra("preAdId", adId)
-            startActivity(intent)
+            startActivity<UserAdActivity>(
+                "userId" to userId,
+                "preAdId" to adId
+            )
         }
 
         username.setOnClickListener {
-            val intent = Intent(this, UserViewActivity::class.java)
-            intent.putExtra("userId", userId)
-            intent.putExtra("adId", adId)
-            startActivity(intent)
+            startActivity<UserViewActivity>(
+                "userId" to userId,
+                "adId" to adId
+            )
+        }
+
+        telephone.setOnClickListener {
+            this.makeCall(telephone.text.toString())
         }
     }
 
@@ -93,19 +94,18 @@ class AdViewActivity : AppCompatActivity() {
         val zero: Long = 0
         if (preUserId == zero) {
             if (!intent.hasExtra("request")) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity<MainActivity>()
             } else {
                 val string: String = intent.getStringExtra("request")
-                val intent = Intent(this, SearchActivity::class.java)
-                intent.putExtra("request", string)
-                startActivity(intent)
+                startActivity<SearchActivity>(
+                    "request" to string
+                )
             }
         } else {
-            val intent = Intent(this, UserAdActivity::class.java)
-            intent.putExtra("userId", userId)
-            intent.putExtra("preAdId", preAdId)
-            startActivity(intent)
+            startActivity<UserAdActivity>(
+                "userId" to userId,
+                "preAdId" to adId
+            )
         }
 
         return true

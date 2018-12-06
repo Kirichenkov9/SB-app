@@ -1,8 +1,8 @@
 package com.example.anton.sb.ui.activities.UserActivity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -11,11 +11,8 @@ import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.AdActivity.AdViewActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_user_view.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import kotlinx.android.synthetic.main.activity_user_view.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 class UserViewActivity : AppCompatActivity() {
 
@@ -39,6 +36,14 @@ class UserViewActivity : AppCompatActivity() {
         val telephone = find<TextView>(R.id.user_phone_number_view)
         val about = find<TextView>(R.id.user_about_view)
 
+        telephone.setOnClickListener {
+            this.makeCall(telephone.text.toString())
+        }
+
+        email.setOnClickListener {
+            this.email(email.text.toString())
+        }
+
         doAsync {
             userData(firstName, lastName, email, telephone, about, id)
             uiThread { actionBar.title = firstName.text.toString() + " " + lastName.text.toString() }
@@ -52,9 +57,8 @@ class UserViewActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-        val intent = Intent(this, AdViewActivity::class.java)
-        intent.putExtra("adId", adId)
-        startActivity(intent)
+        Log.d("user", adId.toString())
+        startActivity<AdViewActivity>("adId" to adId)
         return true
     }
 

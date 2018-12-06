@@ -91,7 +91,7 @@
     <string name="about_app">О приложении</string>
     <string name="version">Версия приложения: 1.0.0</string>
     <string name="support">Если у вас возникнут какие-либо проблемы в работе приложения или вы можете предложить, как
-        улучшить его, то напишите нам на почту aKirichenkov99@gmail.com
+        улучшить его, то напишите нам на почту:
     </string>
     <string name="support_header">Поддержка</string>
     <string name="web">https://protected-bayou-62297.herokuapp.com/ads</string>
@@ -99,4 +99,6 @@
         искать интересующие вас объявления в сфере строительных услуг. Также вы можете посетить наш сайт:
     </string>
     <string name="settings">Настройки</string>
+    <string name="author">©Anton Kirichenkov</string>
+    <string name="author_email">aKirichenkov99@gmail.com</string>
 </resources>
