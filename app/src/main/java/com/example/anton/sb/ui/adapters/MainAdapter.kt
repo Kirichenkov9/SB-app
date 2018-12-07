@@ -2,16 +2,15 @@ package com.example.anton.sb.ui.adapters
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.Extensions.updateDataList
 import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.squareup.picasso.Picasso
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
@@ -36,6 +35,14 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
 
         fun bindAd(ad: ResultAd) {
             with(ad) {
+                Picasso
+                    .with(itemView.context)
+                    .load(images_url?.get(0))
+                    .placeholder(R.drawable.ic_image_ad)
+                    .error(R.drawable.ic_image_ad)
+                    .fit()
+                    .centerCrop()
+                    .into(photoView)
                 titleView.text = title
                 cityView.text = city
                 itemView.setOnClickListener { itemClick(this) }
@@ -50,8 +57,7 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
     class OnScrollListener(
         val layoutManager: LinearLayoutManager,
         val adapter: RecyclerView.Adapter<MainAdapter.ViewHolder>,
-        val dataList: ArrayList<ResultAd>,
-        val progressBar: ProgressBar
+        val dataList: ArrayList<ResultAd>
     ) : RecyclerView.OnScrollListener() {
         var previousTotal = 0
         var loading = true
@@ -73,9 +79,6 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
                     previousTotal = totalItemCount
                 }
             }
-            Log.d("vis", visibleItemCount.toString())
-            Log.d("tot", totalItemCount.toString())
-            Log.d("firs", firstVisibleItem.toString())
 
             if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                 val initialSize = dataList.size

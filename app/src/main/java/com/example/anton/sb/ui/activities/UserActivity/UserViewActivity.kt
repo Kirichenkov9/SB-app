@@ -2,7 +2,6 @@ package com.example.anton.sb.ui.activities.UserActivity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -11,8 +10,14 @@ import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.AdActivity.AdViewActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_user_view.* // ktlint-disable no-wildcard-imports
-import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_user_view.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.email
+import org.jetbrains.anko.find
+import org.jetbrains.anko.makeCall
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 class UserViewActivity : AppCompatActivity() {
 
@@ -57,7 +62,6 @@ class UserViewActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-        Log.d("user", adId.toString())
         startActivity<AdViewActivity>("adId" to adId)
         return true
     }

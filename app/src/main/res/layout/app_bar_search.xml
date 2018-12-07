@@ -20,7 +20,7 @@
                     android:id="@+id/search_edit_frame"
                     android:hint="@string/search_hint"
                     android:background="@drawable/rounded_edittext"
-                    android:layout_marginEnd="40dp"
+                    android:layout_marginEnd="14dp"
                     android:textColorHint="@color/colorPrimary"
                     android:inputType="textShortMessage"
                     android:lines="1"
@@ -30,7 +30,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:imeOptions="actionSearch"
-                    android:textCursorDrawable="@color/colorPrimaryDark"/>
+                    android:textCursorDrawable="@color/colorPrimaryDark"
+                    android:layout_toStartOf="@+id/start_search"/>
 
             <ImageButton
                     android:id="@+id/start_search"
@@ -42,8 +43,7 @@
                     android:paddingStart="0dp"
                     android:layout_alignParentEnd="true"
                     android:background="@color/colorPrimary"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="1dp"/>
+                    android:layout_centerVertical="true"/>
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>

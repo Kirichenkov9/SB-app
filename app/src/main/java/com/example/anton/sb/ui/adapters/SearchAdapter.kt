@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.Extensions.updateSearchList
 import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.squareup.picasso.Picasso
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
@@ -35,6 +36,14 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
 
         fun bindAd(ad: ResultAd) {
             with(ad) {
+                Picasso
+                    .with(itemView.context)
+                    .load(images_url?.get(0))
+                    .placeholder(R.drawable.ic_image_ad)
+                    .error(R.drawable.ic_image_ad)
+                    .fit()
+                    .centerCrop()
+                    .into(photoView)
                 titleView.text = title
                 cityView.text = city
                 itemView.setOnClickListener { itemClick(this) }

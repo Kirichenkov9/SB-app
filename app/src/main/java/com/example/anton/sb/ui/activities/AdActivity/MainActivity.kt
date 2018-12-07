@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
@@ -22,9 +21,13 @@ import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
 import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MainAdapter
-import kotlinx.android.synthetic.main.activity_main.* // ktlint-disable no-wildcard-imports
-import kotlinx.android.synthetic.main.app_bar_main.* // ktlint-disable no-wildcard-imports
-import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -102,13 +105,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     })
                 recyclerView.layoutManager = layoutManager
                 recyclerView.adapter = adapter
-                Log.d("main", "1")
                 recyclerView.addOnScrollListener(
                     MainAdapter.OnScrollListener(
                         layoutManager,
                         adapter,
-                        dataList,
-                        progressBar_main
+                        dataList
                     )
                 )
             }
