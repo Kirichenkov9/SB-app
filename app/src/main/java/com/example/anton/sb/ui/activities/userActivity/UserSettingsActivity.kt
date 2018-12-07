@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.UserActivity
+package com.example.anton.sb.ui.activities.userActivity
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,9 +15,9 @@ import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.ui.activities.AboutApp
-import com.example.anton.sb.ui.activities.AdActivity.AddAdActivity
-import com.example.anton.sb.ui.activities.AdActivity.MainActivity
-import com.example.anton.sb.ui.activities.AdActivity.MyAdsActivity
+import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
+import com.example.anton.sb.ui.activities.adActivity.MainActivity
+import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_user_settings.* // ktlint-disable no-wildcard-imports

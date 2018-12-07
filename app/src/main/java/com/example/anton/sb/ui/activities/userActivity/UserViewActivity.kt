@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.UserActivity
+package com.example.anton.sb.ui.activities.userActivity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
-import com.example.anton.sb.ui.activities.AdActivity.AdViewActivity
+import com.example.anton.sb.ui.activities.adActivity.AdViewActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_user_view.*
 import org.jetbrains.anko.doAsync

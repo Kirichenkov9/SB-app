@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.AdActivity
+package com.example.anton.sb.ui.activities.adActivity
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -15,7 +15,7 @@ import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
 import com.example.anton.sb.data.ResponseClasses.ResultAd
-import com.example.anton.sb.ui.activities.UserActivity.UserViewActivity
+import com.example.anton.sb.ui.activities.userActivity.UserViewActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_ad_view.*
 import org.jetbrains.anko.doAsync

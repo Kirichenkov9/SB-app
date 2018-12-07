@@ -24,7 +24,7 @@
             android:fullBackupContent="true"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".ui.activities.AdActivity.MainActivity"
+                android:name=".ui.activities.adActivity.MainActivity"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
@@ -35,72 +35,72 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ui.activities.UserActivity.LoginActivity"
+                android:name=".ui.activities.userActivity.LoginActivity"
                 android:label="@string/title_activity_login"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme">
         </activity>
         <activity
-                android:name=".ui.activities.UserActivity.RegistrationActivity"
+                android:name=".ui.activities.userActivity.RegistrationActivity"
                 android:label="@string/title_registration"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".ui.activities.AdActivity.AdViewActivity"
+        <activity android:name=".ui.activities.adActivity.AdViewActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppTheme"
                   android:label="@string/ad">
         </activity>
         <activity
-                android:name=".ui.activities.AdActivity.AddAdActivity"
+                android:name=".ui.activities.adActivity.AddAdActivity"
                 android:label="@string/title_add"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".ui.activities.UserActivity.UserSettingsActivity"
+                android:name=".ui.activities.userActivity.UserSettingsActivity"
                 android:label="@string/title_settings_account"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".ui.activities.UserActivity.ChangeUserActivity"
+                android:name=".ui.activities.userActivity.ChangeUserActivity"
                 android:label="@string/change_user"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme">
         </activity>
         <activity
-                android:name=".ui.activities.AdActivity.MyAdsActivity"
+                android:name=".ui.activities.adActivity.MyAdsActivity"
                 android:label="@string/my_ads"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".ui.activities.UserActivity.UserViewActivity"
+                android:name=".ui.activities.userActivity.UserViewActivity"
                 android:label="@string/user"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme">
         </activity>
         <activity
-                android:name=".ui.activities.AdActivity.MyAdSettingsActivity"
+                android:name=".ui.activities.adActivity.MyAdSettingsActivity"
                 android:label="@string/ad"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme">
         </activity>
         <activity
-                android:name=".ui.activities.AdActivity.UserAdActivity"
+                android:name=".ui.activities.adActivity.UserAdActivity"
                 android:label="@string/ads"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme">
         </activity>
         <activity
-                android:name=".ui.activities.AdActivity.ChangeAdActivity"
+                android:name=".ui.activities.adActivity.ChangeAdActivity"
                 android:label="@string/change_ad"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme">
         </activity>
         <activity
-                android:name=".ui.activities.AdActivity.SearchActivity"
+                android:name=".ui.activities.adActivity.SearchActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>

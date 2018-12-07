@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.UserActivity
+package com.example.anton.sb.ui.activities.userActivity
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,7 +11,7 @@ import android.widget.ProgressBar
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
-import com.example.anton.sb.ui.activities.AdActivity.MainActivity
+import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.* // ktlint-disable no-wildcard-imports

@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.AdActivity
+package com.example.anton.sb.ui.activities.adActivity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

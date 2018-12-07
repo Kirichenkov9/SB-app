@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.AdActivity
+package com.example.anton.sb.ui.activities.adActivity
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.UserActivity
+package com.example.anton.sb.ui.activities.userActivity
 
 import android.content.Context
 import android.content.Intent

@@ -11,11 +11,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.ui.activities.AdActivity.AddAdActivity
-import com.example.anton.sb.ui.activities.AdActivity.MainActivity
-import com.example.anton.sb.ui.activities.AdActivity.MyAdsActivity
-import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
-import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
+import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
+import com.example.anton.sb.ui.activities.adActivity.MainActivity
+import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
+import com.example.anton.sb.ui.activities.userActivity.LoginActivity
+import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import kotlinx.android.synthetic.main.activity_about_app.* // ktlint-disable no-wildcard-imports
 import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.browse

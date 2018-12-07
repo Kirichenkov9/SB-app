@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.AdActivity
+package com.example.anton.sb.ui.activities.adActivity
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -18,8 +18,8 @@ import com.example.anton.sb.R
 import com.example.anton.sb.data.Extensions.updateDataList
 import com.example.anton.sb.data.ResponseClasses.ResultAd
 import com.example.anton.sb.ui.activities.AboutApp
-import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
-import com.example.anton.sb.ui.activities.UserActivity.UserSettingsActivity
+import com.example.anton.sb.ui.activities.userActivity.LoginActivity
+import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MainAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*

@@ -1,4 +1,4 @@
-package com.example.anton.sb.ui.activities.AdActivity
+package com.example.anton.sb.ui.activities.adActivity
 
 import android.content.Context
 import android.content.Intent
@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ApiService
 import com.example.anton.sb.data.Extensions.handleError
-import com.example.anton.sb.ui.activities.UserActivity.LoginActivity
+import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_my_ad_settings.* // ktlint-disable no-wildcard-imports

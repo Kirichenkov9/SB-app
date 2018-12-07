@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    tools:context=".ui.activities.AdActivity.MainActivity"/>
+                    tools:context=".ui.activities.adActivity.MainActivity"/>
 
             <include
                     layout="@layout/app_bar_main"

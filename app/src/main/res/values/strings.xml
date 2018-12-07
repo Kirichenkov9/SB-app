@@ -4,31 +4,25 @@
     <!-- Strings to related to menu -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">User name</string>
-    <string name="nav_header_subtitle">User_mail@android.com</string>
-    <string name="action_add" tools:keep="@string/action_add">add</string>
     <string name="search">Поиск объявлений</string>
     <string name="my_ads">Мои объявления</string>
     <string name="add_ad">Подать объявление</string>
-    <string name="title_activity_login">Войти</string>
+    <string name="account">Настройки аккаунта</string>
+    <string name="nav_header_desc"/>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Логин</string>
+    <string name="title_activity_login">Войти</string>
     <string name="prompt_password">Пароль</string>
-    <string name="action_sign_in" tools:keep="@string/action_sign_in">Войти или зарегистрироваться</string>
+    <string name="action_sign_in">Войти или зарегистрироваться</string>
     <string name="action_sign_in_short">Войти</string>
     <string name="error_invalid_email">Некоректный логин</string>
     <string name="error_invalid_password">Слишком короткий пароль</string>
-    <string name="error_incorrect_password" tools:keep="@string/error_incorrect_password">Некорректный пароль</string>
+    <string name="error_incorrect_password">Некорректный пароль</string>
     <string name="error_field_required">Поле должно быть заполнено</string>
-    <string name="permission_rationale" tools:keep="@string/permission_rationale">"Contacts permissions are needed for
-        providing email completions."
-    </string>
-    <string name="nav_header_desc"/>
-    <string name="account">Настройки аккаунта</string>
 
     <!-- Strings related to registration -->
-    <string name="registration" tools:keep="@string/registration">Регистрация</string>
+    <string name="registration">Регистрация</string>
     <string name="email_registration">Email</string>
     <string name="last_name_registration">Фамилия</string>
     <string name="first_name_registration">Имя</string>
@@ -38,33 +32,30 @@
     <string name="title_registration">Регистрация</string>
     <string name="entry">Войти</string>
     <string name="to_registration">Зарегистрироваться</string>
+    <string name="repeat_password_registration">Повторите пароль</string>
+    <string name="error_same_password">Пароли не совпадают</string>
 
     <!-- Strings related to add ad -->
     <string name="title_add">Подать объявление</string>
-    <string name="title_add_ad" tools:keep="@string/title_add_ad">Название</string>
+    <string name="title_add_ad">Название</string>
     <string name="title_ad_add">Название объявления</string>
     <string name="about_ad_add">Описание</string>
     <string name="price_ad_add">Стоимость</string>
     <string name="city_ad_add">Город</string>
     <string name="password_registration">Пароль</string>
     <string name="add_ad_photo">Добавить фото</string>
-    <string name="repeat_password_registration">Повторите пароль</string>
-    <string name="error_same_password">Пароли не совпадают</string>
-    <string name="ad_was_added" tools:keep="@string/ad_was_aded">Объявление добавлено!</string>
-    <string name="user_email">Email</string>
-    <string name="user_name">User name</string>
-    <string name="user_city" tools:keep="@string/user_city">Moscow</string>
+    <string name="ad_was_added">Объявление добавлено!</string>
     <string name="exit">Выйти</string>
     <string name="title_settings_account">Настройки аккаунта</string>
-    <string name="user_was_added" tools:keep="@string/user_was_aded">Пользователь зарегистрирован!</string>
-    <string name="success_login" tools:keep="@string/success_login">Вы успешно вошли в аккаунт!</string>
-    <string name="exit_user" tools:keep="@string/exit_user">Вы успешно вышли из аккаунта!</string>
-    <string name="changeUser" tools:keep="@string/changeUser">Изменение данных пользователя</string>
+    <string name="user_was_added">Пользователь зарегистрирован!</string>
+    <string name="success_login">Вы успешно вошли в аккаунт!</string>
+    <string name="exit_user">Вы успешно вышли из аккаунта!</string>
+    <string name="changeUser">Изменение данных пользователя</string>
     <string name="save_change">Сохранить изменения</string>
     <string name="delete_user">Удалить аккаунт</string>
     <string name="change_user">Измнение данных</string>
     <string name="Enter_registration">Войти / Зарегистрироваться</string>
-    <string name="search_hint">Поиск...</string>
+    <string name="search_hint">Поиск…</string>
     <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>
     <string name="email">Email</string>
