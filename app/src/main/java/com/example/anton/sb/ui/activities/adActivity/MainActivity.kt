@@ -15,8 +15,8 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.Extensions.updateDataList
-import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.example.anton.sb.extensions.updateDataList
+import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
@@ -29,19 +29,49 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
+/**
+ * A main screen of app with updating list of ads.
+ *
+ * @author Anton Kirichenkov
+ */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * @property token
+     * @property keyToken
+     * @property name
+     * @property mail
+     */
+
+    /**
+     * saved session_id
+     */
     private var token: String? = null
+
+    /**
+     * token key for SharedPreference
+     */
     private val keyToken = "token"
+
+    /**
+     * username key for SharedPreference
+     */
     private val name: String = "name"
+
+    /**
+     * email key for SharedPreference
+     */
     private val mail: String = "email"
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        token = read(keyToken)
+        token = readUserData(keyToken)
 
         val list: ArrayList<ResultAd> = ArrayList()
 
@@ -85,6 +115,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         progressBar_main.visibility = ProgressBar.VISIBLE
     }
 
+    /**
+     * Method for display ads with recyclerView Adapter.
+     * If have problems with connection server or no ads,
+     * then display message "Объявлений нет".
+     *
+     * @param list [ArrayList] of ads
+     * @param recyclerView
+     * @param layoutManager
+     *
+     * @see [updateDataList]
+     * @see [MainAdapter]
+     */
     private fun displayAds(
         list: ArrayList<ResultAd>,
         recyclerView: RecyclerView,
@@ -116,6 +158,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -124,6 +169,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.search -> {
@@ -158,17 +206,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun setUsername(name_user: TextView, userEmail: TextView) {
+    /**
+     * Method for display full user name and email from SharedPreference on nav_header.
+     * If user doesn't login, then display "Войти / зарегистрироваться"
+     *
+     * @param nameUser user name
+     * @param userEmail user email
+     */
+    private fun setUsername(nameUser: TextView, userEmail: TextView) {
         if (token.isNullOrEmpty()) {
             userEmail.text = getString(R.string.Enter_registration)
-            name_user.text = read(mail)
+            nameUser.text = readUserData(mail)
         } else {
-            name_user.text = read(name)
-            userEmail.text = read(mail)
+            nameUser.text = readUserData(name)
+            userEmail.text = readUserData(mail)
         }
     }
 
-    private fun read(key: String): String? {
+    /**
+     * Reading information about user by key from SharedPreference.
+     *
+     * @param key is a key for data from SharedPreference
+     *
+     * @return [String]
+     */
+    private fun readUserData(key: String): String? {
         var string: String? = null
         val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
 

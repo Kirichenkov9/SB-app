@@ -13,34 +13,61 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.data.Extensions.handleError
+import com.example.anton.sb.service.ApiService
+import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_ad.* // ktlint-disable no-wildcard-imports
-import kotlinx.android.synthetic.main.activity_user_settings.* // ktlint-disable no-wildcard-imports
 import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
+/**
+ * A screen of adding ad
+ *
+ * @author Anton Kirichenkov
+ */
 class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    /**
+     * @property token
+     * @property keyToken
+     * @property username
+     * @property mail
+     */
 
+    /**
+     * saved session_id
+     */
     private var token: String? = null
 
+    /**
+     * token key for SharedPreference
+     */
     private val keyToken = "token"
+
+    /**
+     * username key for SharedPreference
+     */
     private val username: String = "name"
+
+    /**
+     * email key for SharedPreference
+     */
     private val mail: String = "email"
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_ad)
         setSupportActionBar(toolbar_settings)
 
-        token = read(keyToken)
+        token = readUserData(keyToken)
 
         val header = find<NavigationView>(R.id.nav_view_add_ad).getHeaderView(0)
         val navViewHeader = header.find<View>(R.id.nav_view_header)
@@ -48,8 +75,8 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val nameUser = header.find<TextView>(R.id.user_first_name)
         val userEmail = header.find<TextView>(R.id.mail)
 
-        nameUser.text = read(username)
-        userEmail.text = read(mail)
+        nameUser.text = readUserData(username)
+        userEmail.text = readUserData(mail)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_add_ad, toolbar_settings,
@@ -76,14 +103,20 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         button_ad_add.setOnClickListener { attemptForm() }
     }
 
+    /**
+     * @suppress
+     */
     override fun onBackPressed() {
-        if (drawer_layout_settings.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout_settings.closeDrawer(GravityCompat.START)
+        if (drawer_layout_add_ad.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout_add_ad.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_ad -> {
@@ -106,7 +139,11 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         return true
     }
 
-    // Check the form field for validity
+    /**
+     * Attempts to adding ad specified by the adding form.
+     * If there are form errors (invalid title, missing fields, etc.), the
+     * errors are presented and no actual adding attempt is made.
+     */
     private fun attemptForm() {
         // Reset errors.
         name.error = null
@@ -117,6 +154,7 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val nameStr = name.text.toString()
         val cityStr = city.text.toString()
         val aboutStr = about.text.toString()
+        val priceAd = price.text.toString().toIntOrNull()
 
         var cancel = false
         var focusView: View? = null
@@ -145,46 +183,67 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             focusView?.requestFocus()
         } else {
             // Ad add
-            addAd()
+            addAd(
+                nameStr,
+                cityStr,
+                aboutStr,
+                priceAd,
+                token.toString()
+                )
             progressBar_add_ad.visibility = ProgressBar.VISIBLE
         }
     }
 
-    private fun addAd() {
-
-        token = read(keyToken)
-
-        var priceAd: Int
-        if (price.text.isNullOrEmpty())
-            priceAd = 0
-        else
-            priceAd = price.text.toString().toInt()
-
-        val titleStr = name.text.toString()
-        val cityStr = city.text.toString()
-        val description: String = about.text.toString()
+    /**
+     * Creating ad. This method use [ApiService.createAd] and processing response from server
+     * and display it. If response isn't successful, then caused [handleError] for process error.
+     *
+     * @param title title of ad
+     * @param city city of ad
+     * @param description description of ad
+     * @param priceAd price of ad
+     * @param token user-owner session_id
+     *
+     * @see [ApiService.createAd]
+     * @see [handleError]
+     */
+    private fun addAd(
+        title: String,
+        city: String,
+        description: String,
+        priceAd: Int?,
+        token: String
+    ) {
         val apiService: ApiService = ApiService.create()
 
-        apiService.createAd(token.toString(), titleStr, priceAd, cityStr, description)
+        apiService.createAd(token, title, priceAd, city, description)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
                 progressBar_add_ad.visibility = ProgressBar.INVISIBLE
+
                 toast("Объявление добавлено")
 
                 startActivity<MyAdsActivity>()
             }, { error ->
                 progressBar_add_ad.visibility = ProgressBar.INVISIBLE
+
                 val errorStr = handleError(error)
+
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeToken()
+                    removeUserData()
                     startActivity<LoginActivity>()
                 } else
-                    toast("$errorStr")
+                    toast(errorStr)
             })
     }
 
-    private fun read(key: String): String? {
+    /**
+     * Reading information about user by key from SharedPreference.
+     *
+     * @param key is a key for data from SharedPreference
+     */
+    private fun readUserData(key: String): String? {
         var string: String? = null
         val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
 
@@ -194,7 +253,10 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         return string
     }
 
-    private fun removeToken() {
+    /**
+     * Removing information about user by key from SharedPreference.
+     */
+    private fun removeUserData() {
         val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = saveToken.edit()
 

@@ -20,7 +20,7 @@
 
     <style name="RoundedCornerButton" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="background">@drawable/button</item>
-        <item name="colorControlHighlight">@color/design_default_color_primary</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
     </style>
 
 </resources>

@@ -180,7 +180,7 @@
                     android:text="@string/go_to_user_ad"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
-                    android:textColor="@color/design_default_color_primary_dark"
+                    android:textColor="@color/colorPrimaryDark"
                     android:background="@drawable/button"
                     android:theme="@style/RoundedCornerButton"/>
 

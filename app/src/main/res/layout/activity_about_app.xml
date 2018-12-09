@@ -11,113 +11,117 @@
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/background">
+    <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-        <include
-                layout="@layout/app_bar_other"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <ImageView android:layout_width="100dp"
-                   android:layout_height="100dp"
-                   android:layout_gravity="center"
-                   android:layout_marginTop="40dp"
-                   android:src="@mipmap/ic_launcher_round"/>
-        <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/about_app"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="15dp"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:text="@string/about_text"/>
+                android:orientation="vertical"
+                android:background="@color/background">
 
-        <TextView
-                android:id="@+id/web"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="15sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/web"/>
+            <include
+                    layout="@layout/app_bar_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/colorPrimary">
-        </View>
+            <ImageView android:layout_width="100dp"
+                       android:layout_height="100dp"
+                       android:layout_gravity="center"
+                       android:layout_marginTop="40dp"
+                       android:src="@mipmap/ic_launcher_round"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/about_app"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="15dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="@string/about_text"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/support_header"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="15dp"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:text="@string/support"/>
+            <TextView
+                    android:id="@+id/web"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/web"/>
 
-        <TextView
-                android:id="@+id/author_email"
-                android:text="@string/author_email"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/colorPrimary">
-        </View>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorPrimary">
+            </View>
 
-        <TextView
-                android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/author"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/support_header"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="15dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text="@string/support"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:layout_marginTop="15dp"
-                android:text="@string/version"/>
-    </LinearLayout>
+            <TextView
+                    android:id="@+id/author_email"
+                    android:text="@string/author_email"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="15sp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorPrimary">
+            </View>
 
+            <TextView
+                    android:id="@+id/author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/author"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/version"/>
+        </LinearLayout>
+    </ScrollView>
     <android.support.design.widget.NavigationView
             android:id="@+id/nav_view_about_app"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            android:background="@color/design_default_color_primary"
+            android:background="@color/colorPrimary"
             app:itemTextColor="@color/colorAccent"
             app:itemIconTint="@color/colorAccent"
             app:headerLayout="@layout/nav_header_main"

@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MainAdapter.OnScrollListener - app</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">app</a>&nbsp;/&nbsp;<a href="../../index.html">com.example.anton.sb.ui.adapters</a>&nbsp;/&nbsp;<a href="../index.html">MainAdapter</a>&nbsp;/&nbsp;<a href="./index.html">OnScrollListener</a><br/>
+<br/>
+<h1>OnScrollListener</h1>
+<code><span class="keyword">class </span><span class="identifier">OnScrollListener</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">OnScrollListener</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">OnScrollListener</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter.OnScrollListener$<init>(android.support.v7.widget.LinearLayoutManager, android.support.v7.widget.RecyclerView.Adapter((com.example.anton.sb.ui.adapters.MainAdapter.ViewHolder)), java.util.ArrayList((com.example.anton.sb.data.ResultAd)))/layoutManager">layoutManager</span><span class="symbol">:</span>&nbsp;<span class="identifier">LinearLayoutManager</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter.OnScrollListener$<init>(android.support.v7.widget.LinearLayoutManager, android.support.v7.widget.RecyclerView.Adapter((com.example.anton.sb.ui.adapters.MainAdapter.ViewHolder)), java.util.ArrayList((com.example.anton.sb.data.ResultAd)))/adapter">adapter</span><span class="symbol">:</span>&nbsp;<span class="identifier">Adapter</span><span class="symbol">&lt;</span><a href="../-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter.OnScrollListener$<init>(android.support.v7.widget.LinearLayoutManager, android.support.v7.widget.RecyclerView.Adapter((com.example.anton.sb.ui.adapters.MainAdapter.ViewHolder)), java.util.ArrayList((com.example.anton.sb.data.ResultAd)))/dataList">dataList</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="adapter.html">adapter</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">adapter</span><span class="symbol">: </span><span class="identifier">Adapter</span><span class="symbol">&lt;</span><a href="../-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="data-list.html">dataList</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">dataList</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="first-visible-item.html">firstVisibleItem</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">firstVisibleItem</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="layout-manager.html">layoutManager</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">layoutManager</span><span class="symbol">: </span><span class="identifier">LinearLayoutManager</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="loading.html">loading</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">loading</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="previous-total.html">previousTotal</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">previousTotal</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="total-item-count.html">totalItemCount</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">totalItemCount</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="visible-item-count.html">visibleItemCount</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">visibleItemCount</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="visible-threshold.html">visibleThreshold</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">visibleThreshold</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="on-scrolled.html">onScrolled</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onScrolled</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter.OnScrollListener$onScrolled(android.support.v7.widget.RecyclerView, kotlin.Int, kotlin.Int)/recyclerView">recyclerView</span><span class="symbol">:</span>&nbsp;<span class="identifier">RecyclerView</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter.OnScrollListener$onScrolled(android.support.v7.widget.RecyclerView, kotlin.Int, kotlin.Int)/dx">dx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter.OnScrollListener$onScrolled(android.support.v7.widget.RecyclerView, kotlin.Int, kotlin.Int)/dy">dy</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

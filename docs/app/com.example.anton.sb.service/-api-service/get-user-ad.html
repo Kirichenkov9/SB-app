@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ApiService.getUserAd - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.example.anton.sb.service</a>&nbsp;/&nbsp;<a href="index.html">ApiService</a>&nbsp;/&nbsp;<a href="./get-user-ad.html">getUserAd</a><br/>
+<br/>
+<h1>getUserAd</h1>
+<a name="com.example.anton.sb.service.ApiService$getUserAd(kotlin.Long)"></a>
+<code><span class="identifier">@Headers</span><span class="symbol">(</span>["User-agent: Android_app"]<span class="symbol">)</span> <span class="identifier">@GET</span><span class="symbol">(</span>"users/{id}?show_ads=true"<span class="symbol">)</span> <span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getUserAd</span><span class="symbol">(</span><span class="identifier">@Path</span><span class="symbol">(</span>"id"<span class="symbol">)</span> <span class="identifier" id="com.example.anton.sb.service.ApiService$getUserAd(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Single</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The getUserAd() method is defined to get user ads.
+The endpoint is defined as “users/{id}?show_ads=true” with GET HTTP method.</p>
+<p><strong>Path</strong><br/>
+id - user id</p>
+<p><strong>Return</strong><br/>
+Single&lt;ArrayList&gt;</p>
+</BODY>
+</HTML>

@@ -228,7 +228,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            android:background="@color/design_default_color_primary"
+            android:background="@color/colorPrimary"
             app:itemTextColor="@color/colorAccent"
             app:itemIconTint="@color/colorAccent"
             app:headerLayout="@layout/nav_header_main"

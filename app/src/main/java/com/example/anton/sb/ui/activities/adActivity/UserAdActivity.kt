@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.widget.ProgressBar
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.data.Extensions.handleError
-import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.example.anton.sb.service.ApiService
+import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.ui.adapters.SearchAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_user_ad.*

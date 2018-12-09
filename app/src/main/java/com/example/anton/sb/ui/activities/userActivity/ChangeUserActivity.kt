@@ -12,11 +12,11 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.data.Extensions.handleError
+import com.example.anton.sb.service.ApiService
+import com.example.anton.sb.extensions.handleError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_change_user.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_change_user.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -64,18 +64,18 @@ class ChangeUserActivity : AppCompatActivity() {
         change_first_name.error = null
         change_last_name.error = null
 
-        val firstnameStr: String? = change_first_name.text.toString()
-        val lastnameStr: String? = change_last_name.text.toString()
+        val firstNameStr: String? = change_first_name.text.toString()
+        val lastNameStr: String? = change_last_name.text.toString()
         val telephoneStr: String? = change_tel_number.text.toString()
         val aboutStr: String? = change_about.text.toString()
 
-        if (TextUtils.isEmpty(firstnameStr)) {
+        if (TextUtils.isEmpty(firstNameStr)) {
             change_first_name.error = getString(R.string.error_field_required)
             focusView = change_first_name
             cancel = true
         }
 
-        if (TextUtils.isEmpty(lastnameStr)) {
+        if (TextUtils.isEmpty(lastNameStr)) {
             change_last_name.error = getString(R.string.error_field_required)
             focusView = change_first_name
             cancel = true
@@ -89,7 +89,7 @@ class ChangeUserActivity : AppCompatActivity() {
             // Show a progress spinner and to
             // perform the user login attempt.
             changeData(
-                firstnameStr.toString(), lastnameStr.toString(),
+                firstNameStr.toString(), lastNameStr.toString(),
                 telephoneStr.toString(), aboutStr.toString()
             )
         }
@@ -126,7 +126,9 @@ class ChangeUserActivity : AppCompatActivity() {
             },
                 { error ->
                     progressBar_user_change.visibility = ProgressBar.INVISIBLE
+
                     val errorString = handleError(error)
+
                     if (errorString == "empty body") {
                         toast("Данные изменены")
                         changeUser(firstName + " " + lastName)

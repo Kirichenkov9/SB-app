@@ -1,6 +1,7 @@
 package com.example.anton.sb.ui.activities.userActivity
 
 import android.os.Bundle
+import android.provider.Telephony
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.MenuItem
@@ -8,12 +9,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.data.Extensions.handleError
+import com.example.anton.sb.service.ApiService
+import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.extensions.isEmailValid
+import com.example.anton.sb.extensions.isPasswordValid
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_registration.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.util.regex.Pattern
@@ -28,7 +32,7 @@ class RegistrationActivity : AppCompatActivity() {
         actionBar!!.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        val buttonRegistration = findViewById<Button>(R.id.button_registration)
+        val buttonRegistration = find<Button>(R.id.button_registration)
 
         buttonRegistration.setOnClickListener { attemptForm() }
     }
@@ -59,6 +63,7 @@ class RegistrationActivity : AppCompatActivity() {
         val phoneNumberStr = phone_number_registration.text.toString()
         val passwordRegistrationStr = password_registration.text.toString()
         val repeatPassRegistrationStr = repeat_password_registration.text.toString()
+        val aboutStr =  about_registration.text.toString()
 
         var cancel = false
         var focusView: View? = null
@@ -118,36 +123,30 @@ class RegistrationActivity : AppCompatActivity() {
             focusView?.requestFocus()
         } else {
             // Ad add
-            adUser()
+            adUser(
+                firstNameRegistrationStr,
+                lastNameRegistrationStr,
+                emailRegistrationStr,
+                passwordRegistrationStr,
+                phoneNumberStr,
+                aboutStr
+            )
             progressBar_registration.visibility = ProgressBar.VISIBLE
         }
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        // Check entered email
-        val emailPattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
-        val pattern = Pattern.compile(emailPattern)
-        val matcher = pattern.matcher(email)
-        return matcher.matches()
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        // Check entered password
-        return password.length >= 6
-    }
-
-    private fun adUser() {
-
-        val firstNameStr = first_name_registration.text.toString()
-        val lastNameStr = last_name_registration.text.toString()
-        val emailStr = email_registration.text.toString()
-        val telNumberStr = phone_number_registration.text.toString()
-        val passwordStr = password_registration.text.toString()
-        val aboutStr = about_registration.text.toString()
+    private fun adUser(
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String,
+        telephone: String,
+        about: String
+    ) {
 
         val apiService: ApiService = ApiService.create()
 
-        apiService.createUser(firstNameStr, lastNameStr, emailStr, passwordStr, telNumberStr, aboutStr)
+        apiService.createUser(firstName, lastName, email, password, telephone, about)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
@@ -159,6 +158,7 @@ class RegistrationActivity : AppCompatActivity() {
                 startActivity<MainActivity>()
             }, { error ->
                 progressBar_registration.visibility = ProgressBar.INVISIBLE
+
                 toast(handleError(error))
             })
     }

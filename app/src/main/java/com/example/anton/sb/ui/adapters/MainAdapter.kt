@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.Extensions.updateDataList
-import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.example.anton.sb.extensions.updateDataList
+import com.example.anton.sb.data.ResultAd
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
@@ -37,7 +37,7 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
             with(ad) {
                 Picasso
                     .with(itemView.context)
-                    .load(images_url?.get(0))
+                    .load(ad_images?.get(0))
                     .placeholder(R.drawable.ic_image_ad)
                     .error(R.drawable.ic_image_ad)
                     .fit()

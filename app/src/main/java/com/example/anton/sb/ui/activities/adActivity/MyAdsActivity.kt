@@ -14,33 +14,68 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.data.Extensions.handleError
-import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
-import com.example.anton.sb.ui.adapters.SearchAdapter
+import com.example.anton.sb.ui.adapters.MainAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
-import kotlinx.android.synthetic.main.activity_my_ad.* // ktlint-disable no-wildcard-imports
-import kotlinx.android.synthetic.main.app_bar_my_ads.* // ktlint-disable no-wildcard-imports
-import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_my_ad.*
+import kotlinx.android.synthetic.main.app_bar_my_ads.*
+import org.jetbrains.anko.*
 
+/**
+ * A screen user ads
+ *
+ * @author Anton Kirichenkov
+ */
 class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * @property token
+     * @property keyToken
+     * @property name
+     * @property mail
+     * @property id
+     */
+
+    /**
+     * saved session_id
+     */
     private var token: String? = null
+
+    /**
+     * token key for SharedPreference
+     */
     private val keyToken = "token"
+
+    /**
+     * username key for SharedPreference
+     */
     private val name: String = "name"
+
+    /**
+     * email key for SharedPreference
+     */
     private val mail: String = "email"
+
+    /**
+     * user id
+     */
     private val id: String = "id"
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_ad)
         setSupportActionBar(toolbar_my_ads)
 
-        token = read(keyToken)
+        token = readUserData(keyToken)
 
         val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val idUser: Long = read.getLong(id, 0)
@@ -81,13 +116,22 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         }
     }
 
+    /**
+     * Method for display user ads with recyclerView Adapter.
+     *
+     * @param recyclerView
+     * @param idUser
+     *
+     * @see [getUserAd]
+     * @see [MainAdapter]
+     */
     private fun displayAds(recyclerView: RecyclerView, idUser: Long) {
 
         doAsync {
             val list = getUserAd(idUser)
             uiThread {
-                recyclerView.adapter = SearchAdapter(list,
-                    object : SearchAdapter.OnItemClickListener {
+                recyclerView.adapter = MainAdapter(list,
+                    object : MainAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
                             startActivity<MyAdSettingsActivity>("adId" to ad.id)
                         }
@@ -96,6 +140,9 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onBackPressed() {
         if (drawer_layout_user_ad.isDrawerOpen(GravityCompat.START)) {
             drawer_layout_user_ad.closeDrawer(GravityCompat.START)
@@ -104,6 +151,9 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_ad -> {
@@ -126,17 +176,31 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         return true
     }
 
-    private fun setUsername(name_user: TextView, userEmail: TextView) {
+    /**
+     * Method for display full user name and email from SharedPreference on nav_header.
+     * If user doesn't login, then display "Войти / зарегистрироваться"
+     *
+     * @param nameUser user name
+     * @param userEmail user email
+     */
+    private fun setUsername(nameUser: TextView, userEmail: TextView) {
         if (token.isNullOrEmpty()) {
             userEmail.text = getString(R.string.Enter_registration)
-            name_user.text = read(mail)
+            nameUser.text = readUserData(mail)
         } else {
-            name_user.text = read(name)
-            userEmail.text = read(mail)
+            nameUser.text = readUserData(name)
+            userEmail.text = readUserData(mail)
         }
     }
 
-    private fun read(key: String): String? {
+    /**
+     * Reading information about user by key from SharedPreference.
+     *
+     * @param key is a key for data from SharedPreference
+     *
+     * @return [String]
+     */
+    private fun readUserData(key: String): String? {
         var string: String? = null
         val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
 
@@ -146,11 +210,21 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         return string
     }
 
+    /**
+     * Get user ads. This method use [ApiService.getUserAd] and processing response from server.
+     * If response is successful, then display list of ads, else - display error
+     * processing by [handleError].
+     *
+     * @param idUser ad id
+     *
+     * @see [handleError]
+     * @see [ApiService.getUserAd]
+     */
     private fun getUserAd(idUser: Long): ArrayList<ResultAd> {
 
         val ads: ArrayList<ResultAd> = ArrayList()
-
         val apiService: ApiService = ApiService.create()
+
         apiService.getUserAd(idUser)
             .observeOn(mainThread())
             .subscribe({ result ->
@@ -163,14 +237,18 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 progressBar_my_ad.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeToken()
+                    removeData()
                     startActivity<LoginActivity>()
                 } else toast(errorStr)
             })
         return ads
     }
 
-    private fun removeToken() {
+    /**
+     * Method for remove user data from SharedPreference.
+     *
+     */
+    private fun removeData() {
         val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = saveToken.edit()
 

@@ -9,15 +9,16 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.data.Extensions.handleError
+import com.example.anton.sb.service.ApiService
+import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.extensions.isEmailValid
+import com.example.anton.sb.extensions.isPasswordValid
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_login.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import java.util.regex.Pattern.compile
 
 /**
  * A login screen that offers login via email/password.
@@ -102,19 +103,6 @@ class LoginActivity : AppCompatActivity() {
             login()
             progressBar_login.visibility = ProgressBar.VISIBLE
         }
-    }
-
-    private fun isEmailValid(email: String): Boolean {
-        // Check entered email
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        val pattern = compile(emailPattern)
-        val matcher = pattern.matcher(email)
-        return matcher.matches()
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        // Check entered password
-        return password.length >= 6
     }
 
     private fun login() {

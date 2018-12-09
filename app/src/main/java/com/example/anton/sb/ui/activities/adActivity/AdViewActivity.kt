@@ -1,10 +1,10 @@
 package com.example.anton.sb.ui.activities.adActivity
 
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Button
@@ -12,27 +12,61 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.data.Extensions.handleError
-import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.ui.activities.userActivity.UserViewActivity
 import com.squareup.picasso.Picasso
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_ad_view.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.makeCall
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+
+/**
+ * A screen of ad information
+ *
+ *@author Anton Kirichenkov
+ */
 
 class AdViewActivity : AppCompatActivity() {
 
+    /**
+     * @property userId
+     * @property preUserId
+     * @property preAdId
+     * @property adId
+     * @property phone
+     */
+
+    /**
+     * id of owner ad
+     */
     private var userId: Long = 0
+    /**
+     * this variable for check previous Activity
+     */
     private var preUserId: Long = 0
+
+    /**
+     * id of previous ad
+     */
     private var preAdId: Long = 0
+
+    /**
+     * ad id
+     */
     private var adId: Long = 0
+
+    /**
+     *  phone number of owner ad
+     */
     private var phone: String = ""
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ad_view)
@@ -58,31 +92,7 @@ class AdViewActivity : AppCompatActivity() {
         val photo = find<ImageView>(R.id.ad_photos)
         val button = find<Button>(R.id.go_to_user)
 
-        doAsync {
-            val ad: ResultAd? = adData(adId)
-            uiThread {
-                if (ad != null) {
-                    progressBar_ad_view.visibility = ProgressBar.INVISIBLE
-                    title.text = ad.title
-                    city.text = ad.city
-                    description.text = ad.description_ad
-                    price.text = ad.price.toString()
-                    username.text = (ad.owner_ad.first_name + " " + ad.owner_ad.last_name)
-                    telephone.text = ad.owner_ad.tel_number
-                    userId = ad.owner_ad.id
-                    actionBar.title = title.text
-                    phone = ad.owner_ad.tel_number
-                    Picasso
-                        .with(this@AdViewActivity)
-                        .load(ad.images_url?.get(0))
-                        .placeholder(R.drawable.ic_image_ad)
-                        .error(R.drawable.ic_image_ad)
-                        .fit()
-                        .centerCrop()
-                        .into(photo)
-                }
-            }
-        }
+        adData(adId, title, city, description, price, username, telephone, photo)
 
         progressBar_ad_view.visibility = ProgressBar.VISIBLE
 
@@ -107,12 +117,21 @@ class AdViewActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Make phone call by number of owner ad.
+     * This method check availability permission for making call.
+     *
+     * @param string phone number
+     */
     private fun makePhoneCall(string: String) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE), 1)
         else this.makeCall(string)
     }
 
+    /**
+     * @suppress
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == 1) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
@@ -122,6 +141,9 @@ class AdViewActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {
@@ -147,21 +169,63 @@ class AdViewActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Get ad information. This method use [ApiService.getAd] and processing response from server.
+     * If response is successful, then display information about ad, else - display error
+     * processing by [handleError].
+     *
+     * @param adId ad id
+     * @param title title ad
+     * @param city city of ad
+     * @param description description of ad
+     * @param price ad price
+     * @param username full name of owner ad
+     * @param telephone phone number of owner ad
+     * @param photo ad photo
+     *
+     * @see [ApiService.getAd]
+     * @see [handleError]
+     */
     private fun adData(
-        adId: Long
-    ): ResultAd? {
-        var ad: ResultAd? = null
+        adId: Long,
+        title: TextView,
+        city: TextView,
+        description: TextView,
+        price: TextView,
+        username: TextView,
+        telephone: TextView,
+        photo: ImageView
+    ) {
         val apiService: ApiService = ApiService.create()
 
         apiService.getAd(adId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
             .subscribe({ result ->
-
-                ad = result
                 progressBar_ad_view.visibility = ProgressBar.INVISIBLE
+
+                title.text = result.title
+                city.text = result.city
+                description.text = result.description_ad
+                price.text = result.price.toString()
+                username.text = (result.owner_ad.first_name + " " + result.owner_ad.last_name)
+                telephone.text = result.owner_ad.tel_number
+                userId = result.owner_ad.id
+                phone = result.owner_ad.tel_number
+                Picasso
+                    .with(this@AdViewActivity)
+                    .load(result.ad_images?.get(0))
+                    .placeholder(R.drawable.ic_image_ad)
+                    .error(R.drawable.ic_image_ad)
+                    .fit()
+                    .centerCrop()
+                    .into(photo)
+
+                actionBar?.title = title.text
             }, { error ->
                 progressBar_ad_view.visibility = ProgressBar.INVISIBLE
+
                 toast(handleError(error))
             })
-        return ad
     }
 }

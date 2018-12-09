@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.example.anton.sb.R
+import com.example.anton.sb.R.id.*
 import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
@@ -22,6 +23,7 @@ import org.jetbrains.anko.browse
 import org.jetbrains.anko.email
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
+import java.nio.file.Files.find
 
 class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 

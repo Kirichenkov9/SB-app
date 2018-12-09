@@ -12,16 +12,16 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ApiService
-import com.example.anton.sb.data.Extensions.handleError
+import com.example.anton.sb.service.ApiService
+import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_user_settings.* // ktlint-disable no-wildcard-imports
-import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_user_settings.*
+import kotlinx.android.synthetic.main.app_bar_other.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -143,12 +143,15 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             .subscribeOn(Schedulers.io())
             .subscribe({
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
+
                 toast("Вы вышли из аккаунта")
+
                 removeToken()
                 this.finish()
                 startActivity<MainActivity>()
             }, { error ->
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
+
                 toast(handleError(error))
             })
     }
@@ -162,16 +165,21 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             .subscribeOn(Schedulers.io())
             .subscribe({
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
+
                 toast("Аккаунт удален")
+
                 removeToken()
                 this.finish()
                 startActivity<MainActivity>()
             },
                 { error ->
                     progressBar_user_settings.visibility = ProgressBar.INVISIBLE
+
                     val errorStr = handleError(error)
+
                     if (errorStr == "empty body") {
                         toast("Аккаунт удален")
+
                         removeToken()
                         this.finish()
                         startActivity<MainActivity>()
@@ -206,7 +214,9 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 about.text = result.about
             }, { error ->
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
+
                 val errorStr = handleError(error)
+
                 if (errorStr == "empty body") {
                     toast("Объявление удалено")
 

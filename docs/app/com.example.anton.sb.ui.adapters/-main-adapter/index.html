@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MainAdapter - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.example.anton.sb.ui.adapters</a>&nbsp;/&nbsp;<a href="./index.html">MainAdapter</a><br/>
+<br/>
+<h1>MainAdapter</h1>
+<code><span class="keyword">class </span><span class="identifier">MainAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Adapter</span><span class="symbol">&lt;</span><a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">&gt;</span></code>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-on-item-click-listener/index.html">OnItemClickListener</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OnItemClickListener</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-on-scroll-listener/index.html">OnScrollListener</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">OnScrollListener</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">OnScrollListener</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-view-holder/index.html">ViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ViewHolder</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewHolder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">MainAdapter</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter$<init>(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), com.example.anton.sb.ui.adapters.MainAdapter.OnItemClickListener)/ads">ads</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter$<init>(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), com.example.anton.sb.ui.adapters.MainAdapter.OnItemClickListener)/itemClick">itemClick</span><span class="symbol">:</span>&nbsp;<a href="-on-item-click-listener/index.html"><span class="identifier">OnItemClickListener</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="ads.html">ads</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">ads</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="item-click.html">itemClick</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">itemClick</span><span class="symbol">: </span><a href="-on-item-click-listener/index.html"><span class="identifier">OnItemClickListener</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-item-count.html">getItemCount</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getItemCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-bind-view-holder.html">onBindViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onBindViewHolder</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter$onBindViewHolder(com.example.anton.sb.ui.adapters.MainAdapter.ViewHolder, kotlin.Int)/holder">holder</span><span class="symbol">:</span>&nbsp;<a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter$onBindViewHolder(com.example.anton.sb.ui.adapters.MainAdapter.ViewHolder, kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-view-holder.html">onCreateViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreateViewHolder</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/parent">parent</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.adapters.MainAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/viewType">viewType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

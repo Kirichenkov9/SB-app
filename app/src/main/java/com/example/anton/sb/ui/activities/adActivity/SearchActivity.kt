@@ -9,8 +9,8 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import com.example.anton.sb.R
-import com.example.anton.sb.data.Extensions.updateSearchList
-import com.example.anton.sb.data.ResponseClasses.ResultAd
+import com.example.anton.sb.extensions.updateSearchList
+import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.ui.adapters.SearchAdapter
 import kotlinx.android.synthetic.main.activity_search.* // ktlint-disable no-wildcard-imports
 import kotlinx.android.synthetic.main.app_bar_search.*  // ktlint-disable no-wildcard-imports
