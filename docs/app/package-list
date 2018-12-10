@@ -1,5 +1,5 @@
-$dokka.format:markdown
-$dokka.linkExtension:md
+$dokka.format:html
+$dokka.linkExtension:html
 
 com.example.anton.sb.data
 com.example.anton.sb.extensions

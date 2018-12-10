@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RegistrationActivity - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.example.anton.sb.ui.activities.userActivity</a>&nbsp;/&nbsp;<a href="./index.html">RegistrationActivity</a><br/>
+<br/>
+<h1>RegistrationActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">RegistrationActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>A screen registration</p>
+<p><strong>Author</strong><br/>
+Anton Kirichenkov</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">RegistrationActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>A screen registration</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="ad-user.html">adUser</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">adUser</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.RegistrationActivity$adUser(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String)/firstName">firstName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.RegistrationActivity$adUser(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String)/lastName">lastName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.RegistrationActivity$adUser(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String)/email">email</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.RegistrationActivity$adUser(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String)/password">password</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.RegistrationActivity$adUser(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String)/telephone">telephone</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.RegistrationActivity$adUser(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String)/about">about</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Creating ad. This method use <a href="../../com.example.anton.sb.service/-api-service/create-user.html">ApiService.createUser</a> and processing response from server
+and display message "Пользователь зарегистрирован". If response isn't successful,
+then caused <a href="../../com.example.anton.sb.extensions/handle-error.html">handleError</a> for process error.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="attempt-form.html">attemptForm</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">attemptForm</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Attempts to register the account specified by the login form.
+If there are form errors (invalid email, missing fields, etc.), the
+errors are presented and no actual login attempt is made.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

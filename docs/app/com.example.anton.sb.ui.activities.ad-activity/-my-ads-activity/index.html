@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MyAdsActivity - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.example.anton.sb.ui.activities.adActivity</a>&nbsp;/&nbsp;<a href="./index.html">MyAdsActivity</a><br/>
+<br/>
+<h1>MyAdsActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">MyAdsActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span><span class="symbol">, </span><span class="identifier">OnNavigationItemSelectedListener</span></code>
+<p>A screen logged in user ads</p>
+<p><strong>Author</strong><br/>
+Anton Kirichenkov</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">MyAdsActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>A screen logged in user ads</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="id.html">id</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>user id</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="key-token.html">keyToken</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">keyToken</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>token key for SharedPreference</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="mail.html">mail</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">mail</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>email key for SharedPreference</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>username key for SharedPreference</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="token.html">token</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">token</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>saved session_id</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="display-ads.html">displayAds</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">displayAds</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdsActivity$displayAds(android.support.v7.widget.RecyclerView, kotlin.Long)/recyclerView">recyclerView</span><span class="symbol">:</span>&nbsp;<span class="identifier">RecyclerView</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdsActivity$displayAds(android.support.v7.widget.RecyclerView, kotlin.Long)/idUser">idUser</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Method for display user ads with recyclerView Adapter.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-user-ad.html">getUserAd</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getUserAd</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdsActivity$getUserAd(kotlin.Long)/idUser">idUser</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span></code>
+<p>Get user ads. This method use <a href="../../com.example.anton.sb.service/-api-service/get-user-ad.html">ApiService.getUserAd</a> and processing response from server.
+If response is successful, then display list of ads, else - display error
+processing by <a href="../../com.example.anton.sb.extensions/handle-error.html">handleError</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="read-user-data.html">readUserData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">readUserData</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdsActivity$readUserData(kotlin.String)/key">key</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Reading information about user by key from SharedPreference.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="remove-data.html">removeData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">removeData</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Method for remove user data from SharedPreference.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-username.html">setUsername</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setUsername</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdsActivity$setUsername(android.widget.TextView, android.widget.TextView)/nameUser">nameUser</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdsActivity$setUsername(android.widget.TextView, android.widget.TextView)/userEmail">userEmail</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Method for display full user name and email from SharedPreference on nav_header.
+If user doesn't login, then display "Войти / зарегистрироваться"</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

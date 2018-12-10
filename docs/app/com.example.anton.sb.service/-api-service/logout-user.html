@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ApiService.logoutUser - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.example.anton.sb.service</a>&nbsp;/&nbsp;<a href="index.html">ApiService</a>&nbsp;/&nbsp;<a href="./logout-user.html">logoutUser</a><br/>
+<br/>
+<h1>logoutUser</h1>
+<a name="com.example.anton.sb.service.ApiService$logoutUser(kotlin.String)"></a>
+<code><span class="identifier">@Headers</span><span class="symbol">(</span>["User-agent: Android_app"]<span class="symbol">)</span> <span class="identifier">@POST</span><span class="symbol">(</span>"users/logout"<span class="symbol">)</span> <span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">logoutUser</span><span class="symbol">(</span><span class="identifier">@Header</span><span class="symbol">(</span>"Cookie"<span class="symbol">)</span> <span class="identifier" id="com.example.anton.sb.service.ApiService$logoutUser(kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Single</span><span class="symbol">&lt;</span><span class="identifier">Response</span><span class="symbol">&lt;</span><a href="https://developer.android.com/reference/java/lang/Void.html"><span class="identifier">Void</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The logoutUser() method is defined to logout user.
+The endpoint is defined as “users/logout” with POST HTTP method.</p>
+<p><strong>Header</strong><br/>
+Cookie - session_id of user session</p>
+<p><strong>Return</strong><br/>
+Single&lt;Response&gt;</p>
+</BODY>
+</HTML>
