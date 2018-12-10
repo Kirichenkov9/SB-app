@@ -1,0 +1,12 @@
+[app](../index.md) / [com.example.anton.sb.extensions](./index.md)
+
+## Package com.example.anton.sb.extensions
+
+### Functions
+
+| [handleError](handle-error.md) | `fun handleError(throwable: `[`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html)`): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>This method check the type of exception and return appropriate string. If throwable is a HTTPException, then check the code and message of error. |
+| [isEmailValid](is-email-valid.md) | `fun isEmailValid(email: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)<br>This function check valid of email at login and registration user. |
+| [isPasswordValid](is-password-valid.md) | `fun isPasswordValid(password: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)<br>This function check valid of password at login and registration user. |
+| [updateDataList](update-data-list.md) | `fun updateDataList(dataList: `[`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html)`<`[`ResultAd`](../com.example.anton.sb.data/-result-ad/index.md)`>): `[`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html)`<`[`ResultAd`](../com.example.anton.sb.data/-result-ad/index.md)`>`<br>This method uses for update items of recyclerView in MainActivity. Method called [ApiService.getAds](../com.example.anton.sb.service/-api-service/get-ads.md) with parameters dataList.size and limit (10). |
+| [updateSearchList](update-search-list.md) | `fun updateSearchList(searchList: `[`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html)`<`[`ResultAd`](../com.example.anton.sb.data/-result-ad/index.md)`>, string: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html)`<`[`ResultAd`](../com.example.anton.sb.data/-result-ad/index.md)`>`<br>This method uses for update items of recyclerView in SearchActivity. Method called [ApiService.getAdsSearch](../com.example.anton.sb.service/-api-service/get-ads-search.md) with parameters string, searchList.size and limit (10). |
+
