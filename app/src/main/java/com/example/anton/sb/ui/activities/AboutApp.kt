@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.R.id.*
 import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
@@ -23,22 +22,50 @@ import org.jetbrains.anko.browse
 import org.jetbrains.anko.email
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import java.nio.file.Files.find
 
+/**
+ * A screen information about app
+ *
+ * @author Anton Kirichenkov
+ */
 class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * @property token
+     * @property keyToken
+     * @property username
+     * @property mail
+     */
+
+    /**
+     * saved session_id
+     */
     private var token: String? = null
 
+    /**
+     * token key for SharedPreference
+     */
     private val keyToken = "token"
+
+    /**
+     * username key for SharedPreference
+     */
     private val username: String = "name"
+
+    /**
+     * email key for SharedPreference
+     */
     private val mail: String = "email"
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_app)
         setSupportActionBar(toolbar_settings)
 
-        token = read(keyToken)
+        token = readUserData(keyToken)
 
         val header = find<NavigationView>(R.id.nav_view_about_app).getHeaderView(0)
         val navViewHeader = header.find<View>(R.id.nav_view_header)
@@ -46,8 +73,8 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         val nameUser = header.find<TextView>(R.id.user_first_name)
         val userEmail = header.find<TextView>(R.id.mail)
 
-        nameUser.text = read(username)
-        userEmail.text = read(mail)
+        nameUser.text = readUserData(username)
+        userEmail.text = readUserData(mail)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_about_app, toolbar_settings,
@@ -78,6 +105,9 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onBackPressed() {
         if (drawer_layout_about_app.isDrawerOpen(GravityCompat.START)) {
             drawer_layout_about_app.closeDrawer(GravityCompat.START)
@@ -86,6 +116,9 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_ad -> {
@@ -108,7 +141,14 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         return true
     }
 
-    private fun read(key: String): String? {
+    /**
+     * Reading information about user by key from SharedPreference.
+     *
+     * @param key is a key for data from SharedPreference
+     *
+     * @return [String]
+     */
+    private fun readUserData(key: String): String? {
         var string: String? = null
         val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
 

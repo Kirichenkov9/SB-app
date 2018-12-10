@@ -16,10 +16,25 @@ import kotlinx.android.synthetic.main.activity_search.* // ktlint-disable no-wil
 import kotlinx.android.synthetic.main.app_bar_search.*  // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
+/**
+ * A screen searching ad
+ *
+ *@author Anton Kirichenkov
+ */
 class SearchActivity : AppCompatActivity() {
 
+    /**
+     * @property requestad
+     */
+
+    /**
+     * searching line
+     */
     private var request: String = ""
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -58,7 +73,19 @@ class SearchActivity : AppCompatActivity() {
             }
         }
     }
-
+    /**
+     * Method for display searching ads with recyclerView Adapter.
+     * If have problems with connection server or no ads,
+     * then display message "Объявлений нет".
+     *
+     * @param list [ArrayList]
+     * @param searchText
+     * @param recyclerView
+     * @param layoutManager
+     *
+     * @see [updateSearchList]
+     * @see [SearchAdapter]
+     */
     private fun displayAds(
         list: ArrayList<ResultAd>,
         searchText: EditText,
@@ -96,6 +123,9 @@ class SearchActivity : AppCompatActivity() {
         progressBar_search.visibility = ProgressBar.VISIBLE
     }
 
+    /**
+     * @suppress
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {

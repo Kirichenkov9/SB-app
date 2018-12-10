@@ -10,6 +10,8 @@
 <h1>LoginActivity</h1>
 <code><span class="keyword">class </span><span class="identifier">LoginActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
 <p>A login screen that offers login via email/password.</p>
+<p><strong>Author</strong><br/>
+Anton Kirichenkov</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -33,7 +35,7 @@
 </td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">attemptLogin</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Attempts to sign in or register the account specified by the login form.
+<p>Attempts to sign in the account specified by the login form.
 If there are form errors (invalid email, missing fields, etc.), the
 errors are presented and no actual login attempt is made.</p>
 </td>
@@ -43,30 +45,20 @@ errors are presented and no actual login attempt is made.</p>
 <p><a href="login.html">login</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">login</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="on-create.html">onCreate</a></p>
+<code><span class="keyword">fun </span><span class="identifier">login</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$login(kotlin.String, kotlin.String)/emailStr">emailStr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$login(kotlin.String, kotlin.String)/passwordStr">passwordStr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Log in user. This method use <a href="../../com.example.anton.sb.service/-api-service/login-user.html">ApiService.loginUser</a> and processing response from server.
+If response is successful, user login and saving his email, full name, session_id, else - display error
+processing by <a href="../../com.example.anton.sb.extensions/handle-error.html">handleError</a>.</p>
 </td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Keep track of the login task to ensure we can cancel it if requested.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="on-options-item-selected.html">onOptionsItemSelected</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
 </tr>
 <tr>
 <td>
 <p><a href="save-username.html">saveUsername</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">saveUsername</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/firstName">firstName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/lastName">lastName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/email">email</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+<code><span class="keyword">fun </span><span class="identifier">saveUsername</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/firstName">firstName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/lastName">lastName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/email">email</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$saveUsername(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Saving user information in SharedPreference.</p>
+</td>
 </tr>
 </tbody>
 </table>

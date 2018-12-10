@@ -9,6 +9,9 @@
 <br/>
 <h1>SearchActivity</h1>
 <code><span class="keyword">class </span><span class="identifier">SearchActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>A screen searching ad</p>
+<p><strong>Author</strong><br/>
+Anton Kirichenkov</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,7 +20,9 @@
 <p><a href="-init-.html">&lt;init&gt;</a></p>
 </td>
 <td>
-<code><span class="identifier">SearchActivity</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+<code><span class="identifier">SearchActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>A screen searching ad</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -29,7 +34,9 @@
 <p><a href="request.html">request</a></p>
 </td>
 <td>
-<code><span class="keyword">var </span><span class="identifier">request</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+<code><span class="keyword">var </span><span class="identifier">request</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>searching line</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -41,21 +48,11 @@
 <p><a href="display-ads.html">displayAds</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">displayAds</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$displayAds(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), android.widget.EditText, android.support.v7.widget.RecyclerView, android.support.v7.widget.LinearLayoutManager)/list">list</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$displayAds(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), android.widget.EditText, android.support.v7.widget.RecyclerView, android.support.v7.widget.LinearLayoutManager)/searchText">searchText</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/EditText.html"><span class="identifier">EditText</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$displayAds(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), android.widget.EditText, android.support.v7.widget.RecyclerView, android.support.v7.widget.LinearLayoutManager)/recyclerView">recyclerView</span><span class="symbol">:</span>&nbsp;<span class="identifier">RecyclerView</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$displayAds(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), android.widget.EditText, android.support.v7.widget.RecyclerView, android.support.v7.widget.LinearLayoutManager)/layoutManager">layoutManager</span><span class="symbol">:</span>&nbsp;<span class="identifier">LinearLayoutManager</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="on-create.html">onCreate</a></p>
+<code><span class="keyword">fun </span><span class="identifier">displayAds</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$displayAds(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), android.widget.EditText, android.support.v7.widget.RecyclerView, android.support.v7.widget.LinearLayoutManager)/list">list</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$displayAds(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), android.widget.EditText, android.support.v7.widget.RecyclerView, android.support.v7.widget.LinearLayoutManager)/searchText">searchText</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/EditText.html"><span class="identifier">EditText</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$displayAds(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), android.widget.EditText, android.support.v7.widget.RecyclerView, android.support.v7.widget.LinearLayoutManager)/recyclerView">recyclerView</span><span class="symbol">:</span>&nbsp;<span class="identifier">RecyclerView</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$displayAds(java.util.ArrayList((com.example.anton.sb.data.ResultAd)), android.widget.EditText, android.support.v7.widget.RecyclerView, android.support.v7.widget.LinearLayoutManager)/layoutManager">layoutManager</span><span class="symbol">:</span>&nbsp;<span class="identifier">LinearLayoutManager</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Method for display searching ads with recyclerView Adapter.
+If have problems with connection server or no ads,
+then display message "Объявлений нет".</p>
 </td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="on-options-item-selected.html">onOptionsItemSelected</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.SearchActivity$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
 </tr>
 </tbody>
 </table>

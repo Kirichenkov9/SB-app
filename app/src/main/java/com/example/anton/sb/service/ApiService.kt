@@ -6,7 +6,7 @@ import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.*
+import retrofit2.http.* // ktlint-disable no-wildcard-imports
 
 /**
  * Retrofit interface Api
@@ -39,7 +39,6 @@ interface ApiService {
         @Field("tel_number") telNumber: String,
         @Field("about") about: String
     ): Single<ResultUser>
-
 
     /**
      * The loginUser() method is defined to login user and an Single<Response<ResultUser>> is returned.
@@ -110,7 +109,6 @@ interface ApiService {
         @Field("description_ad") description: String
     ): Single<ResultAd>
 
-
     /**
      * The getUserData() method is defined to get information about user.
      * The endpoint is defined as “users/profile” with GET HTTP method.
@@ -149,7 +147,6 @@ interface ApiService {
         @Field("about") about: String
     ): Single<ResultUser>
 
-
     /**
      * The getAds() method is defined to get ads.
      * The endpoint is defined as “ads” with GET HTTP method.
@@ -165,7 +162,6 @@ interface ApiService {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int
     ): Single<ArrayList<ResultAd>>
-
 
     /**
      * The getUserAd() method is defined to get user ads.
@@ -230,7 +226,6 @@ interface ApiService {
         @Field("description_ad") description: String,
         @Field("ad_images") photo: ArrayList<String>?
     ): Single<ResultAd>
-
 
     /**
      * The deleteAd() method is defined to delete ad.

@@ -18,12 +18,31 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
-
+/**
+ * A screen user ads
+ *
+ * @author Anton Kirichenkov
+ */
 class UserAdActivity : AppCompatActivity() {
 
+    /**
+     * @property userId
+     * @property preAdId
+     */
+
+    /**
+     * user id
+     */
     private var userId: Long = 0
+
+    /**
+     * previous ad id
+     */
     private var preAdId: Long = 0
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_ad)
@@ -59,6 +78,9 @@ class UserAdActivity : AppCompatActivity() {
         progressBar_user_ad.visibility = ProgressBar.VISIBLE
     }
 
+    /**
+     * @suppress
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {
@@ -69,6 +91,14 @@ class UserAdActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Get user sds. This method called [ApiService.getUserAd] and processing response from server
+     * and display ads. If response isn't successful, then caused [handleError] for process error.
+     *
+     * @param id_user user id
+     *
+     * @see [ApiService.getUserAd]
+     */
     private fun getUserAd(id_user: Long): ArrayList<ResultAd> {
 
         val ads: ArrayList<ResultAd> = ArrayList()

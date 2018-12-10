@@ -1,156 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:background="@color/background">
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-    <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".ui.activities.adActivity.AdViewActivity">
-
-        <ImageView
-                android:id="@+id/ad_photos"
-                android:layout_width="match_parent"
-                android:src="@drawable/ic_image_ad"
-                android:layout_height="200dp"/>
-
-
-        <TextView
-                android:text="@string/title"
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_marginStart="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"/>
-        <TextView
-                android:id="@+id/title_ad_settings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_ad"
-                android:drawableEnd="@drawable/ic_change_user"
-                android:drawablePadding="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorAccent"/>
+                android:orientation="vertical"
+                tools:context=".ui.activities.adActivity.AdViewActivity">
+
+            <ImageView
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/ad_photos"
+                    android:layout_width="300dp"
+                    android:src="@drawable/ic_image_ad"
+                    android:layout_height="300dp"/>
 
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/colorPrimary">
-        </View>
+            <TextView
+                    android:text="@string/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginStart="30dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"/>
+            <TextView
+                    android:id="@+id/title_ad_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_ad"
+                    android:drawableEnd="@drawable/ic_change_user"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"/>
 
-        <TextView
-                android:text="@string/city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_marginStart="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"/>
-        <TextView
-                android:id="@+id/city_ad_settings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_place"
-                android:drawableEnd="@drawable/ic_change_user"
-                android:drawablePadding="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorAccent"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorPrimary">
+            </View>
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/colorPrimary">
-        </View>
+            <TextView
+                    android:text="@string/city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginStart="30dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"/>
+            <TextView
+                    android:id="@+id/city_ad_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_place"
+                    android:drawableEnd="@drawable/ic_change_user"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"/>
 
-        <TextView
-                android:text="@string/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_marginStart="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"/>
-        <TextView
-                android:id="@+id/about_ad_settings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_about_ad"
-                android:drawableEnd="@drawable/ic_change_user"
-                android:drawablePadding="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorAccent"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorPrimary">
+            </View>
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/colorPrimary">
-        </View>
+            <TextView
+                    android:text="@string/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginStart="30dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"/>
+            <TextView
+                    android:id="@+id/about_ad_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_about_ad"
+                    android:drawableEnd="@drawable/ic_change_user"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"/>
 
-        <TextView
-                android:text="@string/price_ad_add"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_marginStart="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorPrimary">
+            </View>
+
+            <TextView
+                    android:text="@string/price_ad_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginStart="30dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"/>
 
 
-        <TextView
-                android:id="@+id/price_ad_settings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_price"
-                android:drawableEnd="@drawable/ic_change_user"
-                android:drawablePadding="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:textSize="20sp"
-                android:textColor="@color/colorAccent"/>
+            <TextView
+                    android:id="@+id/price_ad_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_price"
+                    android:drawableEnd="@drawable/ic_change_user"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"/>
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/colorPrimary">
-        </View>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorPrimary">
+            </View>
 
-        <Button
-                android:id="@+id/delete_ad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center"
-                android:text="@string/delete_ad"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:background="@drawable/button"
-                android:theme="@style/RoundedCornerButton"/>
-
-    </LinearLayout>
+            <Button
+                    android:id="@+id/delete_ad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center"
+                    android:text="@string/delete_ad"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@drawable/button"
+                    android:theme="@style/RoundedCornerButton"/>
+        </LinearLayout>
 
         <ProgressBar
                 android:id="@+id/progressBar_ad_settings"
@@ -161,7 +160,5 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
     </android.support.constraint.ConstraintLayout>
-
 </ScrollView>

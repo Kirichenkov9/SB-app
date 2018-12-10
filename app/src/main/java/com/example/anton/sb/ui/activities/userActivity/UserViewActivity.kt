@@ -19,10 +19,25 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
+/**
+ * A screen information about user
+ *
+ * @author Anton Kirichenkov
+ */
 class UserViewActivity : AppCompatActivity() {
 
+    /**
+     * @property adId
+     */
+
+    /**
+     * ad id
+     */
     private var adId: Long = 0
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_view)
@@ -56,6 +71,9 @@ class UserViewActivity : AppCompatActivity() {
         progressBar_user_view.visibility = ProgressBar.VISIBLE
     }
 
+    /**
+     * @suppress
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {
@@ -66,9 +84,23 @@ class UserViewActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Get user information. This method use [ApiService.getUser] and processing response from server.
+     * If response is successful, then display user information, else - display error
+     * processing by [handleError].
+     *
+     * @param firstName user first name
+     * @param lastName user last name
+     * @param telephone user phone number
+     * @param about information about user
+     *
+     *
+     * @see [ApiService.getUserData]
+     * @see [handleError]
+     */
     private fun userData(
-        first_name: TextView,
-        last_name: TextView,
+        firstName: TextView,
+        lastName: TextView,
         email: TextView,
         telephone: TextView,
         about: TextView,
@@ -81,8 +113,8 @@ class UserViewActivity : AppCompatActivity() {
             .subscribe({ result ->
                 progressBar_user_view.visibility = ProgressBar.INVISIBLE
 
-                first_name.text = result.first_name
-                last_name.text = result.last_name
+                firstName.text = result.first_name
+                lastName.text = result.last_name
                 email.text = result.email
                 telephone.text = result.tel_number
                 about.text = result.about

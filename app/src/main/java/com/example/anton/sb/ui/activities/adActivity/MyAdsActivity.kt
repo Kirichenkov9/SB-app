@@ -22,12 +22,12 @@ import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MainAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
-import kotlinx.android.synthetic.main.activity_my_ad.*
-import kotlinx.android.synthetic.main.app_bar_my_ads.*
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.activity_my_ad.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.app_bar_my_ads.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 /**
- * A screen user ads
+ * A screen logged in user ads
  *
  * @author Anton Kirichenkov
  */

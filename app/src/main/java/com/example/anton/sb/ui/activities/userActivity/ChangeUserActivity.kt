@@ -21,10 +21,26 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
+/**
+ * A screen changing user information
+ *
+ * @author Anton Kirichenkov
+ */
+
 class ChangeUserActivity : AppCompatActivity() {
 
+    /**
+     * @property token
+     */
+
+    /**
+     * user session_id
+     */
     private var token: String? = null
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_user)
@@ -47,6 +63,9 @@ class ChangeUserActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {
@@ -57,6 +76,10 @@ class ChangeUserActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Checking entered data and change data or display error.
+     * This method called [changeData]
+     */
     private fun changeUser() {
         var cancel = false
         var focusView: View? = null
@@ -95,6 +118,20 @@ class ChangeUserActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Changing user information. This method use [ApiService.changeUser] and processing response from server.
+     * If response is successful, then display message "Данные изменены", else - display error
+     * processing by [handleError].
+     *
+     * @param firstName user first name
+     * @param lastName user last name
+     * @param telephone user phone number
+     * @param about information about user
+     *
+     *
+     * @see [ApiService.changeUser]
+     * @see [handleError]
+     */
     private fun changeData(
         firstName: String,
         lastName: String,
@@ -140,6 +177,20 @@ class ChangeUserActivity : AppCompatActivity() {
                 })
     }
 
+    /**
+     * Get user information. This method use [ApiService.getUserData] and processing response from server.
+     * If response is successful, then display user information, else - display error
+     * processing by [handleError].
+     *
+     * @param firstName user first name
+     * @param lastName user last name
+     * @param telNumber user phone number
+     * @param about information about user
+     *
+     *
+     * @see [ApiService.getUserData]
+     * @see [handleError]
+     */
     private fun userData(
         firstName: TextView,
         lastName: TextView,
@@ -165,6 +216,11 @@ class ChangeUserActivity : AppCompatActivity() {
             })
     }
 
+    /**
+     * Reading user session_id  from SharedPreference.
+     *
+     * @return [String]
+     */
     private fun readToken(): String? {
         var string: String? = null
         val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
@@ -176,6 +232,11 @@ class ChangeUserActivity : AppCompatActivity() {
         return string
     }
 
+    /**
+     * Changing user name in SharedPreference.
+     *
+     *@param name user full name
+     */
     private fun changeUser(name: String) {
         val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = save.edit()

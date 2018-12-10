@@ -9,6 +9,9 @@
 <br/>
 <h1>UserAdActivity</h1>
 <code><span class="keyword">class </span><span class="identifier">UserAdActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>A screen user ads</p>
+<p><strong>Author</strong><br/>
+Anton Kirichenkov</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,7 +20,9 @@
 <p><a href="-init-.html">&lt;init&gt;</a></p>
 </td>
 <td>
-<code><span class="identifier">UserAdActivity</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+<code><span class="identifier">UserAdActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>A screen user ads</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -29,14 +34,18 @@
 <p><a href="pre-ad-id.html">preAdId</a></p>
 </td>
 <td>
-<code><span class="keyword">var </span><span class="identifier">preAdId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+<code><span class="keyword">var </span><span class="identifier">preAdId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code>
+<p>previous ad id</p>
+</td>
 </tr>
 <tr>
 <td>
 <p><a href="user-id.html">userId</a></p>
 </td>
 <td>
-<code><span class="keyword">var </span><span class="identifier">userId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+<code><span class="keyword">var </span><span class="identifier">userId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code>
+<p>user id</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -48,21 +57,10 @@
 <p><a href="get-user-ad.html">getUserAd</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">getUserAd</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.UserAdActivity$getUserAd(kotlin.Long)/id_user">id_user</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="on-create.html">onCreate</a></p>
+<code><span class="keyword">fun </span><span class="identifier">getUserAd</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.UserAdActivity$getUserAd(kotlin.Long)/id_user">id_user</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span></code>
+<p>Get user sds. This method called <a href="../../com.example.anton.sb.service/-api-service/get-user-ad.html">ApiService.getUserAd</a> and processing response from server
+and display ads. If response isn't successful, then caused <a href="../../com.example.anton.sb.extensions/handle-error.html">handleError</a> for process error.</p>
 </td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.UserAdActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="on-options-item-selected.html">onOptionsItemSelected</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.UserAdActivity$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
 </tr>
 </tbody>
 </table>

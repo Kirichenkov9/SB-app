@@ -1,7 +1,6 @@
 package com.example.anton.sb.ui.activities.userActivity
 
 import android.os.Bundle
-import android.provider.Telephony
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.MenuItem
@@ -20,10 +19,17 @@ import kotlinx.android.synthetic.main.activity_registration.* // ktlint-disable 
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import java.util.regex.Pattern
 
+/**
+ * A screen registration
+ *
+ * @author Anton Kirichenkov
+ */
 class RegistrationActivity : AppCompatActivity() {
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
@@ -37,6 +43,9 @@ class RegistrationActivity : AppCompatActivity() {
         buttonRegistration.setOnClickListener { attemptForm() }
     }
 
+    /**
+     * @suppress
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {
@@ -47,6 +56,11 @@ class RegistrationActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Attempts to register the account specified by the login form.
+     * If there are form errors (invalid email, missing fields, etc.), the
+     * errors are presented and no actual login attempt is made.
+     */
     private fun attemptForm() {
         // Reset errors.
         first_name_registration.error = null
@@ -63,7 +77,7 @@ class RegistrationActivity : AppCompatActivity() {
         val phoneNumberStr = phone_number_registration.text.toString()
         val passwordRegistrationStr = password_registration.text.toString()
         val repeatPassRegistrationStr = repeat_password_registration.text.toString()
-        val aboutStr =  about_registration.text.toString()
+        val aboutStr = about_registration.text.toString()
 
         var cancel = false
         var focusView: View? = null
@@ -135,6 +149,21 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Creating ad. This method use [ApiService.createUser] and processing response from server
+     * and display message "Пользователь зарегистрирован". If response isn't successful,
+     * then caused [handleError] for process error.
+     *
+     * @param firstName user first name
+     * @param lastName user last name
+     * @param email user email
+     * @param password user password
+     * @param telephone user telephone
+     * @param about information about user
+     *
+     * @see [ApiService.createUser]
+     * @see [handleError]
+     */
     private fun adUser(
         firstName: String,
         lastName: String,

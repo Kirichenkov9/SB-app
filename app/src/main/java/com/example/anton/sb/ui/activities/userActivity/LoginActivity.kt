@@ -22,13 +22,14 @@ import org.jetbrains.anko.toast
 
 /**
  * A login screen that offers login via email/password.
+ *
+ * @author Anton Kirichenkov
  */
 class LoginActivity : AppCompatActivity() {
 
     /**
-     * Keep track of the login task to ensure we can cancel it if requested.
+     * @suppress
      */
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -44,6 +45,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {
@@ -55,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
+     * Attempts to sign in the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
@@ -100,16 +104,26 @@ class LoginActivity : AppCompatActivity() {
         } else {
             // Show a progress spinner and to
             // perform the user login attempt.
-            login()
+            login(emailStr, passwordStr)
             progressBar_login.visibility = ProgressBar.VISIBLE
         }
     }
 
-    private fun login() {
-
-        val emailStr = email.text.toString()
-        val passwordStr = password.text.toString()
-
+    /**
+     * Log in user. This method use [ApiService.loginUser] and processing response from server.
+     * If response is successful, user login and saving his email, full name, session_id, else - display error
+     * processing by [handleError].
+     *
+     * @param emailStr user email
+     * @param passwordStr user password
+     *
+     * @see [ApiService.loginUser]
+     * @see [handleError]
+     */
+    private fun login(
+        emailStr: String,
+        passwordStr: String
+    ) {
         val apiService: ApiService = ApiService.create()
 
         apiService.loginUser(emailStr, passwordStr)
@@ -136,6 +150,14 @@ class LoginActivity : AppCompatActivity() {
             })
     }
 
+    /**
+     * Saving user information in SharedPreference.
+     *
+     * @param token user session_id
+     * @param firstName user first name
+     * @param lastName user last name
+     * @param email user EMAIL
+     */
     private fun saveUsername(token: String, firstName: String, lastName: String, email: String, id: Long) {
         val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = save.edit()

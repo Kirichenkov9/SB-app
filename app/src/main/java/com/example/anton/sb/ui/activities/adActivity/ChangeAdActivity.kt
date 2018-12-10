@@ -166,7 +166,6 @@ class ChangeAdActivity : AppCompatActivity() {
         price: TextView,
         photo: ArrayList<String>
     ) {
-
         val apiService: ApiService = ApiService.create()
 
         apiService.getAd(adId)
@@ -180,7 +179,6 @@ class ChangeAdActivity : AppCompatActivity() {
                 description.text = result.description_ad
                 price.text = result.price.toString()
                 photo.addAll(result.ad_images!!)
-
             }, { error ->
                 progressBar_ad_change.visibility = ProgressBar.INVISIBLE
 

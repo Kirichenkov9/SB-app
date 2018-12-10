@@ -9,6 +9,9 @@
 <br/>
 <h1>MyAdSettingsActivity</h1>
 <code><span class="keyword">class </span><span class="identifier">MyAdSettingsActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>A screen ad view of logged ih user</p>
+<p><strong>Author</strong><br/>
+Anton Kirichenkov</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,7 +20,9 @@
 <p><a href="-init-.html">&lt;init&gt;</a></p>
 </td>
 <td>
-<code><span class="identifier">MyAdSettingsActivity</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+<code><span class="identifier">MyAdSettingsActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>A screen ad view of logged ih user</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -29,28 +34,45 @@
 <p><a href="ad-id.html">adId</a></p>
 </td>
 <td>
-<code><span class="keyword">var </span><span class="identifier">adId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+<code><span class="keyword">var </span><span class="identifier">adId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code>
+<p>ad id</p>
+</td>
 </tr>
 <tr>
 <td>
 <p><a href="key-token.html">keyToken</a></p>
 </td>
 <td>
-<code><span class="keyword">val </span><span class="identifier">keyToken</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+<code><span class="keyword">val </span><span class="identifier">keyToken</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>token key for SharedPreference</p>
+</td>
 </tr>
 <tr>
 <td>
 <p><a href="mail.html">mail</a></p>
 </td>
 <td>
-<code><span class="keyword">val </span><span class="identifier">mail</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+<code><span class="keyword">val </span><span class="identifier">mail</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>email key for SharedPreference</p>
+</td>
 </tr>
 <tr>
 <td>
 <p><a href="name.html">name</a></p>
 </td>
 <td>
-<code><span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+<code><span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>username key for SharedPreference</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="token.html">token</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">token</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>saved session_id</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -62,42 +84,40 @@
 <p><a href="ad-data.html">adData</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">adData</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView)/title">title</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView)/city">city</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView)/price">price</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+<code><span class="keyword">fun </span><span class="identifier">adData</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.ImageView)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.ImageView)/title">title</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.ImageView)/city">city</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.ImageView)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.ImageView)/price">price</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$adData(kotlin.Long, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.TextView, android.widget.ImageView)/photo">photo</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/ImageView.html"><span class="identifier">ImageView</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Get ad information. This method use <a href="../../com.example.anton.sb.service/-api-service/get-ad.html">ApiService.getAd</a> and processing response from server.
+If response is successful, then display information about ad, else - display error
+processing by <a href="../../com.example.anton.sb.extensions/handle-error.html">handleError</a>.</p>
+</td>
 </tr>
 <tr>
 <td>
 <p><a href="delete-ad.html">deleteAd</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">deleteAd</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+<code><span class="keyword">fun </span><span class="identifier">deleteAd</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$deleteAd(kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Deleting ad. This method use <a href="../../com.example.anton.sb.service/-api-service/delete-ad.html">ApiService.deleteAd</a> and processing response from server.
+If response is successful, then display message "Объявление удалено" and start MyAdsActivity, else - display error
+processing by <a href="../../com.example.anton.sb.extensions/handle-error.html">handleError</a>.</p>
+</td>
 </tr>
 <tr>
 <td>
-<p><a href="on-create.html">onCreate</a></p>
+<p><a href="read-data.html">readData</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+<code><span class="keyword">fun </span><span class="identifier">readData</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$readData(kotlin.String)/key">key</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Reading information about user by key from SharedPreference.</p>
+</td>
 </tr>
 <tr>
 <td>
-<p><a href="on-options-item-selected.html">onOptionsItemSelected</a></p>
+<p><a href="remove-data.html">removeData</a></p>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="read.html">read</a></p>
+<code><span class="keyword">fun </span><span class="identifier">removeData</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Method for remove user data from SharedPreference.</p>
 </td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">read</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity$read(kotlin.String)/key">key</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="remove-token.html">removeToken</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">removeToken</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 </tbody>
 </table>

@@ -24,10 +24,12 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
+                    android:layout_marginTop="20dp"
                     android:id="@+id/ad_photos"
                     android:src="@drawable/ic_image_ad"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"/>
+                    android:layout_gravity="center"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"/>
 
             <TextView
                     android:text="@string/title"

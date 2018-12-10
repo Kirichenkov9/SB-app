@@ -26,20 +26,47 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
+/**
+ * A screen user settings
+ */
 class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * @property token
+     * @property keyToken
+     * @property name
+     * @property mail
+     */
+
+    /**
+     * saved session_id
+     */
     private var token: String? = null
 
+    /**
+     * token key for SharedPreference
+     */
     private val keyToken = "token"
+
+    /**
+     * username key for SharedPreference
+     */
     private val name: String = "name"
+
+    /**
+     * email key for SharedPreference
+     */
     private val mail: String = "email"
 
+    /**
+     * @suppress
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_settings)
         setSupportActionBar(toolbar_settings)
 
-        token = read(keyToken)
+        token = readUserData(keyToken)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_settings, toolbar_settings,
@@ -65,8 +92,8 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             }
         }
 
-        nameUser.text = read(name)
-        userEmail.text = read(mail)
+        nameUser.text = readUserData(name)
+        userEmail.text = readUserData(mail)
 
         val firstName = find<TextView>(R.id.first_user_name)
         val lastName = find<TextView>(R.id.last_user_name)
@@ -104,6 +131,9 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onBackPressed() {
         if (drawer_layout_settings.isDrawerOpen(GravityCompat.START)) {
             drawer_layout_settings.closeDrawer(GravityCompat.START)
@@ -112,6 +142,9 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }
     }
 
+    /**
+     * @suppress
+     */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_ad -> {
@@ -134,8 +167,15 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         return true
     }
 
+    /**
+     * Log out user. This method use [ApiService.logoutUser] and processing response from server.
+     * If response is successful, display message "Вы вышли из аккаунта", else - display error
+     * processing by [handleError].
+     *
+     * @see [ApiService.loginUser]
+     * @see [handleError]
+     */
     private fun logout() {
-
         val apiService: ApiService = ApiService.create()
 
         apiService.logoutUser(token.toString())
@@ -146,7 +186,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
                 toast("Вы вышли из аккаунта")
 
-                removeToken()
+                removeData()
                 this.finish()
                 startActivity<MainActivity>()
             }, { error ->
@@ -156,8 +196,15 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             })
     }
 
+    /**
+     * Delete user. This method use [ApiService.deleteUser] and processing response from server.
+     * If response is successful, display message "Аккаунт удален", else - display error
+     * processing by [handleError].
+     *
+     * @see [ApiService.deleteUser]
+     * @see [handleError]
+     */
     private fun delete() {
-
         val apiService: ApiService = ApiService.create()
 
         apiService.deleteUser(token.toString())
@@ -168,7 +215,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
                 toast("Аккаунт удален")
 
-                removeToken()
+                removeData()
                 this.finish()
                 startActivity<MainActivity>()
             },
@@ -180,17 +227,31 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                     if (errorStr == "empty body") {
                         toast("Аккаунт удален")
 
-                        removeToken()
+                        removeData()
                         this.finish()
                         startActivity<MainActivity>()
                     } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                        removeToken()
+                        removeData()
                         startActivity<LoginActivity>()
                     } else
                         toast(errorStr)
                 })
     }
 
+    /**
+     * Get user information. This method use [ApiService.getUserData] and processing response from server.
+     * If response is successful, then display user information, else - display error
+     * processing by [handleError].
+     *
+     * @param firstName user first name
+     * @param lastName user last name
+     * @param telephone user phone number
+     * @param about information about user
+     *
+     *
+     * @see [ApiService.getUserData]
+     * @see [handleError]
+     */
     private fun userData(
         firstName: TextView,
         lastName: TextView,
@@ -222,14 +283,18 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
                     startActivity<MyAdsActivity>()
                 } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeToken()
+                    removeData()
                     startActivity<LoginActivity>()
                 } else
                     toast(errorStr)
             })
     }
 
-    private fun removeToken() {
+    /**
+     * Method for remove user data from SharedPreference.
+     *
+     */
+    private fun removeData() {
         val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = saveToken.edit()
 
@@ -240,7 +305,14 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         editor.apply()
     }
 
-    private fun read(key: String): String? {
+    /**
+     * Reading user data by key from SharedPreference.
+     *
+     * @param key ley for SharedPreference
+     *
+     * @return [String]
+     */
+    private fun readUserData(key: String): String? {
         var string: String? = null
         val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
 
