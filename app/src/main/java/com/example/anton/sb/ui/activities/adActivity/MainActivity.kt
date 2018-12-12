@@ -17,6 +17,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.extensions.updateDataList
 import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        token = readUserData(keyToken)
+        token = readUserData(keyToken, this)
 
         val list: ArrayList<ResultAd> = ArrayList()
 
@@ -216,27 +217,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun setUsername(nameUser: TextView, userEmail: TextView) {
         if (token.isNullOrEmpty()) {
             userEmail.text = getString(R.string.Enter_registration)
-            nameUser.text = readUserData(mail)
+            nameUser.text = readUserData(mail, this)
         } else {
-            nameUser.text = readUserData(name)
-            userEmail.text = readUserData(mail)
+            nameUser.text = readUserData(name, this)
+            userEmail.text = readUserData(mail, this)
         }
-    }
-
-    /**
-     * Reading information about user by key from SharedPreference.
-     *
-     * @param key is a key for data from SharedPreference
-     *
-     * @return [String]
-     */
-    private fun readUserData(key: String): String? {
-        var string: String? = null
-        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-
-        if (read.contains(key)) {
-            string = read.getString(key, " ")
-        }
-        return string
     }
 }

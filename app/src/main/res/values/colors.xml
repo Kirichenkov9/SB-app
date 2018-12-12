@@ -3,10 +3,11 @@
     <color name="colorPrimary">#344955</color>
     <color name="colorPrimaryDark">#232F34</color>
     <color name="colorAccent">#F9AA33</color>
-    <color name="background">#4A6572</color>
+    <color name="colorError">#cf0e11</color>
+    <color name="background">#546E7A</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
-    <color name="grey">#dcd9d9</color>
+    <color name="grey">#EEEEEE</color>
     <color name="button">#F9AA33</color>
 </resources>
 

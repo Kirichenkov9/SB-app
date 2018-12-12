@@ -65,7 +65,6 @@ class SearchActivity : AppCompatActivity() {
             else if (list.size == 0) {
                 searchString = searchText.text.toString()
                 displayAds(list, searchText, recyclerView, layoutManager)
-                searchString = searchText.text.toString()
             } else if (searchText.text.toString() != searchString) {
                 list.clear()
                 displayAds(list, searchText, recyclerView, layoutManager)
@@ -133,7 +132,6 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         startActivity<MainActivity>()
-
         return true
     }
 }

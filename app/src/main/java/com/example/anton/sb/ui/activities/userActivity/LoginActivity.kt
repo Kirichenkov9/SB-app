@@ -13,6 +13,7 @@ import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.extensions.isEmailValid
 import com.example.anton.sb.extensions.isPasswordValid
+import com.example.anton.sb.extensions.saveUsername
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -133,13 +134,16 @@ class LoginActivity : AppCompatActivity() {
                 progressBar_login.visibility = ProgressBar.INVISIBLE
                 if (result.code() == 200) {
                     toast("Привет, ${result.body()!!.first_name}")
+
                     saveUsername(
                         result.headers().get("set-cookie").toString(),
                         result.body()!!.first_name,
                         result.body()!!.last_name,
                         emailStr,
-                        result.body()!!.id
+                        result.body()!!.id,
+                        this
                     )
+
                     this.finish()
                     startActivity<MainActivity>()
                 } else
@@ -148,23 +152,5 @@ class LoginActivity : AppCompatActivity() {
                 progressBar_login.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
-    }
-
-    /**
-     * Saving user information in SharedPreference.
-     *
-     * @param token user session_id
-     * @param firstName user first name
-     * @param lastName user last name
-     * @param email user EMAIL
-     */
-    private fun saveUsername(token: String, firstName: String, lastName: String, email: String, id: Long) {
-        val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = save.edit()
-        editor.putString("token", token)
-        editor.putString("name", firstName + " " + lastName)
-        editor.putString("email", email)
-        editor.putLong("id", id)
-        editor.apply()
     }
 }

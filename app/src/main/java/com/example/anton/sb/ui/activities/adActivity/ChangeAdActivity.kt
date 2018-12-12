@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.extensions.readUserData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_change_ad.* // ktlint-disable no-wildcard-imports
@@ -53,7 +54,7 @@ class ChangeAdActivity : AppCompatActivity() {
         actionBar!!.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        token = readToken()
+        token = readUserData("token", this)
 
         val intent = intent
         adId = intent.getLongExtra("adId", 0)
@@ -178,7 +179,7 @@ class ChangeAdActivity : AppCompatActivity() {
                 city.text = result.city
                 description.text = result.description_ad
                 price.text = result.price.toString()
-                photo.addAll(result.ad_images!!)
+                photo.addAll(result.ad_images)
             }, { error ->
                 progressBar_ad_change.visibility = ProgressBar.INVISIBLE
 
@@ -188,21 +189,5 @@ class ChangeAdActivity : AppCompatActivity() {
                 else
                     toast(errorStr)
             })
-    }
-
-    /**
-     * Reading user  session_id from SharedPreference.
-     *
-     * @return [String]
-     */
-    private fun readToken(): String? {
-        var sessionId: String? = null
-        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-
-        if (saveToken.contains("token")) {
-            sessionId = saveToken.getString("token", null)
-        }
-
-        return sessionId
     }
 }

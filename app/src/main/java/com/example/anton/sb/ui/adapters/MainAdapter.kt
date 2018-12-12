@@ -13,6 +13,7 @@ import com.example.anton.sb.data.ResultAd
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.image
 import org.jetbrains.anko.uiThread
 
 /**
@@ -78,14 +79,16 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
          */
         fun bindAd(ad: ResultAd) {
             with(ad) {
-                Picasso
-                    .with(itemView.context)
-                    .load(ad_images?.get(0))
-                    .placeholder(R.drawable.ic_image_ad)
-                    .error(R.drawable.ic_image_ad)
-                    .fit()
-                    .centerCrop()
-                    .into(photoView)
+                if (ad_images.isEmpty()) {
+                    Picasso
+                        .with(itemView.context)
+                        .load(ad_images[0])
+                        .placeholder(R.drawable.ic_image_ad)
+                        .error(R.drawable.ic_image_ad)
+                        .fit()
+                        .centerCrop()
+                        .into(photoView)
+                }
                 titleView.text = title
                 cityView.text = city
                 itemView.setOnClickListener { itemClick(this) }

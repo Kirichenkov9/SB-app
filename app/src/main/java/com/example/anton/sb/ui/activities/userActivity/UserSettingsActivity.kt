@@ -14,6 +14,8 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.extensions.readUserData
+import com.example.anton.sb.extensions.removeUserData
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
@@ -66,7 +68,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         setContentView(R.layout.activity_user_settings)
         setSupportActionBar(toolbar_settings)
 
-        token = readUserData(keyToken)
+        token = readUserData(keyToken, this)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_settings, toolbar_settings,
@@ -92,8 +94,8 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             }
         }
 
-        nameUser.text = readUserData(name)
-        userEmail.text = readUserData(mail)
+        nameUser.text = readUserData(name, this)
+        userEmail.text = readUserData(mail, this)
 
         val firstName = find<TextView>(R.id.first_user_name)
         val lastName = find<TextView>(R.id.last_user_name)
@@ -186,7 +188,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
                 toast("Вы вышли из аккаунта")
 
-                removeData()
+                removeUserData(this)
                 this.finish()
                 startActivity<MainActivity>()
             }, { error ->
@@ -215,7 +217,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
                 toast("Аккаунт удален")
 
-                removeData()
+                removeUserData(this)
                 this.finish()
                 startActivity<MainActivity>()
             },
@@ -227,11 +229,11 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                     if (errorStr == "empty body") {
                         toast("Аккаунт удален")
 
-                        removeData()
+                        removeUserData(this)
                         this.finish()
                         startActivity<MainActivity>()
                     } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                        removeData()
+                        removeUserData(this)
                         startActivity<LoginActivity>()
                     } else
                         toast(errorStr)
@@ -283,42 +285,10 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
                     startActivity<MyAdsActivity>()
                 } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeData()
+                    removeUserData(this)
                     startActivity<LoginActivity>()
                 } else
                     toast(errorStr)
             })
-    }
-
-    /**
-     * Method for remove user data from SharedPreference.
-     *
-     */
-    private fun removeData() {
-        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = saveToken.edit()
-
-        editor.remove(keyToken)
-        editor.remove(name)
-        editor.remove(mail)
-        editor.clear()
-        editor.apply()
-    }
-
-    /**
-     * Reading user data by key from SharedPreference.
-     *
-     * @param key ley for SharedPreference
-     *
-     * @return [String]
-     */
-    private fun readUserData(key: String): String? {
-        var string: String? = null
-        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-
-        if (read.contains(key)) {
-            string = read.getString(key, " ")
-        }
-        return string
     }
 }

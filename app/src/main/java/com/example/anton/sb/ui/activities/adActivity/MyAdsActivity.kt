@@ -16,6 +16,8 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.extensions.readUserData
+import com.example.anton.sb.extensions.removeUserData
 import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
@@ -75,10 +77,9 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         setContentView(R.layout.activity_my_ad)
         setSupportActionBar(toolbar_my_ads)
 
-        token = readUserData(keyToken)
+        token = readUserData(keyToken, this)
 
-        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val idUser: Long = read.getLong(id, 0)
+        val idUser: Long = readUserData(id, this)!!.toLong()
 
         val recyclerView = find<RecyclerView>(R.id.user_ad)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -186,28 +187,11 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     private fun setUsername(nameUser: TextView, userEmail: TextView) {
         if (token.isNullOrEmpty()) {
             userEmail.text = getString(R.string.Enter_registration)
-            nameUser.text = readUserData(mail)
+            nameUser.text = readUserData(mail, this)
         } else {
-            nameUser.text = readUserData(name)
-            userEmail.text = readUserData(mail)
+            nameUser.text = readUserData(name, this)
+            userEmail.text = readUserData(mail, this)
         }
-    }
-
-    /**
-     * Reading information about user by key from SharedPreference.
-     *
-     * @param key is a key for data from SharedPreference
-     *
-     * @return [String]
-     */
-    private fun readUserData(key: String): String? {
-        var string: String? = null
-        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-
-        if (read.contains(key)) {
-            string = read.getString(key, "")
-        }
-        return string
     }
 
     /**
@@ -237,25 +221,10 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 progressBar_my_ad.visibility = ProgressBar.INVISIBLE
                 val errorStr = handleError(error)
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeData()
+                    removeUserData(this)
                     startActivity<LoginActivity>()
                 } else toast(errorStr)
             })
         return ads
-    }
-
-    /**
-     * Method for remove user data from SharedPreference.
-     *
-     */
-    private fun removeData() {
-        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = saveToken.edit()
-
-        editor.remove(keyToken)
-        editor.remove(name)
-        editor.remove(mail)
-        editor.clear()
-        editor.apply()
     }
 }

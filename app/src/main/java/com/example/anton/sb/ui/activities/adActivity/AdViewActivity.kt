@@ -212,15 +212,16 @@ class AdViewActivity : AppCompatActivity() {
                 telephone.text = result.owner_ad.tel_number
                 userId = result.owner_ad.id
                 phone = result.owner_ad.tel_number
-                Picasso
-                    .with(this@AdViewActivity)
-                    .load(result.ad_images?.get(0))
-                    .placeholder(R.drawable.ic_image_ad)
-                    .error(R.drawable.ic_image_ad)
-                    .fit()
-                    .centerCrop()
-                    .into(photo)
-
+                if (result.ad_images.isEmpty()) {
+                    Picasso
+                        .with(this@AdViewActivity)
+                        .load(result.ad_images[0])
+                        .placeholder(R.drawable.ic_image_ad)
+                        .error(R.drawable.ic_image_ad)
+                        .fit()
+                        .centerCrop()
+                        .into(photo)
+                }
                 actionBar?.title = title.text
             }, { error ->
                 progressBar_ad_view.visibility = ProgressBar.INVISIBLE

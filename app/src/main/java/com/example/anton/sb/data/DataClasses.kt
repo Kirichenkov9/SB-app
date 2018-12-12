@@ -26,7 +26,7 @@ data class ResultAd(
     /**
      * images url for ad
      */
-    var ad_images: ArrayList<String>?,
+    var ad_images: ArrayList<String>,
     /**
      * information about user-owner ad
      */

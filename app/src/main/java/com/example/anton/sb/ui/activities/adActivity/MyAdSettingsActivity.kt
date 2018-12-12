@@ -12,6 +12,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.extensions.readUserData
+import com.example.anton.sb.extensions.removeUserData
 import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.squareup.picasso.Picasso
@@ -76,7 +78,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
         val intent = intent
         adId = intent.getLongExtra("adId", 0)
 
-        val token = readData("token")
+        val token = readUserData("token", this)
 
         val title = find<TextView>(R.id.title_ad_settings)
         val city = find<TextView>(R.id.city_ad_settings)
@@ -120,8 +122,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-        val intent = Intent(this, MyAdsActivity::class.java)
-        startActivity(intent)
+        startActivity<MyAdsActivity>()
         return true
     }
 
@@ -161,15 +162,16 @@ class MyAdSettingsActivity : AppCompatActivity() {
                 city.text = result.city
                 description.text = result.description_ad
                 price.text = result.price.toString()
-                Picasso
-                    .with(this@MyAdSettingsActivity)
-                    .load(result.ad_images?.get(0))
-                    .placeholder(R.drawable.ic_image_ad)
-                    .error(R.drawable.ic_image_ad)
-                    .fit()
-                    .centerCrop()
-                    .into(photo)
-
+                if (result.ad_images.isEmpty()) {
+                    Picasso
+                        .with(this@MyAdSettingsActivity)
+                        .load(result.ad_images[0])
+                        .placeholder(R.drawable.ic_image_ad)
+                        .error(R.drawable.ic_image_ad)
+                        .fit()
+                        .centerCrop()
+                        .into(photo)
+                }
                 actionBar?.title = title.text
             }, { error ->
                 progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
@@ -209,40 +211,10 @@ class MyAdSettingsActivity : AppCompatActivity() {
 
                     startActivity<MyAdsActivity>()
                 } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeData()
+                    removeUserData(this)
                     startActivity<LoginActivity>()
                 } else
                     toast(errorStr)
             })
-    }
-
-    /**
-     * Method for remove user data from SharedPreference.
-     *
-     */
-    private fun removeData() {
-        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = saveToken.edit()
-
-        editor.remove(keyToken)
-        editor.remove(name)
-        editor.remove(mail)
-        editor.clear()
-        editor.apply()
-    }
-
-    /**
-     * Reading information about user by key from SharedPreference.
-     *
-     * @param key is a key for data from SharedPreference
-     */
-    private fun readData(key: String): String? {
-        var string: String? = null
-        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-
-        if (read.contains(key)) {
-            string = read.getString(key, " ")
-        }
-        return string
     }
 }

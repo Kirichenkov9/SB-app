@@ -12,8 +12,10 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
+import com.example.anton.sb.extensions.changeUser
 import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.extensions.readUserData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_change_user.*
@@ -139,7 +141,7 @@ class ChangeUserActivity : AppCompatActivity() {
         about: String
     ) {
 
-        token = readToken()
+        token = readUserData("token", this)
 
         val apiService: ApiService = ApiService.create()
 
@@ -154,8 +156,7 @@ class ChangeUserActivity : AppCompatActivity() {
                 progressBar_user_change.visibility = ProgressBar.INVISIBLE
                 toast("Данные изменены")
 
-                changeUser(firstName + " " + lastName)
-
+                changeUser((firstName + " " + lastName), this)
                 this.finish()
 
                 val intent = Intent(this, UserSettingsActivity::class.java)
@@ -168,7 +169,7 @@ class ChangeUserActivity : AppCompatActivity() {
 
                     if (errorString == "empty body") {
                         toast("Данные изменены")
-                        changeUser(firstName + " " + lastName)
+                        changeUser((firstName + " " + lastName), this)
 
                         this.finish()
                         startActivity<UserSettingsActivity>()
@@ -197,7 +198,7 @@ class ChangeUserActivity : AppCompatActivity() {
         telNumber: TextView,
         about: TextView
     ) {
-        token = readToken()
+        token = readUserData("token", this)
 
         val apiService: ApiService = ApiService.create()
 
@@ -214,34 +215,5 @@ class ChangeUserActivity : AppCompatActivity() {
                 progressBar_user_change.visibility = ProgressBar.INVISIBLE
                 toast(handleError(error))
             })
-    }
-
-    /**
-     * Reading user session_id  from SharedPreference.
-     *
-     * @return [String]
-     */
-    private fun readToken(): String? {
-        var string: String? = null
-        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-
-        if (saveToken.contains("token")) {
-            string = saveToken.getString("token", null)
-        }
-
-        return string
-    }
-
-    /**
-     * Changing user name in SharedPreference.
-     *
-     *@param name user full name
-     */
-    private fun changeUser(name: String) {
-        val save: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = save.edit()
-        editor.remove(name)
-        editor.putString("name", name)
-        editor.apply()
     }
 }

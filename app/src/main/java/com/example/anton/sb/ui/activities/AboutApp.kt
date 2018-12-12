@@ -73,8 +73,15 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         val nameUser = header.find<TextView>(R.id.user_first_name)
         val userEmail = header.find<TextView>(R.id.mail)
 
-        nameUser.text = readUserData(username)
-        userEmail.text = readUserData(mail)
+        setUsername(nameUser, userEmail)
+
+        navViewHeader.setOnClickListener {
+            if (token.isNullOrEmpty()) {
+                startActivity<LoginActivity>()
+            } else {
+                startActivity<UserSettingsActivity>()
+            }
+        }
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_about_app, toolbar_settings,
@@ -121,17 +128,29 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_ad -> {
-                startActivity<AddAdActivity>()
-            }
-            R.id.account -> {
-                startActivity<UserSettingsActivity>()
-            }
             R.id.search -> {
                 startActivity<MainActivity>()
             }
+            R.id.account -> {
+                if (token.isNullOrEmpty()) {
+                    startActivity<LoginActivity>()
+                } else {
+                    startActivity<UserSettingsActivity>()
+                }
+            }
             R.id.my_ads -> {
-                startActivity<MyAdsActivity>()
+                if (token.isNullOrEmpty()) {
+                    startActivity<LoginActivity>()
+                } else {
+                    startActivity<MyAdsActivity>()
+                }
+            }
+            R.id.add_ad -> {
+                if (token.isNullOrEmpty()) {
+                    startActivity<LoginActivity>()
+                } else {
+                    startActivity<AddAdActivity>()
+                }
             }
             R.id.about_app -> {
                 startActivity<AboutApp>()
@@ -156,5 +175,22 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             string = read.getString(key, " ")
         }
         return string
+    }
+
+    /**
+     * Method for display full user name and email from SharedPreference on nav_header.
+     * If user doesn't login, then display "Войти / зарегистрироваться"
+     *
+     * @param nameUser user name
+     * @param userEmail user email
+     */
+    private fun setUsername(nameUser: TextView, userEmail: TextView) {
+        if (token.isNullOrEmpty()) {
+            userEmail.text = getString(R.string.Enter_registration)
+            nameUser.text = readUserData(mail)
+        } else {
+            nameUser.text = readUserData(username)
+            userEmail.text = readUserData(mail)
+        }
     }
 }

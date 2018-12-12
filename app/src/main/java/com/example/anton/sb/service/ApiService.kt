@@ -224,7 +224,7 @@ interface ApiService {
         @Field("price") price: Int,
         @Field("city") city: String,
         @Field("description_ad") description: String,
-        @Field("ad_images") photo: ArrayList<String>?
+        @Field("ad_images") photo: ArrayList<String>
     ): Single<ResultAd>
 
     /**

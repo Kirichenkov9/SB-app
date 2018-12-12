@@ -15,6 +15,8 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.extensions.readUserData
+import com.example.anton.sb.extensions.removeUserData
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
@@ -67,7 +69,7 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         setContentView(R.layout.activity_add_ad)
         setSupportActionBar(toolbar_settings)
 
-        token = readUserData(keyToken)
+        token = readUserData(keyToken, this)
 
         val header = find<NavigationView>(R.id.nav_view_add_ad).getHeaderView(0)
         val navViewHeader = header.find<View>(R.id.nav_view_header)
@@ -75,8 +77,8 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val nameUser = header.find<TextView>(R.id.user_first_name)
         val userEmail = header.find<TextView>(R.id.mail)
 
-        nameUser.text = readUserData(username)
-        userEmail.text = readUserData(mail)
+        nameUser.text = readUserData(username, this)
+        userEmail.text = readUserData(mail, this)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout_add_ad, toolbar_settings,
@@ -207,7 +209,7 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
      * @see [ApiService.createAd]
      * @see [handleError]
      */
-    private fun addAd(
+    fun addAd(
         title: String,
         city: String,
         description: String,
@@ -231,39 +233,10 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 val errorStr = handleError(error)
 
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeUserData()
+                    removeUserData(this)
                     startActivity<LoginActivity>()
                 } else
                     toast(errorStr)
             })
-    }
-
-    /**
-     * Reading information about user by key from SharedPreference.
-     *
-     * @param key is a key for data from SharedPreference
-     */
-    private fun readUserData(key: String): String? {
-        var string: String? = null
-        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-
-        if (read.contains(key)) {
-            string = read.getString(key, " ")
-        }
-        return string
-    }
-
-    /**
-     * Removing information about user by key from SharedPreference.
-     */
-    private fun removeUserData() {
-        val saveToken: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = saveToken.edit()
-
-        editor.remove(keyToken)
-        editor.remove(username)
-        editor.remove(mail)
-        editor.clear()
-        editor.apply()
     }
 }
