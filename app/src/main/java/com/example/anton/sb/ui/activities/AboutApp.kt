@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.example.anton.sb.R
+import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
@@ -65,7 +66,7 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         setContentView(R.layout.activity_about_app)
         setSupportActionBar(toolbar_settings)
 
-        token = readUserData(keyToken)
+        token = readUserData(keyToken, this)
 
         val header = find<NavigationView>(R.id.nav_view_about_app).getHeaderView(0)
         val navViewHeader = header.find<View>(R.id.nav_view_header)
@@ -108,7 +109,7 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
 
         web.setOnClickListener {
-            browse("https://protected-bayou-62297.herokuapp.com/ads")
+            browse("https://search-build.herokuapp.com/ads")
         }
     }
 
@@ -159,24 +160,6 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         drawer_layout_about_app.closeDrawer(GravityCompat.START)
         return true
     }
-
-    /**
-     * Reading information about user by key from SharedPreference.
-     *
-     * @param key is a key for data from SharedPreference
-     *
-     * @return [String]
-     */
-    private fun readUserData(key: String): String? {
-        var string: String? = null
-        val read: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-
-        if (read.contains(key)) {
-            string = read.getString(key, " ")
-        }
-        return string
-    }
-
     /**
      * Method for display full user name and email from SharedPreference on nav_header.
      * If user doesn't login, then display "Войти / зарегистрироваться"
@@ -187,10 +170,10 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
     private fun setUsername(nameUser: TextView, userEmail: TextView) {
         if (token.isNullOrEmpty()) {
             userEmail.text = getString(R.string.Enter_registration)
-            nameUser.text = readUserData(mail)
+            nameUser.text = readUserData(mail, this)
         } else {
-            nameUser.text = readUserData(username)
-            userEmail.text = readUserData(mail)
+            nameUser.text = readUserData(username, this)
+            userEmail.text = readUserData(mail, this)
         }
     }
 }

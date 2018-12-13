@@ -12,17 +12,11 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.extensions.handleError
-import com.example.anton.sb.service.ApiService
+import com.example.anton.sb.service.adData
 import com.example.anton.sb.ui.activities.userActivity.UserViewActivity
 import com.squareup.picasso.Picasso
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_ad_view.*
-import org.jetbrains.anko.find
-import org.jetbrains.anko.makeCall
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 /**
  * A screen of ad information
@@ -92,8 +86,33 @@ class AdViewActivity : AppCompatActivity() {
         val photo = find<ImageView>(R.id.ad_photos)
         val button = find<Button>(R.id.go_to_user)
 
-        adData(adId, title, city, description, price, username, telephone, photo)
-
+        doAsync {
+            val ad = adData(adId, this@AdViewActivity)
+            uiThread {
+                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
+                if (ad != null) {
+                    title.text = ad.title
+                    city.text = ad.city
+                    description.text = ad.description_ad
+                    price.text = ad.price.toString()
+                    username.text = (ad.owner_ad.first_name + " " + ad.owner_ad.last_name)
+                    telephone.text = ad.owner_ad.tel_number
+                    phone = telephone.text.toString()
+                    userId = ad.owner_ad.id
+                    if (ad.ad_images.isEmpty()) {
+                        Picasso
+                            .with(this@AdViewActivity)
+                            .load(ad.ad_images[0])
+                            .placeholder(R.drawable.ic_image_ad)
+                            .error(R.drawable.ic_image_ad)
+                            .fit()
+                            .centerCrop()
+                            .into(photo)
+                    }
+                    actionBar.title = title.text
+                }
+            }
+        }
         progressBar_ad_view.visibility = ProgressBar.VISIBLE
 
         button.setOnClickListener {
@@ -167,66 +186,5 @@ class AdViewActivity : AppCompatActivity() {
             )
         }
         return true
-    }
-
-    /**
-     * Get ad information. This method use [ApiService.getAd] and processing response from server.
-     * If response is successful, then display information about ad, else - display error
-     * processing by [handleError].
-     *
-     * @param adId ad id
-     * @param title title ad
-     * @param city city of ad
-     * @param description description of ad
-     * @param price ad price
-     * @param username full name of owner ad
-     * @param telephone phone number of owner ad
-     * @param photo ad photo
-     *
-     * @see [ApiService.getAd]
-     * @see [handleError]
-     */
-    private fun adData(
-        adId: Long,
-        title: TextView,
-        city: TextView,
-        description: TextView,
-        price: TextView,
-        username: TextView,
-        telephone: TextView,
-        photo: ImageView
-    ) {
-        val apiService: ApiService = ApiService.create()
-
-        apiService.getAd(adId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
-                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
-
-                title.text = result.title
-                city.text = result.city
-                description.text = result.description_ad
-                price.text = result.price.toString()
-                username.text = (result.owner_ad.first_name + " " + result.owner_ad.last_name)
-                telephone.text = result.owner_ad.tel_number
-                userId = result.owner_ad.id
-                phone = result.owner_ad.tel_number
-                if (result.ad_images.isEmpty()) {
-                    Picasso
-                        .with(this@AdViewActivity)
-                        .load(result.ad_images[0])
-                        .placeholder(R.drawable.ic_image_ad)
-                        .error(R.drawable.ic_image_ad)
-                        .fit()
-                        .centerCrop()
-                        .into(photo)
-                }
-                actionBar?.title = title.text
-            }, { error ->
-                progressBar_ad_view.visibility = ProgressBar.INVISIBLE
-
-                toast(handleError(error))
-            })
     }
 }

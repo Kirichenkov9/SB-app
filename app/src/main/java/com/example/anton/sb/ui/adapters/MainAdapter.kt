@@ -1,5 +1,6 @@
 package com.example.anton.sb.ui.adapters
 
+import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,12 +9,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.extensions.updateDataList
 import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.extensions.updateDataList
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
-import org.jetbrains.anko.image
 import org.jetbrains.anko.uiThread
 
 /**
@@ -32,7 +32,8 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
     /**
      * @suppress
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder { val view = LayoutInflater.from(parent.context).inflate(R.layout.content_main, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.content_main, parent, false)
         return ViewHolder(view, itemClick)
     }
 
@@ -109,12 +110,13 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
     /**
      * Class for automatic update list of ads.
      *
-     * @return  RecyclerView.OnScrollListener()
+     * @return RecyclerView.OnScrollListener()
      */
     class OnScrollListener(
         val layoutManager: LinearLayoutManager,
         val adapter: RecyclerView.Adapter<MainAdapter.ViewHolder>,
-        val dataList: ArrayList<ResultAd>
+        val dataList: ArrayList<ResultAd>,
+        val context: Context
     ) : RecyclerView.OnScrollListener() {
 
         /**
@@ -180,7 +182,7 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
             if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                 val initialSize = dataList.size
                 doAsync {
-                    updateDataList(dataList)
+                    updateDataList(dataList, context)
                     uiThread {
                         val updatedSize = dataList.size
 

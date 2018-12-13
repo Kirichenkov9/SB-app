@@ -1,7 +1,5 @@
 package com.example.anton.sb.ui.activities.adActivity
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -27,7 +25,6 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
 /**
@@ -133,15 +130,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerView: RecyclerView,
         layoutManager: LinearLayoutManager
     ) {
-
         doAsync {
-            val dataList = updateDataList(list)
+            val dataList = updateDataList(list, this@MainActivity)
             uiThread {
                 progressBar_main.visibility = ProgressBar.INVISIBLE
-                if (dataList.isEmpty())
-                    toast("Объявлений нет")
                 val adapter =
-                    MainAdapter(updateDataList(dataList), object : MainAdapter.OnItemClickListener {
+                    MainAdapter(updateDataList(dataList, this@MainActivity), object : MainAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
                             startActivity<AdViewActivity>("adId" to ad.id)
                         }
@@ -152,7 +146,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     MainAdapter.OnScrollListener(
                         layoutManager,
                         adapter,
-                        dataList
+                        dataList,
+                        this@MainActivity
                     )
                 )
             }

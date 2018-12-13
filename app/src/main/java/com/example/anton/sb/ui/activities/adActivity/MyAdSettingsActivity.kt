@@ -1,8 +1,5 @@
 package com.example.anton.sb.ui.activities.adActivity
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -11,18 +8,16 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.extensions.removeUserData
-import com.example.anton.sb.service.ApiService
-import com.example.anton.sb.ui.activities.userActivity.LoginActivity
+import com.example.anton.sb.service.adData
+import com.example.anton.sb.service.deleteAd
 import com.squareup.picasso.Picasso
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_my_ad_settings.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 /**
  * A screen ad view of logged ih user
@@ -87,7 +82,16 @@ class MyAdSettingsActivity : AppCompatActivity() {
         val photo = find<ImageView>(R.id.ad_photos)
         val button = find<Button>(R.id.delete_ad)
 
-        adData(adId, title, city, description, price, photo)
+        doAsync {
+            val ad = adData(adId, this@MyAdSettingsActivity)
+            uiThread {
+                progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
+                if (ad != null) {
+                    setData(ad, title, city, description, price, photo)
+                    actionBar.title = ad.title
+                }
+            }
+        }
 
         progressBar_ad_settings.visibility = ProgressBar.VISIBLE
 
@@ -108,7 +112,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
         }
 
         button.setOnClickListener {
-            deleteAd(token)
+            deleteAd(adId, token, progressBar_ad_settings, this)
             progressBar_ad_settings.visibility = ProgressBar.VISIBLE
         }
     }
@@ -127,94 +131,36 @@ class MyAdSettingsActivity : AppCompatActivity() {
     }
 
     /**
-     * Get ad information. This method use [ApiService.getAd] and processing response from server.
-     * If response is successful, then display information about ad, else - display error
-     * processing by [handleError].
+     * Setting data about ad in EditText field.
      *
-     * @param id ad id
-     * @param title title ad
-     * @param city city of ad
-     * @param description description of ad
-     * @param price ad price
+     * @param ad ad
+     * @param title field of EditText
+     * @param city field of EditText
+     * @param description field of EditText
+     * @param price field of EditText
      * @param photo ad photo
-     *
-     * @see [ApiService.getAd]
-     * @see [handleError]
      */
-    private fun adData(
-        id: Long,
+    private fun setData(
+        ad: ResultAd,
         title: TextView,
         city: TextView,
         description: TextView,
         price: TextView,
         photo: ImageView
     ) {
-
-        val apiService: ApiService = ApiService.create()
-
-        apiService.getAd(id)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
-                progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
-
-                title.text = result.title
-                city.text = result.city
-                description.text = result.description_ad
-                price.text = result.price.toString()
-                if (result.ad_images.isEmpty()) {
-                    Picasso
-                        .with(this@MyAdSettingsActivity)
-                        .load(result.ad_images[0])
-                        .placeholder(R.drawable.ic_image_ad)
-                        .error(R.drawable.ic_image_ad)
-                        .fit()
-                        .centerCrop()
-                        .into(photo)
-                }
-                actionBar?.title = title.text
-            }, { error ->
-                progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
-
-                toast(handleError(error))
-            })
-    }
-
-    /**
-     * Deleting ad. This method use [ApiService.deleteAd] and processing response from server.
-     * If response is successful, then display message "Объявление удалено" and start MyAdsActivity, else - display error
-     * processing by [handleError].
-     *
-     * @param token user session_id
-     */
-    private fun deleteAd(token: String?) {
-        val apiService: ApiService = ApiService.create()
-
-        apiService.deleteAd(adId, token.toString())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
-                toast("Объявление удалено")
-
-                this.finish()
-                startActivity<MyAdsActivity>()
-            }, { error ->
-                progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
-
-                val errorStr = handleError(error)
-
-                if (errorStr == "empty body") {
-                    toast("Объявление удалено")
-
-                    this.finish()
-
-                    startActivity<MyAdsActivity>()
-                } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeUserData(this)
-                    startActivity<LoginActivity>()
-                } else
-                    toast(errorStr)
-            })
+        title.text = ad.title
+        city.text = ad.city
+        description.text = ad.description_ad
+        price.text = ad.price.toString()
+        if (ad.ad_images.isEmpty()) {
+            Picasso
+                .with(this@MyAdSettingsActivity)
+                .load(ad.ad_images[0])
+                .placeholder(R.drawable.ic_image_ad)
+                .error(R.drawable.ic_image_ad)
+                .fit()
+                .centerCrop()
+                .into(photo)
+        }
     }
 }

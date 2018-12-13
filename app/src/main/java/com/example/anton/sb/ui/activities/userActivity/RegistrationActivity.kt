@@ -12,6 +12,7 @@ import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.extensions.isEmailValid
 import com.example.anton.sb.extensions.isPasswordValid
+import com.example.anton.sb.service.adUser
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -143,52 +144,11 @@ class RegistrationActivity : AppCompatActivity() {
                 emailRegistrationStr,
                 passwordRegistrationStr,
                 phoneNumberStr,
-                aboutStr
+                aboutStr,
+                progressBar_registration,
+                this
             )
             progressBar_registration.visibility = ProgressBar.VISIBLE
         }
-    }
-
-    /**
-     * Creating ad. This method use [ApiService.createUser] and processing response from server
-     * and display message "Пользователь зарегистрирован". If response isn't successful,
-     * then caused [handleError] for process error.
-     *
-     * @param firstName user first name
-     * @param lastName user last name
-     * @param email user email
-     * @param password user password
-     * @param telephone user telephone
-     * @param about information about user
-     *
-     * @see [ApiService.createUser]
-     * @see [handleError]
-     */
-    private fun adUser(
-        firstName: String,
-        lastName: String,
-        email: String,
-        password: String,
-        telephone: String,
-        about: String
-    ) {
-
-        val apiService: ApiService = ApiService.create()
-
-        apiService.createUser(firstName, lastName, email, password, telephone, about)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                progressBar_registration.visibility = ProgressBar.INVISIBLE
-                toast("Пользователь зарегистрирован!")
-
-                this.finish()
-
-                startActivity<MainActivity>()
-            }, { error ->
-                progressBar_registration.visibility = ProgressBar.INVISIBLE
-
-                toast(handleError(error))
-            })
     }
 }

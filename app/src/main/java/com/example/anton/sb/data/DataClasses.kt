@@ -1,4 +1,5 @@
 package com.example.anton.sb.data
+
 /**
  * @author Anton Kirichenkov
  */
@@ -35,7 +36,21 @@ data class ResultAd(
      * description of ad
      */
     val description_ad: String
-)
+) {
+    fun copy(ad: ResultAd) {
+        this.copy(ad)
+    }
+
+    constructor(ad: ResultAd) : this(
+        ad.id,
+        ad.title,
+        ad.price,
+        ad.city,
+        ad.ad_images,
+        ad.owner_ad,
+        ad.description_ad
+    )
+}
 
 /**
  * Represents a ResultUser, with the given [session_id], [id], [first_name], [last_name], [email], [tel_number], [about].
@@ -52,11 +67,11 @@ data class ResultUser(
     /**
      * fist name of user
      */
-     val first_name: String,
+    val first_name: String,
     /**
      * last name of user
      */
-     val last_name: String,
+    val last_name: String,
     /**
      * email of user
      */

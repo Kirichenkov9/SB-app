@@ -1,7 +1,5 @@
 package com.example.anton.sb.ui.activities.adActivity
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -10,15 +8,15 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.service.ApiService
-import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.extensions.readUserData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_change_ad.* // ktlint-disable no-wildcard-imports
+import com.example.anton.sb.service.adChange
+import com.example.anton.sb.service.adData
+import kotlinx.android.synthetic.main.activity_change_ad.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 /**
  * A screen changing ad
@@ -66,8 +64,16 @@ class ChangeAdActivity : AppCompatActivity() {
         val button = find<Button>(R.id.change_ad)
         val photo: ArrayList<String> = ArrayList()
 
-        adData(adId, title, city, description, price, photo)
-
+        doAsync {
+            val ad = adData(adId, this@ChangeAdActivity)
+            uiThread {
+                progressBar_ad_change.visibility = ProgressBar.INVISIBLE
+                if (ad != null) {
+                    setData(ad, title, city, description, price)
+                    photo.addAll(ad.ad_images)
+                }
+            }
+        }
         progressBar_ad_change.visibility = ProgressBar.VISIBLE
 
         button.setOnClickListener {
@@ -77,7 +83,10 @@ class ChangeAdActivity : AppCompatActivity() {
                 city.text.toString(),
                 description.text.toString(),
                 price.text.toString().toInt(),
-                photo
+                photo,
+                token.toString(),
+                progressBar_ad_change,
+                this
             )
             progressBar_ad_change.visibility = ProgressBar.VISIBLE
         }
@@ -97,97 +106,24 @@ class ChangeAdActivity : AppCompatActivity() {
     }
 
     /**
-     * Change ad information. This method use [ApiService.changeAd] and processing response from server.
-     * If response is successful, then display "Объявление изменено" and start MyAdSettingsActivity,
-     * else - display error processing by [handleError].
+     * Setting data about ad in EditText field.
      *
-     * @param adId ad id
-     * @param title title ad
-     * @param city city of ad
-     * @param description description of ad
-     * @param price ad price
-     *
-     * @see [handleError]
-     * @see [ApiService.changeAd]
+     * @param ad ad
+     * @param title field of EditText
+     * @param city field of EditText
+     * @param description field of EditText
+     * @param price field of EditText
      */
-    private fun adChange(
-        adId: Long,
-        title: String,
-        city: String,
-        description: String,
-        price: Int,
-        photo: ArrayList<String>
-    ) {
-        val apiService: ApiService = ApiService.create()
-
-        apiService.changeAd(adId, token.toString(), title, price, city, description, photo)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                progressBar_ad_change.visibility = ProgressBar.INVISIBLE
-                toast("Объявление изменено")
-
-                this.finish()
-
-                startActivity<MyAdSettingsActivity>("adId" to adId)
-            }, { error ->
-                progressBar_ad_change.visibility = ProgressBar.INVISIBLE
-                val errorStr = handleError(error)
-                if (errorStr == "empty body") {
-
-                    toast("Объявление изменено")
-
-                    this.finish()
-
-                    startActivity<MyAdSettingsActivity>("adId" to adId)
-                } else
-                    toast(errorStr)
-            })
-    }
-
-    /**
-     * Get ad information. This method use [ApiService.getAd] and processing response from server.
-     * If response is successful, then display information about ad, else - display error
-     * processing by [handleError].
-     *
-     * @param adId ad id
-     * @param title title ad
-     * @param city city of ad
-     * @param description description of ad
-     * @param price ad price
-     *
-     * @see [handleError]
-     * @see [ApiService.getAd]
-     */
-    private fun adData(
-        adId: Long,
+    private fun setData(
+        ad: ResultAd,
         title: TextView,
         city: TextView,
         description: TextView,
-        price: TextView,
-        photo: ArrayList<String>
+        price: TextView
     ) {
-        val apiService: ApiService = ApiService.create()
-
-        apiService.getAd(adId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
-                progressBar_ad_change.visibility = ProgressBar.INVISIBLE
-
-                title.text = result.title
-                city.text = result.city
-                description.text = result.description_ad
-                price.text = result.price.toString()
-                photo.addAll(result.ad_images)
-            }, { error ->
-                progressBar_ad_change.visibility = ProgressBar.INVISIBLE
-
-                val errorStr = handleError(error)
-                if (errorStr == "empty body")
-                    toast("Нет соединения с сервером")
-                else
-                    toast(errorStr)
-            })
+        title.text = ad.title
+        city.text = ad.city
+        description.text = ad.description_ad
+        price.text = ad.price.toString()
     }
 }

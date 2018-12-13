@@ -7,16 +7,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.widget.ProgressBar
 import com.example.anton.sb.R
-import com.example.anton.sb.service.ApiService
-import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.service.getUserAd
 import com.example.anton.sb.ui.adapters.SearchAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_user_ad.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 /**
  * A screen user ads
@@ -61,8 +58,9 @@ class UserAdActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         doAsync {
-            list = getUserAd(userId)
+            list = getUserAd(userId, this@UserAdActivity)
             uiThread {
+                progressBar_user_ad.visibility = ProgressBar.INVISIBLE
                 recyclerView.adapter = SearchAdapter(list,
                     object : SearchAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
@@ -89,30 +87,5 @@ class UserAdActivity : AppCompatActivity() {
         }
         startActivity<AdViewActivity>("preAdId" to preAdId)
         return true
-    }
-
-    /**
-     * Get user sds. This method called [ApiService.getUserAd] and processing response from server
-     * and display ads. If response isn't successful, then caused [handleError] for process error.
-     *
-     * @param id_user user id
-     *
-     * @see [ApiService.getUserAd]
-     */
-    private fun getUserAd(id_user: Long): ArrayList<ResultAd> {
-
-        val ads: ArrayList<ResultAd> = ArrayList()
-
-        val apiService: ApiService = ApiService.create()
-        apiService.getUserAd(id_user)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ result ->
-                progressBar_user_ad.visibility = ProgressBar.INVISIBLE
-                ads.addAll(result)
-            }, { error ->
-                progressBar_user_ad.visibility = ProgressBar.INVISIBLE
-                toast(handleError(error))
-            })
-        return ads
     }
 }

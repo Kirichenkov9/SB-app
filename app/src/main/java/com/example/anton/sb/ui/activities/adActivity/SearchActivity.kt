@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageButton
@@ -92,14 +93,13 @@ class SearchActivity : AppCompatActivity() {
         layoutManager: LinearLayoutManager
     ) {
         doAsync {
-            val dataList = updateSearchList(list, searchText.text.toString())
+            val dataList = updateSearchList(list, searchText.text.toString(), this@SearchActivity)
+            Log.d("111", "1")
             uiThread {
                 progressBar_search.visibility = ProgressBar.INVISIBLE
-                if (dataList.isEmpty())
-                    toast("Объявлений не найдено")
                 val adapter =
                     SearchAdapter(
-                        updateSearchList(dataList, searchText.text.toString()),
+                        updateSearchList(dataList, searchText.text.toString(), this@SearchActivity),
                         object : SearchAdapter.OnItemClickListener {
                             override fun invoke(ad: ResultAd) {
                                 startActivity<AdViewActivity>(
@@ -114,7 +114,8 @@ class SearchActivity : AppCompatActivity() {
                     SearchAdapter.OnScrollListener(
                         layoutManager,
                         adapter, dataList,
-                        searchText.text.toString()
+                        searchText.text.toString(),
+                        this@SearchActivity
                     )
                 )
             }

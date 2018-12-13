@@ -1,7 +1,5 @@
 package com.example.anton.sb.ui.activities.userActivity
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -12,10 +10,12 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.extensions.removeUserData
+import com.example.anton.sb.service.ApiService
+import com.example.anton.sb.service.delete
+import com.example.anton.sb.service.logout
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
@@ -123,12 +123,12 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }
 
         exit_account.setOnClickListener {
-            logout()
+            logout(token, progressBar_user_settings, this)
             progressBar_user_settings.visibility = ProgressBar.VISIBLE
         }
 
         delete_account.setOnClickListener {
-            delete()
+            delete(token, progressBar_user_settings, this)
             progressBar_user_settings.visibility = ProgressBar.VISIBLE
         }
     }
@@ -167,77 +167,6 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }
         drawer_layout_settings.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    /**
-     * Log out user. This method use [ApiService.logoutUser] and processing response from server.
-     * If response is successful, display message "Вы вышли из аккаунта", else - display error
-     * processing by [handleError].
-     *
-     * @see [ApiService.loginUser]
-     * @see [handleError]
-     */
-    private fun logout() {
-        val apiService: ApiService = ApiService.create()
-
-        apiService.logoutUser(token.toString())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                progressBar_user_settings.visibility = ProgressBar.INVISIBLE
-
-                toast("Вы вышли из аккаунта")
-
-                removeUserData(this)
-                this.finish()
-                startActivity<MainActivity>()
-            }, { error ->
-                progressBar_user_settings.visibility = ProgressBar.INVISIBLE
-
-                toast(handleError(error))
-            })
-    }
-
-    /**
-     * Delete user. This method use [ApiService.deleteUser] and processing response from server.
-     * If response is successful, display message "Аккаунт удален", else - display error
-     * processing by [handleError].
-     *
-     * @see [ApiService.deleteUser]
-     * @see [handleError]
-     */
-    private fun delete() {
-        val apiService: ApiService = ApiService.create()
-
-        apiService.deleteUser(token.toString())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                progressBar_user_settings.visibility = ProgressBar.INVISIBLE
-
-                toast("Аккаунт удален")
-
-                removeUserData(this)
-                this.finish()
-                startActivity<MainActivity>()
-            },
-                { error ->
-                    progressBar_user_settings.visibility = ProgressBar.INVISIBLE
-
-                    val errorStr = handleError(error)
-
-                    if (errorStr == "empty body") {
-                        toast("Аккаунт удален")
-
-                        removeUserData(this)
-                        this.finish()
-                        startActivity<MainActivity>()
-                    } else if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                        removeUserData(this)
-                        startActivity<LoginActivity>()
-                    } else
-                        toast(errorStr)
-                })
     }
 
     /**

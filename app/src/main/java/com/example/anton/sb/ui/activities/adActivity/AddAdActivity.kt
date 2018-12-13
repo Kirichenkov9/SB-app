@@ -1,7 +1,5 @@
 package com.example.anton.sb.ui.activities.adActivity
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -13,20 +11,15 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.service.ApiService
-import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.extensions.removeUserData
+import com.example.anton.sb.service.addAd
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_ad.* // ktlint-disable no-wildcard-imports
 import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 /**
  * A screen of adding ad
@@ -190,53 +183,11 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 cityStr,
                 aboutStr,
                 priceAd,
-                token.toString()
+                token.toString(),
+                progressBar_add_ad,
+                this
                 )
             progressBar_add_ad.visibility = ProgressBar.VISIBLE
         }
-    }
-
-    /**
-     * Creating ad. This method use [ApiService.createAd] and processing response from server
-     * and display it. If response isn't successful, then caused [handleError] for process error.
-     *
-     * @param title title of ad
-     * @param city city of ad
-     * @param description description of ad
-     * @param priceAd price of ad
-     * @param token user-owner session_id
-     *
-     * @see [ApiService.createAd]
-     * @see [handleError]
-     */
-    fun addAd(
-        title: String,
-        city: String,
-        description: String,
-        priceAd: Int?,
-        token: String
-    ) {
-        val apiService: ApiService = ApiService.create()
-
-        apiService.createAd(token, title, priceAd, city, description)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                progressBar_add_ad.visibility = ProgressBar.INVISIBLE
-
-                toast("Объявление добавлено")
-
-                startActivity<MyAdsActivity>()
-            }, { error ->
-                progressBar_add_ad.visibility = ProgressBar.INVISIBLE
-
-                val errorStr = handleError(error)
-
-                if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeUserData(this)
-                    startActivity<LoginActivity>()
-                } else
-                    toast(errorStr)
-            })
     }
 }

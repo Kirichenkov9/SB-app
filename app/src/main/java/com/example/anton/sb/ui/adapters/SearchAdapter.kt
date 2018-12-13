@@ -1,5 +1,6 @@
 package com.example.anton.sb.ui.adapters
 
+import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -52,7 +53,6 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
      * Class for interaction with layout
      */
     class ViewHolder(itemView: View, private val itemClick: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
-
 
         /**
          * @property itemView
@@ -111,7 +111,8 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
         val layoutManager: LinearLayoutManager,
         val adapter: RecyclerView.Adapter<SearchAdapter.ViewHolder>,
         val searchList: ArrayList<ResultAd>,
-        val string: String
+        val string: String,
+        val context: Context
     ) : RecyclerView.OnScrollListener() {
 
         /**
@@ -177,7 +178,7 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
             if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                 val initialSize = searchList.size
                 doAsync {
-                    updateSearchList(searchList, string)
+                    updateSearchList(searchList, string, context)
                     uiThread {
                         val updatedSize = searchList.size
                         recyclerView.post { adapter.notifyItemRangeInserted(initialSize, updatedSize) }

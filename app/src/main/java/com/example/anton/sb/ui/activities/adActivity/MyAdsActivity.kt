@@ -1,7 +1,5 @@
 package com.example.anton.sb.ui.activities.adActivity
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -15,15 +13,12 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ResultAd
-import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.extensions.removeUserData
-import com.example.anton.sb.service.ApiService
+import com.example.anton.sb.service.getUserAd
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MainAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import kotlinx.android.synthetic.main.activity_my_ad.* // ktlint-disable no-wildcard-imports
 import kotlinx.android.synthetic.main.app_bar_my_ads.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
@@ -129,8 +124,9 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     private fun displayAds(recyclerView: RecyclerView, idUser: Long) {
 
         doAsync {
-            val list = getUserAd(idUser)
+            val list = getUserAd(idUser, this@MyAdsActivity)
             uiThread {
+                progressBar_my_ad.visibility = ProgressBar.INVISIBLE
                 recyclerView.adapter = MainAdapter(list,
                     object : MainAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
@@ -192,39 +188,5 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             nameUser.text = readUserData(name, this)
             userEmail.text = readUserData(mail, this)
         }
-    }
-
-    /**
-     * Get user ads. This method use [ApiService.getUserAd] and processing response from server.
-     * If response is successful, then display list of ads, else - display error
-     * processing by [handleError].
-     *
-     * @param idUser ad id
-     *
-     * @see [handleError]
-     * @see [ApiService.getUserAd]
-     */
-    private fun getUserAd(idUser: Long): ArrayList<ResultAd> {
-
-        val ads: ArrayList<ResultAd> = ArrayList()
-        val apiService: ApiService = ApiService.create()
-
-        apiService.getUserAd(idUser)
-            .observeOn(mainThread())
-            .subscribe({ result ->
-                progressBar_my_ad.visibility = ProgressBar.INVISIBLE
-                ads.addAll(result)
-
-                if (result.isEmpty())
-                    toast("Объявлений нет")
-            }, { error ->
-                progressBar_my_ad.visibility = ProgressBar.INVISIBLE
-                val errorStr = handleError(error)
-                if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
-                    removeUserData(this)
-                    startActivity<LoginActivity>()
-                } else toast(errorStr)
-            })
-        return ads
     }
 }

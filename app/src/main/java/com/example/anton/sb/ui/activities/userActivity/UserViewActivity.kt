@@ -8,6 +8,8 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.service.ApiService
 import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.service.userData
+import com.example.anton.sb.service.userViewData
 import com.example.anton.sb.ui.activities.adActivity.AdViewActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_user_view.*
@@ -65,8 +67,18 @@ class UserViewActivity : AppCompatActivity() {
         }
 
         doAsync {
-            userData(firstName, lastName, email, telephone, about, id)
-            uiThread { actionBar.title = firstName.text.toString() + " " + lastName.text.toString() }
+            val user = userViewData(id, this@UserViewActivity)
+            uiThread {
+                progressBar_user_view.visibility = ProgressBar.INVISIBLE
+                if (user != null) {
+                    firstName.text = user.first_name
+                    lastName.text = user.last_name
+                    email.text = user.email
+                    telephone.text = user.tel_number
+                    about.text = user.about
+                    actionBar.title = firstName.text.toString() + " " + lastName.text.toString()
+                }
+            }
         }
         progressBar_user_view.visibility = ProgressBar.VISIBLE
     }
@@ -82,46 +94,5 @@ class UserViewActivity : AppCompatActivity() {
         }
         startActivity<AdViewActivity>("adId" to adId)
         return true
-    }
-
-    /**
-     * Get user information. This method use [ApiService.getUser] and processing response from server.
-     * If response is successful, then display user information, else - display error
-     * processing by [handleError].
-     *
-     * @param firstName user first name
-     * @param lastName user last name
-     * @param telephone user phone number
-     * @param about information about user
-     *
-     *
-     * @see [ApiService.getUserData]
-     * @see [handleError]
-     */
-    private fun userData(
-        firstName: TextView,
-        lastName: TextView,
-        email: TextView,
-        telephone: TextView,
-        about: TextView,
-        id: Long
-    ) {
-        val apiService: ApiService = ApiService.create()
-
-        apiService.getUser(id)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ result ->
-                progressBar_user_view.visibility = ProgressBar.INVISIBLE
-
-                firstName.text = result.first_name
-                lastName.text = result.last_name
-                email.text = result.email
-                telephone.text = result.tel_number
-                about.text = result.about
-            }, { error ->
-                progressBar_user_view.visibility = ProgressBar.INVISIBLE
-
-                toast(handleError(error))
-            })
     }
 }

@@ -1,8 +1,5 @@
 package com.example.anton.sb.ui.activities.userActivity
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -12,16 +9,15 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.extensions.changeUser
-import com.example.anton.sb.service.ApiService
-import com.example.anton.sb.extensions.handleError
+import com.example.anton.sb.data.ResultUser
 import com.example.anton.sb.extensions.readUserData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.example.anton.sb.service.changeData
+import com.example.anton.sb.service.userData
 import kotlinx.android.synthetic.main.activity_change_user.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 /**
  * A screen changing user information
@@ -51,12 +47,22 @@ class ChangeUserActivity : AppCompatActivity() {
         actionBar!!.setHomeButtonEnabled(true)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
+        token = readUserData("token", this)
+
         val firstName = find<EditText>(R.id.change_first_name)
         val lastName = find<EditText>(R.id.change_last_name)
         val telNumber = find<EditText>(R.id.change_tel_number)
         val about = find<EditText>(R.id.change_about)
 
-        userData(firstName, lastName, telNumber, about)
+        doAsync {
+            val user = userData(token.toString(), this@ChangeUserActivity)
+            uiThread {
+                progressBar_user_change.visibility = ProgressBar.INVISIBLE
+                if (user != null)
+                    setUserData(user, firstName, lastName, telNumber, about)
+            }
+        }
+
         progressBar_user_change.visibility = ProgressBar.VISIBLE
 
         change_user.setOnClickListener {
@@ -114,106 +120,28 @@ class ChangeUserActivity : AppCompatActivity() {
             // Show a progress spinner and to
             // perform the user login attempt.
             changeData(
-                firstNameStr.toString(), lastNameStr.toString(),
-                telephoneStr.toString(), aboutStr.toString()
+                token,
+                firstNameStr.toString(),
+                lastNameStr.toString(),
+                telephoneStr.toString(),
+                aboutStr.toString(),
+                progressBar_user_change,
+                this
             )
+            progressBar_user_change.visibility = ProgressBar.INVISIBLE
         }
     }
 
-    /**
-     * Changing user information. This method use [ApiService.changeUser] and processing response from server.
-     * If response is successful, then display message "Данные изменены", else - display error
-     * processing by [handleError].
-     *
-     * @param firstName user first name
-     * @param lastName user last name
-     * @param telephone user phone number
-     * @param about information about user
-     *
-     *
-     * @see [ApiService.changeUser]
-     * @see [handleError]
-     */
-    private fun changeData(
-        firstName: String,
-        lastName: String,
-        telephone: String,
-        about: String
-    ) {
-
-        token = readUserData("token", this)
-
-        val apiService: ApiService = ApiService.create()
-
-        apiService.changeUser(
-            token.toString(), firstName,
-            lastName, telephone,
-            about
-        )
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                progressBar_user_change.visibility = ProgressBar.INVISIBLE
-                toast("Данные изменены")
-
-                changeUser((firstName + " " + lastName), this)
-                this.finish()
-
-                val intent = Intent(this, UserSettingsActivity::class.java)
-                startActivity(intent)
-            },
-                { error ->
-                    progressBar_user_change.visibility = ProgressBar.INVISIBLE
-
-                    val errorString = handleError(error)
-
-                    if (errorString == "empty body") {
-                        toast("Данные изменены")
-                        changeUser((firstName + " " + lastName), this)
-
-                        this.finish()
-                        startActivity<UserSettingsActivity>()
-                    } else
-                        toast(errorString)
-                })
-    }
-
-    /**
-     * Get user information. This method use [ApiService.getUserData] and processing response from server.
-     * If response is successful, then display user information, else - display error
-     * processing by [handleError].
-     *
-     * @param firstName user first name
-     * @param lastName user last name
-     * @param telNumber user phone number
-     * @param about information about user
-     *
-     *
-     * @see [ApiService.getUserData]
-     * @see [handleError]
-     */
-    private fun userData(
+    private fun setUserData(
+        user: ResultUser,
         firstName: TextView,
         lastName: TextView,
         telNumber: TextView,
         about: TextView
     ) {
-        token = readUserData("token", this)
-
-        val apiService: ApiService = ApiService.create()
-
-        apiService.getUserData(token.toString())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
-                progressBar_user_change.visibility = ProgressBar.INVISIBLE
-                firstName.text = result.first_name
-                lastName.text = result.last_name
-                telNumber.text = result.tel_number
-                about.text = result.about
-            }, { error ->
-                progressBar_user_change.visibility = ProgressBar.INVISIBLE
-                toast(handleError(error))
-            })
+        firstName.text = user.first_name
+        lastName.text = user.last_name
+        telNumber.text = user.tel_number
+        about.text = user.about
     }
 }

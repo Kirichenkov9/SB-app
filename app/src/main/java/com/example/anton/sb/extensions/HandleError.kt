@@ -53,6 +53,8 @@ fun handleError(throwable: Throwable): String {
         string = "empty body"
     else if (throwable is IOException)
         string = "Нет соединения с сервером"
+    else
+        string = "Что-то пошло не так..."
 
     return string
 }

@@ -45,7 +45,6 @@ fun removeUserData(context: Context) {
     editor.apply()
 }
 
-
 /**
  * Saving user information in SharedPreference.
  *
@@ -66,7 +65,6 @@ fun saveUsername(token: String, firstName: String, lastName: String, email: Stri
     editor.putLong("id", id)
     editor.apply()
 }
-
 
 /**
  * Changing user name in SharedPreference.
