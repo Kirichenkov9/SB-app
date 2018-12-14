@@ -15,9 +15,13 @@ import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.activityManager
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import android.app.Activity
+
+
 
 /**
  * Creating ad. This method use [ApiService.createAd] and processing response from server
@@ -137,6 +141,7 @@ fun adChange(
             context.toast("Объявление изменено")
 
             context.startActivity<MyAdSettingsActivity>("adId" to adId)
+            (context as Activity).finish()
         }, { error ->
             progressBar_ad_change.visibility = ProgressBar.INVISIBLE
             val errorStr = handleError(error)
@@ -144,6 +149,7 @@ fun adChange(
                 context.toast("Объявление изменено")
 
                 context.startActivity<MyAdSettingsActivity>("adId" to adId)
+                (context as Activity).finish()
             } else
                 context.toast(errorStr)
         })
@@ -212,6 +218,7 @@ fun deleteAd(
             context.toast("Объявление удалено")
 
             context.startActivity<MyAdsActivity>()
+            (context as Activity).finish()
         }, { error ->
             progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
 
@@ -222,6 +229,7 @@ fun deleteAd(
                     context.toast("Объявление удалено")
 
                     context.startActivity<MyAdsActivity>()
+                    (context as Activity).finish()
                 }
                 "Что-то пошло не так... Попробуйте войти в аккаунт заново" -> {
                     context.toast(errorStr)
@@ -302,6 +310,7 @@ fun changeData(
             changeUser((firstName + " " + lastName), context)
 
             context.startActivity<UserSettingsActivity>()
+            (context as Activity).finish()
         },
             { error ->
                 progressBar_user_change.visibility = ProgressBar.INVISIBLE
@@ -313,6 +322,7 @@ fun changeData(
                     changeUser((firstName + " " + lastName), context)
 
                     context.startActivity<UserSettingsActivity>()
+                    (context as Activity).finish()
                 } else
                     context.toast(errorString)
             })
@@ -387,6 +397,7 @@ fun login(
                 )
 
                 context.startActivity<MainActivity>()
+                (context as Activity).finish()
             } else
                 context.toast("Неверный пароль или логин")
         }, { error ->
@@ -432,12 +443,12 @@ fun adUser(
             context.toast("Пользователь зарегистрирован!")
 
             context.startActivity<MainActivity>()
+            (context as Activity).finish()
         }, { error ->
             progressBar_registration.visibility = ProgressBar.INVISIBLE
             context.toast(handleError(error))
         })
 }
-
 
 /**
  * Log out user. This method use [ApiService.logoutUser] and processing response from server.
@@ -465,6 +476,7 @@ fun logout(
             removeUserData(context)
 
             context.startActivity<MainActivity>()
+            (context as Activity).finish()
         }, { error ->
             progressBar_user_settings.visibility = ProgressBar.INVISIBLE
             context.toast(handleError(error))
@@ -497,6 +509,7 @@ fun delete(
             removeUserData(context)
 
             context.startActivity<MainActivity>()
+            (context as Activity).finish()
         },
             { error ->
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
@@ -508,8 +521,8 @@ fun delete(
                         context.toast("Аккаунт удален")
 
                         removeUserData(context)
-
                         context.startActivity<MainActivity>()
+                        (context as Activity).finish()
                     }
                     "Что-то пошло не так... Попробуйте войти в аккаунт заново" -> {
                         context.toast(errorStr)
