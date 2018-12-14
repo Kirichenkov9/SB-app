@@ -3,6 +3,7 @@ package com.example.anton.sb.ui.adapters
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,14 +81,14 @@ class MainAdapter(private val ads: ArrayList<ResultAd>, private val itemClick: M
          */
         fun bindAd(ad: ResultAd) {
             with(ad) {
-                if (ad_images.isEmpty()) {
+                if (ad_images.isNotEmpty()) {
                     Picasso
                         .with(itemView.context)
                         .load(ad_images[0])
                         .placeholder(R.drawable.ic_image_ad)
                         .error(R.drawable.ic_image_ad)
                         .fit()
-                        .centerCrop()
+                        .centerInside()
                         .into(photoView)
                 }
                 titleView.text = title

@@ -9,12 +9,13 @@ import android.widget.ProgressBar
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.service.getUserAd
-import com.example.anton.sb.ui.adapters.SearchAdapter
+import com.example.anton.sb.ui.adapters.MainAdapter
 import kotlinx.android.synthetic.main.activity_user_ad.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
+
 /**
  * A screen user ads
  *
@@ -61,8 +62,8 @@ class UserAdActivity : AppCompatActivity() {
             list = getUserAd(userId, this@UserAdActivity)
             uiThread {
                 progressBar_user_ad.visibility = ProgressBar.INVISIBLE
-                recyclerView.adapter = SearchAdapter(list,
-                    object : SearchAdapter.OnItemClickListener {
+                recyclerView.adapter = MainAdapter(list,
+                    object : MainAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
                             startActivity<AdViewActivity>(
                                 "preAdId" to preAdId,

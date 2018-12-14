@@ -1,7 +1,6 @@
 package com.example.anton.sb.extensions
 
 import android.content.Context
-import android.util.Log
 import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.service.ApiService
 import org.jetbrains.anko.runOnUiThread
@@ -23,7 +22,6 @@ import org.jetbrains.anko.toast
  *  @see ApiService.getAds
  */
 fun updateDataList(dataList: ArrayList<ResultAd>, context: Context): ArrayList<ResultAd> {
-
     val apiService: ApiService = ApiService.create()
     apiService.getAds(dataList.size, 10)
         .subscribe({ result ->
@@ -33,7 +31,6 @@ fun updateDataList(dataList: ArrayList<ResultAd>, context: Context): ArrayList<R
                     context.toast("Объявлений нет")
                 }
         }, { error ->
-            Log.d("1", "$error")
             context.runOnUiThread {
                 context.toast(handleError(error))
             }
@@ -66,10 +63,13 @@ fun updateSearchList(
         .subscribe({ result ->
             searchList.addAll(result)
             if (searchList.isEmpty())
-                context.toast("Объявления не найдены")
+                context.runOnUiThread {
+                    context.toast("Объявления не найдены")
+                }
         }, { error ->
-            Log.d("1", "$error")
-            context.toast(handleError(error))
+            context.runOnUiThread {
+                context.toast(handleError(error))
+            }
         })
     return searchList
 }

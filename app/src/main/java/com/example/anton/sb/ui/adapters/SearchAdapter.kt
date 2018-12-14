@@ -80,14 +80,14 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
          */
         fun bindAd(ad: ResultAd) {
             with(ad) {
-                if (ad_images.isEmpty()) {
+                if (ad_images.isNotEmpty()) {
                     Picasso
                         .with(itemView.context)
                         .load(ad_images[0])
                         .placeholder(R.drawable.ic_image_ad)
                         .error(R.drawable.ic_image_ad)
                         .fit()
-                        .centerCrop()
+                        .centerInside()
                         .into(photoView)
                 }
                 titleView.text = title

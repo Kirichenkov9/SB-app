@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
@@ -99,14 +100,14 @@ class AdViewActivity : AppCompatActivity() {
                     telephone.text = ad.owner_ad.tel_number
                     phone = telephone.text.toString()
                     userId = ad.owner_ad.id
-                    if (ad.ad_images.isEmpty()) {
+                    if (ad.ad_images.isNotEmpty()) {
                         Picasso
                             .with(this@AdViewActivity)
                             .load(ad.ad_images[0])
                             .placeholder(R.drawable.ic_image_ad)
                             .error(R.drawable.ic_image_ad)
                             .fit()
-                            .centerCrop()
+                            .centerInside()
                             .into(photo)
                     }
                     actionBar.title = title.text

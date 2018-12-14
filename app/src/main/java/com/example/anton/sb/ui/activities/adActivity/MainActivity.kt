@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
@@ -135,7 +136,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             uiThread {
                 progressBar_main.visibility = ProgressBar.INVISIBLE
                 val adapter =
-                    MainAdapter(updateDataList(dataList, this@MainActivity), object : MainAdapter.OnItemClickListener {
+                    MainAdapter(dataList, object : MainAdapter.OnItemClickListener {
                         override fun invoke(ad: ResultAd) {
                             startActivity<AdViewActivity>("adId" to ad.id)
                         }

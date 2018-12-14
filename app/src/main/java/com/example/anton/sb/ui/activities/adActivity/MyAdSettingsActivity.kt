@@ -152,14 +152,14 @@ class MyAdSettingsActivity : AppCompatActivity() {
         city.text = ad.city
         description.text = ad.description_ad
         price.text = ad.price.toString()
-        if (ad.ad_images.isEmpty()) {
+        if (ad.ad_images.isNotEmpty()) {
             Picasso
                 .with(this@MyAdSettingsActivity)
                 .load(ad.ad_images[0])
                 .placeholder(R.drawable.ic_image_ad)
                 .error(R.drawable.ic_image_ad)
                 .fit()
-                .centerCrop()
+                .centerInside()
                 .into(photo)
         }
     }

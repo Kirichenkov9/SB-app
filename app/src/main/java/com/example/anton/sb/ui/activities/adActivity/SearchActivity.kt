@@ -94,12 +94,11 @@ class SearchActivity : AppCompatActivity() {
     ) {
         doAsync {
             val dataList = updateSearchList(list, searchText.text.toString(), this@SearchActivity)
-            Log.d("111", "1")
             uiThread {
                 progressBar_search.visibility = ProgressBar.INVISIBLE
                 val adapter =
                     SearchAdapter(
-                        updateSearchList(dataList, searchText.text.toString(), this@SearchActivity),
+                        dataList,
                         object : SearchAdapter.OnItemClickListener {
                             override fun invoke(ad: ResultAd) {
                                 startActivity<AdViewActivity>(
