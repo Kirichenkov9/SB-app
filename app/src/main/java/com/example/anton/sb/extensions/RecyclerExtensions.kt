@@ -12,7 +12,7 @@ import org.jetbrains.anko.toast
 /**
  *  This method uses for update items of recyclerView in MainActivity.
  *  Method called [ApiService.getAds] with parameters dataList.size and limit (10).
- *  If result isn't successful, then display error
+ *  If result isn't successful, then display error message from [handleError].
  *
  *  @param dataList [ArrayList]
  *  @param context
@@ -20,6 +20,7 @@ import org.jetbrains.anko.toast
  *  @return [ArrayList]
  *
  *  @see ApiService.getAds
+ *  @see handleError
  */
 fun updateDataList(dataList: ArrayList<ResultAd>, context: Context): ArrayList<ResultAd> {
     val apiService: ApiService = ApiService.create()
@@ -41,7 +42,7 @@ fun updateDataList(dataList: ArrayList<ResultAd>, context: Context): ArrayList<R
 /**
  *  This method uses for update items of recyclerView in SearchActivity.
  *  Method called [ApiService.getAdsSearch] with parameters string, searchList.size and limit (10).
- *  If result isn't successful, then display error
+ *  If result isn't successful, then display error message from [handleError].
  *
  *  @param searchList [ArrayList]
  *  @param string search line
@@ -50,6 +51,7 @@ fun updateDataList(dataList: ArrayList<ResultAd>, context: Context): ArrayList<R
  *  @return [ArrayList]
  *
  *  @see ApiService.getAdsSearch
+ *  @see handleError
  */
 fun updateSearchList(
     searchList: ArrayList<ResultAd>,

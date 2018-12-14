@@ -13,8 +13,8 @@ import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.adData
 import com.example.anton.sb.service.deleteAd
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_my_ad_settings.*
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.activity_my_ad_settings.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 /**
  * A screen ad view of logged ih user
@@ -108,9 +108,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
             startActivity<ChangeAdActivity>("adId" to adId)
         }
 
-        button.setOnClickListener {
-           deleteAdAlert()
-        }
+        button.setOnClickListener { deleteAdAlert() }
     }
 
     /**
@@ -130,10 +128,10 @@ class MyAdSettingsActivity : AppCompatActivity() {
      * Setting data about ad in EditText field.
      *
      * @param ad ad
-     * @param title field of EditText
-     * @param city field of EditText
-     * @param description field of EditText
-     * @param price field of EditText
+     * @param title field of EditText with ad title
+     * @param city field of EditText with ad city
+     * @param description field of EditText with ad description
+     * @param price field of EditText with ad price
      * @param photo ad photo
      */
     private fun setData(
@@ -160,8 +158,14 @@ class MyAdSettingsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Display alertDialog. If user answer "Да", then called [deleteAd]
+     * and ad is delete, else nothing happens.
+     *
+     * @see deleteAd
+     */
     private fun deleteAdAlert() {
-        alert (message = "Вы уверены, что хотите удалить объявление?") {
+        alert(message = "Вы уверены, что хотите удалить объявление?") {
             positiveButton("Да") {
                 deleteAd(adId, token, progressBar_ad_settings, this@MyAdSettingsActivity)
                 progressBar_ad_settings.visibility = ProgressBar.VISIBLE

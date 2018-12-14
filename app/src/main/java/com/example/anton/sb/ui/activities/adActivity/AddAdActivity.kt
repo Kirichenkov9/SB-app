@@ -138,6 +138,9 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
      * Attempts to adding ad specified by the adding form.
      * If there are form errors (invalid title, missing fields, etc.), the
      * errors are presented and no actual adding attempt is made.
+     * If there are no errors, then called [addAd]
+     *
+     * @see addAd
      */
     private fun attemptForm() {
         // Reset errors.

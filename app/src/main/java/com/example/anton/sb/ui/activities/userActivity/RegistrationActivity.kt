@@ -8,18 +8,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import com.example.anton.sb.R
-import com.example.anton.sb.service.ApiService
-import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.extensions.isEmailValid
 import com.example.anton.sb.extensions.isPasswordValid
 import com.example.anton.sb.service.adUser
-import com.example.anton.sb.ui.activities.adActivity.MainActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_registration.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 /**
  * A screen registration
@@ -61,6 +55,7 @@ class RegistrationActivity : AppCompatActivity() {
      * Attempts to register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
+     * If there are no errors, then called [adUser]
      */
     private fun attemptForm() {
         // Reset errors.
@@ -133,8 +128,6 @@ class RegistrationActivity : AppCompatActivity() {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView?.requestFocus()
         } else {
             // Ad add

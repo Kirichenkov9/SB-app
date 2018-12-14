@@ -1,5 +1,6 @@
 package com.example.anton.sb.service
 
+import android.app.Activity
 import android.content.Context
 import android.widget.ProgressBar
 import com.example.anton.sb.data.ResultAd
@@ -15,13 +16,15 @@ import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.activityManager
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import android.app.Activity
 
-
+/**
+ * Functions for operation with server.
+ *
+ * @author Anton Kirichenkov
+ */
 
 /**
  * Creating ad. This method use [ApiService.createAd] and processing response from server
@@ -78,7 +81,6 @@ fun addAd(
  *
  * @param adId ad id
  * @param context
- * @param progressBar progressBar
  *
  * @return [ResultAd]
  *
@@ -163,6 +165,8 @@ fun adChange(
  * @param idUser ad id
  * @param context
  *
+ * @return ArrayList<ResultAd>
+ *
  * @see [handleError]
  * @see [ApiService.getUserAd]
  */
@@ -201,6 +205,8 @@ fun getUserAd(
  *
  * @param token user session_id
  * @param adId ad id
+ * @param progressBar_ad_settings Progressbar
+ * @param context
  */
 fun deleteAd(
     adId: Long,
@@ -246,11 +252,10 @@ fun deleteAd(
  * If response is successful, then display user information, else - display error
  * processing by [handleError].
  *
- * @param firstName user first name
- * @param lastName user last name
- * @param telNumber user phone number
- * @param about information about user
+ * @param token user session_id
+ * @param context
  *
+ * @return [ResultUser] or null
  *
  * @see [ApiService.getUserData]
  * @see [handleError]
@@ -280,7 +285,8 @@ fun userData(
  * @param lastName user last name
  * @param telephone user phone number
  * @param about information about user
- *
+ * @param progressBar_user_change ProgressBar
+ * @param context
  *
  * @see [ApiService.changeUser]
  * @see [handleError]
@@ -328,18 +334,15 @@ fun changeData(
             })
 }
 
-
 /**
  * Get user information. This method use [ApiService.getUserData] and processing response from server.
  * If response is successful, then display user information, else - display error
  * processing by [handleError].
  *
- * @param firstName user first name
- * @param lastName user last name
- * @param telNumber user phone number
- * @param about information about user
+ * @param id user id
+ * @param context
  *
- *
+ * @return [ResultUser] or null
  * @see [ApiService.getUserData]
  * @see [handleError]
  */
@@ -359,7 +362,6 @@ fun userViewData(
     return user
 }
 
-
 /**
  * Log in user. This method use [ApiService.loginUser] and processing response from server.
  * If response is successful, user login and saving his email, full name, session_id, else - display error
@@ -367,6 +369,8 @@ fun userViewData(
  *
  * @param emailStr user email
  * @param passwordStr user password
+ * @param progressBar_login ProgressBar
+ * @param context
  *
  * @see [ApiService.loginUser]
  * @see [handleError]
@@ -406,7 +410,6 @@ fun login(
         })
 }
 
-
 /**
  * Creating ad. This method use [ApiService.createUser] and processing response from server
  * and display message "Пользователь зарегистрирован". If response isn't successful,
@@ -418,6 +421,8 @@ fun login(
  * @param password user password
  * @param telephone user telephone
  * @param about information about user
+ * @param progressBar_registration ProgressBar
+ * @param context
  *
  * @see [ApiService.createUser]
  * @see [handleError]
@@ -455,6 +460,10 @@ fun adUser(
  * If response is successful, display message "Вы вышли из аккаунта", else - display error
  * processing by [handleError].
  *
+ * @param token user session_id
+ * @param progressBar_user_settings ProgressBar
+ * @param context
+ *
  * @see [ApiService.loginUser]
  * @see [handleError]
  */
@@ -487,6 +496,10 @@ fun logout(
  * Delete user. This method use [ApiService.deleteUser] and processing response from server.
  * If response is successful, display message "Аккаунт удален", else - display error
  * processing by [handleError].
+ *
+ * @param token user session_id
+ * @param progressBar_user_settings ProgressBar
+ * @param context
  *
  * @see [ApiService.deleteUser]
  * @see [handleError]

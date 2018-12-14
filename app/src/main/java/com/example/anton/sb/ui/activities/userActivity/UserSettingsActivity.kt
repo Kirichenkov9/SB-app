@@ -10,19 +10,17 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.extensions.removeUserData
-import com.example.anton.sb.service.*
+import com.example.anton.sb.service.delete
+import com.example.anton.sb.service.logout
+import com.example.anton.sb.service.userData
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_user_settings.*
-import kotlinx.android.synthetic.main.app_bar_other.*
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.activity_user_settings.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 /**
  * A screen user settings
@@ -175,8 +173,17 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         return true
     }
 
+    /**
+     * Display alertDialog. If user answer "Да", then called [logout]
+     * and user log out, else nothing happens.
+     *
+     * @param token user session_id
+     * @param progressBar_user_settings ProgressBar
+     *
+     * @see logout
+     */
     private fun logOutAlert(token: String?, progressBar_user_settings: ProgressBar) {
-        alert (message = "Вы уверены, что хотите выйти из аккаунта?") {
+        alert(message = "Вы уверены, что хотите выйти из аккаунта?") {
             positiveButton("Да") {
                 logout(token, progressBar_user_settings, this@UserSettingsActivity)
                 progressBar_user_settings.visibility = ProgressBar.VISIBLE
@@ -185,8 +192,17 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }.show()
     }
 
+    /**
+     * Display alertDialog. If user answer "Да", then called [delete]
+     * and user is delete, else nothing happens.
+     *
+     * @param token user session_id
+     * @param progressBar_user_settings ProgressBar
+     *
+     * @see delete
+     */
     private fun deleteAlert(token: String?, progressBar_user_settings: ProgressBar) {
-        alert (message = "Вы уверены, что хотите удалить аккаунт?") {
+        alert(message = "Вы уверены, что хотите удалить аккаунт?") {
             positiveButton("Да") {
                 delete(token, progressBar_user_settings, this@UserSettingsActivity)
                 progressBar_user_settings.visibility = ProgressBar.VISIBLE

@@ -11,8 +11,8 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.service.userViewData
 import com.example.anton.sb.ui.activities.adActivity.AdViewActivity
-import kotlinx.android.synthetic.main.activity_user_view.*
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.activity_user_view.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 /**
  * A screen information about user
@@ -122,8 +122,16 @@ class UserViewActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Display alertDialog. If user answer "Да", then called [makePhoneCall],
+     * else nothing happens.
+     *
+     * @param string phone number
+     *
+     * @see makePhoneCall
+     */
     private fun phoneAlert(string: String) {
-        alert (message = "Позвонить владельцу объявления?") {
+        alert(message = "Позвонить владельцу объявления?") {
             positiveButton("Да") {
                 makePhoneCall(string)
             }
@@ -131,8 +139,14 @@ class UserViewActivity : AppCompatActivity() {
         }.show()
     }
 
+    /**
+     * Display alertDialog. If user answer "Да", then start app for send email,
+     * else nothing happens.
+     *
+     * @param string email address
+     */
     private fun emailAlert(string: String) {
-        alert (message = "Написать на email владельцу объявления?") {
+        alert(message = "Написать на email владельцу объявления?") {
             positiveButton("Да") {
                 email(string)
             }

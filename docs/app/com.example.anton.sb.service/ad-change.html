@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>adChange - app</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="index.html">com.example.anton.sb.service</a>&nbsp;/&nbsp;<a href="./ad-change.html">adChange</a><br/>
+<br/>
+<h1>adChange</h1>
+<a name="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)"></a>
+<code><span class="keyword">fun </span><span class="identifier">adChange</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)/adId">adId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)/title">title</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)/city">city</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)/price">price</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)/photo">photo</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)/progressBar_ad_change">progressBar_ad_change</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/ProgressBar.html"><span class="identifier">ProgressBar</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$adChange(kotlin.Long, kotlin.String, kotlin.String, kotlin.String, kotlin.Int, java.util.ArrayList((kotlin.String)), kotlin.String, android.widget.ProgressBar, android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Change ad information. This method use <a href="-api-service/change-ad.html">ApiService.changeAd</a> and processing response from server.
+If response is successful, then display "Объявление изменено" and start MyAdSettingsActivity,
+else - display error processing by <a href="../com.example.anton.sb.extensions/handle-error.html">handleError</a>.</p>
+<h3>Parameters</h3>
+<p><a name="adId"></a>
+<code>adId</code> - ad id</p>
+<p><a name="title"></a>
+<code>title</code> - title ad</p>
+<p><a name="city"></a>
+<code>city</code> - city of ad</p>
+<p><a name="description"></a>
+<code>description</code> - description of ad</p>
+<p><a name="price"></a>
+<code>price</code> - ad price</p>
+<p><a name="token"></a>
+<code>token</code> - user session_id</p>
+<p><a name="progressBar_ad_change"></a>
+<code>progressBar_ad_change</code> - progressBar</p>
+<p><a name="context"></a>
+<code>context</code> - </p>
+<p><strong>See Also</strong><br/>
+<p><a href="../com.example.anton.sb.extensions/handle-error.html">handleError</a></p>
+<p><a href="-api-service/change-ad.html">ApiService.changeAd</a></p>
+</p>
+</BODY>
+</HTML>

@@ -1,7 +1,5 @@
 package com.example.anton.sb.ui.activities
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat

@@ -36,21 +36,7 @@ data class ResultAd(
      * description of ad
      */
     val description_ad: String
-) {
-    fun copy(ad: ResultAd) {
-        this.copy(ad)
-    }
-
-    constructor(ad: ResultAd) : this(
-        ad.id,
-        ad.title,
-        ad.price,
-        ad.city,
-        ad.ad_images,
-        ad.owner_ad,
-        ad.description_ad
-    )
-}
+)
 
 /**
  * Represents a ResultUser, with the given [session_id], [id], [first_name], [last_name], [email], [tel_number], [about].

@@ -15,7 +15,7 @@ import java.util.regex.Pattern
  */
 fun isEmailValid(email: String): Boolean {
     // Check entered email
-    val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]"
+    val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
     val pattern = Pattern.compile(emailPattern)
     val matcher = pattern.matcher(email)
     return matcher.matches()

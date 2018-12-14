@@ -25,12 +25,11 @@ fun handleError(throwable: Throwable): String {
         val error = JsonParser().parse(errorJsonString).asJsonObject["error"].asString
 
         if (statusCode == 400) {
-            if (error == "UserIsExistsError")
-                string = " Пользователь уже существует"
-            else if (error == "BadAuth")
-                string = "Неверный логин или пароль"
-            else if (error == "RequestDataValidError")
-                string = "Данные введены неверно"
+            when (error) {
+                "UserIsExistsError" -> string = " Пользователь уже существует"
+                "BadAuth" -> string = "Неверный логин или пароль"
+                "RequestDataValidError" -> string = "Данные введены неверно"
+            }
         }
 
         if (statusCode == 401) {
@@ -42,10 +41,10 @@ fun handleError(throwable: Throwable): String {
         }
 
         if (statusCode == 500) {
-            if (error == "BadCookieError")
-                string = "Что-то пошло не так... Попробуйте войти в аккаунт заново"
+            string = if (error == "BadCookieError")
+                "Что-то пошло не так... Попробуйте войти в аккаунт заново"
             else
-                string = "Нет соединения с сервером"
+                "Нет соединения с сервером"
         }
     } else if (throwable is SocketTimeoutException)
         string = "Нет соединения с сервером"

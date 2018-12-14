@@ -12,8 +12,8 @@ import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.adChange
 import com.example.anton.sb.service.adData
-import kotlinx.android.synthetic.main.activity_change_ad.*
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.activity_change_ad.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 /**
  * A screen changing ad
@@ -122,6 +122,22 @@ class ChangeAdActivity : AppCompatActivity() {
         price.text = ad.price.toString()
     }
 
+    /**
+     * Display alertDialog. If user answer "Да", then called [adChange]
+     * and changing information about ad,
+     * else nothing happens.
+     *
+     * @param adId ad id
+     * @param title field of EditText with ad title
+     * @param city field of EditText with ad city
+     * @param description field of EditText with ad description
+     * @param price field of EditText with ad price
+     * @param photo ArrayList of ad photo URL
+     * @param token user session_id
+     * @param progressBar_ad_change ProgressBar
+     *
+     * @see adChange
+     */
     private fun changeAdAlert(
         adId: Long,
         title: EditText,

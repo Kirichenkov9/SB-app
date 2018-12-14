@@ -20,10 +20,10 @@ fun readUserData(key: String, context: Context): String? {
     val read: SharedPreferences = context.getSharedPreferences("User", Context.MODE_PRIVATE)
 
     if (read.contains(key)) {
-        if (key == "id")
-            string = read.getLong(key, 0).toString()
+        string = if (key == "id")
+            read.getLong(key, 0).toString()
         else
-            string = read.getString(key, " ")
+            read.getString(key, " ")
     }
     return string
 }
@@ -60,7 +60,7 @@ fun saveUsername(token: String, firstName: String, lastName: String, email: Stri
     val save: SharedPreferences = context.getSharedPreferences("User", Context.MODE_PRIVATE)
     val editor: SharedPreferences.Editor = save.edit()
     editor.putString("token", token)
-    editor.putString("name", firstName + " " + lastName)
+    editor.putString("name", "$firstName $lastName")
     editor.putString("email", email)
     editor.putLong("id", id)
     editor.apply()

@@ -56,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
      * Attempts to sign in the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
+     * If there are no errors, then called [login].
      */
     private fun attemptLogin() {
         // Reset errors.

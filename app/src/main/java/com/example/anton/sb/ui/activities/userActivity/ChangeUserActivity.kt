@@ -13,8 +13,8 @@ import com.example.anton.sb.data.ResultUser
 import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.changeData
 import com.example.anton.sb.service.userData
-import kotlinx.android.synthetic.main.activity_change_user.*
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.activity_change_user.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 /**
  * A screen changing user information
@@ -109,8 +109,6 @@ class ChangeUserActivity : AppCompatActivity() {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView?.requestFocus()
         } else {
             changeUserAlert(
@@ -123,6 +121,15 @@ class ChangeUserActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Setting data about user in EditText field.
+     *
+     * @param user data about user
+     * @param firstName field of EditText with user first name
+     * @param lastName field of EditText with user last name
+     * @param telNumber field of EditText with user phone number
+     * @param about
+     */
     private fun setUserData(
         user: ResultUser,
         firstName: TextView,
@@ -136,6 +143,18 @@ class ChangeUserActivity : AppCompatActivity() {
         about.text = user.about
     }
 
+    /**
+     * Display alertDialog. If user answer "Да", then called [changeData]
+     * and user information is change, else nothing happens.
+     *
+     * @param token user session_id
+     * @param firstNameStr user first name
+     * @param lastNameStr user last name
+     * @param telephoneStr user phone number
+     * @param aboutStr information about user
+     *
+     * @see changeData
+     */
     private fun changeUserAlert(
         token: String,
         firstNameStr: String,

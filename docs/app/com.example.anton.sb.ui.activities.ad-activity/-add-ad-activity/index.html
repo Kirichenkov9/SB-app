@@ -72,23 +72,14 @@ Anton Kirichenkov</p>
 <tbody>
 <tr>
 <td>
-<p><a href="add-ad.html">addAd</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">addAd</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.AddAdActivity$addAd(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String)/title">title</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.AddAdActivity$addAd(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String)/city">city</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.AddAdActivity$addAd(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.AddAdActivity$addAd(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String)/priceAd">priceAd</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.adActivity.AddAdActivity$addAd(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Creating ad. This method use <a href="../../com.example.anton.sb.service/-api-service/create-ad.html">ApiService.createAd</a> and processing response from server
-and display it. If response isn't successful, then caused <a href="../../com.example.anton.sb.extensions/handle-error.html">handleError</a> for process error.</p>
-</td>
-</tr>
-<tr>
-<td>
 <p><a href="attempt-form.html">attemptForm</a></p>
 </td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">attemptForm</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
 <p>Attempts to adding ad specified by the adding form.
 If there are form errors (invalid title, missing fields, etc.), the
-errors are presented and no actual adding attempt is made.</p>
+errors are presented and no actual adding attempt is made.
+If there are no errors, then called <a href="../../com.example.anton.sb.service/add-ad.html">addAd</a></p>
 </td>
 </tr>
 </tbody>

@@ -37,18 +37,8 @@ Anton Kirichenkov</p>
 <code><span class="keyword">fun </span><span class="identifier">attemptLogin</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
 <p>Attempts to sign in the account specified by the login form.
 If there are form errors (invalid email, missing fields, etc.), the
-errors are presented and no actual login attempt is made.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="login.html">login</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">login</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$login(kotlin.String, kotlin.String)/emailStr">emailStr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.ui.activities.userActivity.LoginActivity$login(kotlin.String, kotlin.String)/passwordStr">passwordStr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Log in user. This method use <a href="../../com.example.anton.sb.service/-api-service/login-user.html">ApiService.loginUser</a> and processing response from server.
-If response is successful, user login and saving his email, full name, session_id, else - display error
-processing by <a href="../../com.example.anton.sb.extensions/handle-error.html">handleError</a>.</p>
+errors are presented and no actual login attempt is made.
+If there are no errors, then called <a href="../../com.example.anton.sb.service/login.html">login</a>.</p>
 </td>
 </tr>
 </tbody>
