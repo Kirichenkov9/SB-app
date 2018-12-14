@@ -131,13 +131,11 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }
 
         exit_account.setOnClickListener {
-            logout(token, progressBar_user_settings, this)
-            progressBar_user_settings.visibility = ProgressBar.VISIBLE
+            logOutAlert(token, progressBar_user_settings)
         }
 
         delete_account.setOnClickListener {
-            delete(token, progressBar_user_settings, this)
-            progressBar_user_settings.visibility = ProgressBar.VISIBLE
+            deleteAlert(token, progressBar_user_settings)
         }
     }
 
@@ -175,5 +173,25 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }
         drawer_layout_settings.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun logOutAlert(token: String?, progressBar_user_settings: ProgressBar) {
+        alert (message = "Вы уверены, что хотите выйти из аккаунта?") {
+            positiveButton("Да") {
+                logout(token, progressBar_user_settings, this@UserSettingsActivity)
+                progressBar_user_settings.visibility = ProgressBar.VISIBLE
+            }
+            negativeButton("Нет") {}
+        }.show()
+    }
+
+    private fun deleteAlert(token: String?, progressBar_user_settings: ProgressBar) {
+        alert (message = "Вы уверены, что хотите удалить аккаунт?") {
+            positiveButton("Да") {
+                delete(token, progressBar_user_settings, this@UserSettingsActivity)
+                progressBar_user_settings.visibility = ProgressBar.VISIBLE
+            }
+            negativeButton("Нет") {}
+        }.show()
     }
 }

@@ -14,10 +14,7 @@ import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.changeData
 import com.example.anton.sb.service.userData
 import kotlinx.android.synthetic.main.activity_change_user.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 
 /**
  * A screen changing user information
@@ -67,7 +64,6 @@ class ChangeUserActivity : AppCompatActivity() {
 
         change_user.setOnClickListener {
             changeUser()
-            progressBar_user_change.visibility = ProgressBar.VISIBLE
         }
     }
 
@@ -117,18 +113,13 @@ class ChangeUserActivity : AppCompatActivity() {
             // form field with an error.
             focusView?.requestFocus()
         } else {
-            // Show a progress spinner and to
-            // perform the user login attempt.
-            changeData(
-                token,
+            changeUserAlert(
+                token.toString(),
                 firstNameStr.toString(),
                 lastNameStr.toString(),
                 telephoneStr.toString(),
-                aboutStr.toString(),
-                progressBar_user_change,
-                this
+                aboutStr.toString()
             )
-            progressBar_user_change.visibility = ProgressBar.INVISIBLE
         }
     }
 
@@ -143,5 +134,29 @@ class ChangeUserActivity : AppCompatActivity() {
         lastName.text = user.last_name
         telNumber.text = user.tel_number
         about.text = user.about
+    }
+
+    private fun changeUserAlert(
+        token: String,
+        firstNameStr: String,
+        lastNameStr: String,
+        telephoneStr: String,
+        aboutStr: String
+    ) {
+        alert(message = "Сохранить измнения") {
+            positiveButton("Да") {
+                changeData(
+                    token,
+                    firstNameStr,
+                    lastNameStr,
+                    telephoneStr,
+                    aboutStr,
+                    progressBar_user_change,
+                    this@ChangeUserActivity
+                )
+                progressBar_user_change.visibility = ProgressBar.VISIBLE
+            }
+            negativeButton("Нет") {}
+        }.show()
     }
 }

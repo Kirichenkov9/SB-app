@@ -14,10 +14,7 @@ import com.example.anton.sb.service.adData
 import com.example.anton.sb.service.deleteAd
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_my_ad_settings.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 
 /**
  * A screen ad view of logged ih user
@@ -73,7 +70,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
         val intent = intent
         adId = intent.getLongExtra("adId", 0)
 
-        val token = readUserData("token", this)
+        token = readUserData("token", this)
 
         val title = find<TextView>(R.id.title_ad_settings)
         val city = find<TextView>(R.id.city_ad_settings)
@@ -112,8 +109,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
         }
 
         button.setOnClickListener {
-            deleteAd(adId, token, progressBar_ad_settings, this)
-            progressBar_ad_settings.visibility = ProgressBar.VISIBLE
+           deleteAdAlert()
         }
     }
 
@@ -152,7 +148,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
         city.text = ad.city
         description.text = ad.description_ad
         price.text = ad.price.toString()
-        if (ad.ad_images.isNotEmpty()) {
+        if (ad.ad_images[0].isNotEmpty()) {
             Picasso
                 .with(this@MyAdSettingsActivity)
                 .load(ad.ad_images[0])
@@ -162,5 +158,15 @@ class MyAdSettingsActivity : AppCompatActivity() {
                 .centerInside()
                 .into(photo)
         }
+    }
+
+    private fun deleteAdAlert() {
+        alert (message = "Вы уверены, что хотите удалить объявление?") {
+            positiveButton("Да") {
+                deleteAd(adId, token, progressBar_ad_settings, this@MyAdSettingsActivity)
+                progressBar_ad_settings.visibility = ProgressBar.VISIBLE
+            }
+            negativeButton("Нет") {}
+        }.show()
     }
 }

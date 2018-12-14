@@ -100,7 +100,7 @@ class AdViewActivity : AppCompatActivity() {
                     telephone.text = ad.owner_ad.tel_number
                     phone = telephone.text.toString()
                     userId = ad.owner_ad.id
-                    if (ad.ad_images.isNotEmpty()) {
+                    if (ad.ad_images[0].isNotEmpty()) {
                         Picasso
                             .with(this@AdViewActivity)
                             .load(ad.ad_images[0])
@@ -131,9 +131,7 @@ class AdViewActivity : AppCompatActivity() {
         }
 
         telephone.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE), 1)
-            } else this.makeCall(phone)
+           phoneAlert(phone)
         }
     }
 
@@ -187,5 +185,15 @@ class AdViewActivity : AppCompatActivity() {
             )
         }
         return true
+    }
+
+
+    private fun phoneAlert(string: String) {
+        alert (message = "Позвонить владельцу объявления?") {
+            positiveButton("Да") {
+                makePhoneCall(string)
+            }
+            negativeButton("Нет") {}
+        }.show()
     }
 }

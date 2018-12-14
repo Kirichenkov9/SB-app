@@ -13,10 +13,7 @@ import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.adChange
 import com.example.anton.sb.service.adData
 import kotlinx.android.synthetic.main.activity_change_ad.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 
 /**
  * A screen changing ad
@@ -77,18 +74,16 @@ class ChangeAdActivity : AppCompatActivity() {
         progressBar_ad_change.visibility = ProgressBar.VISIBLE
 
         button.setOnClickListener {
-            adChange(
+            changeAdAlert(
                 adId,
-                title.text.toString(),
-                city.text.toString(),
-                description.text.toString(),
-                price.text.toString().toInt(),
+                title,
+                city,
+                description,
+                price,
                 photo,
                 token.toString(),
-                progressBar_ad_change,
-                this
+                progressBar_ad_change
             )
-            progressBar_ad_change.visibility = ProgressBar.VISIBLE
         }
     }
 
@@ -125,5 +120,34 @@ class ChangeAdActivity : AppCompatActivity() {
         city.text = ad.city
         description.text = ad.description_ad
         price.text = ad.price.toString()
+    }
+
+    private fun changeAdAlert(
+        adId: Long,
+        title: EditText,
+        city: EditText,
+        description: EditText,
+        price: EditText,
+        photo: ArrayList<String>,
+        token: String?,
+        progressBar_ad_change: ProgressBar
+    ) {
+        alert(message = "Сохранить измнения?") {
+            positiveButton("Да") {
+                adChange(
+                    adId,
+                    title.text.toString(),
+                    city.text.toString(),
+                    description.text.toString(),
+                    price.text.toString().toInt(),
+                    photo,
+                    token.toString(),
+                    progressBar_ad_change,
+                    this@ChangeAdActivity
+                )
+                progressBar_ad_change.visibility = ProgressBar.VISIBLE
+            }
+            negativeButton("Нет") {}
+        }.show()
     }
 }

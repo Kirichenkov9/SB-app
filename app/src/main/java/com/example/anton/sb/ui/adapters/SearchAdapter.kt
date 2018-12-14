@@ -80,7 +80,7 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
          */
         fun bindAd(ad: ResultAd) {
             with(ad) {
-                if (ad_images.isNotEmpty()) {
+                if (ad_images[0].isNotEmpty()) {
                     Picasso
                         .with(itemView.context)
                         .load(ad_images[0])

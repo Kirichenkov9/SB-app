@@ -1,25 +1,18 @@
 package com.example.anton.sb.ui.activities.userActivity
 
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.service.ApiService
-import com.example.anton.sb.extensions.handleError
-import com.example.anton.sb.service.userData
 import com.example.anton.sb.service.userViewData
 import com.example.anton.sb.ui.activities.adActivity.AdViewActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_user_view.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.email
-import org.jetbrains.anko.find
-import org.jetbrains.anko.makeCall
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 
 /**
  * A screen information about user
@@ -36,6 +29,11 @@ class UserViewActivity : AppCompatActivity() {
      * ad id
      */
     private var adId: Long = 0
+
+    /**
+     *  phone number of owner ad
+     */
+    private var phone: String = ""
 
     /**
      * @suppress
@@ -59,11 +57,11 @@ class UserViewActivity : AppCompatActivity() {
         val about = find<TextView>(R.id.user_about_view)
 
         telephone.setOnClickListener {
-            this.makeCall(telephone.text.toString())
+            phoneAlert(phone)
         }
 
         email.setOnClickListener {
-            this.email(email.text.toString())
+            emailAlert(email.text.toString())
         }
 
         doAsync {
@@ -84,6 +82,34 @@ class UserViewActivity : AppCompatActivity() {
     }
 
     /**
+     * Make phone call by number of owner ad.
+     * This method check availability permission for making call.
+     *
+     * @param string phone number
+     */
+    private fun makePhoneCall(string: String) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED
+        )
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE), 1)
+        else makeCall(string)
+    }
+
+    /**
+     * @suppress
+     */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == 1) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                makeCall(phone)
+            else
+                toast("Нет разрешения совершать звонки")
+        }
+    }
+
+    /**
      * @suppress
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -94,5 +120,23 @@ class UserViewActivity : AppCompatActivity() {
         }
         startActivity<AdViewActivity>("adId" to adId)
         return true
+    }
+
+    private fun phoneAlert(string: String) {
+        alert (message = "Позвонить владельцу объявления?") {
+            positiveButton("Да") {
+                makePhoneCall(string)
+            }
+            negativeButton("Нет") {}
+        }.show()
+    }
+
+    private fun emailAlert(string: String) {
+        alert (message = "Написать на email владельцу объявления?") {
+            positiveButton("Да") {
+                email(string)
+            }
+            negativeButton("Нет") {}
+        }.show()
     }
 }

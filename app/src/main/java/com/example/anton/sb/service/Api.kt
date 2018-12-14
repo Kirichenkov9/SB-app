@@ -224,6 +224,7 @@ fun deleteAd(
                     context.startActivity<MyAdsActivity>()
                 }
                 "Что-то пошло не так... Попробуйте войти в аккаунт заново" -> {
+                    context.toast(errorStr)
                     removeUserData(context)
                     context.startActivity<LoginActivity>()
                 }
@@ -511,6 +512,7 @@ fun delete(
                         context.startActivity<MainActivity>()
                     }
                     "Что-то пошло не так... Попробуйте войти в аккаунт заново" -> {
+                        context.toast(errorStr)
                         removeUserData(context)
                         context.startActivity<LoginActivity>()
                     }
