@@ -1,10 +1,9 @@
-image: ruby:alpine
-
-stages:
-  - deploy
+image: alpine:latest
  
 pages:
   stage: deploy
+  script:
+    - echo 'Pages'
   artifacts:
     paths:
       - public
