@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ApiService.createAd - app</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.example.anton.sb.service</a>&nbsp;/&nbsp;<a href="index.html">ApiService</a>&nbsp;/&nbsp;<a href="./create-ad.html">createAd</a><br/>
+<br/>
+<h1>createAd</h1>
+<a name="com.example.anton.sb.service.ApiService$createAd(kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String)"></a>
+<code><span class="identifier">@FormUrlEncoded</span> <span class="identifier">@Headers</span><span class="symbol">(</span>["User-agent: Android_app"]<span class="symbol">)</span> <span class="identifier">@POST</span><span class="symbol">(</span>"ads/new"<span class="symbol">)</span> <span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAd</span><span class="symbol">(</span><span class="identifier">@Header</span><span class="symbol">(</span>"Cookie"<span class="symbol">)</span> <span class="identifier" id="com.example.anton.sb.service.ApiService$createAd(kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier">@Field</span><span class="symbol">(</span>"title"<span class="symbol">)</span> <span class="identifier" id="com.example.anton.sb.service.ApiService$createAd(kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String)/title">title</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier">@Field</span><span class="symbol">(</span>"price"<span class="symbol">)</span> <span class="identifier" id="com.example.anton.sb.service.ApiService$createAd(kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String)/price">price</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier">@Field</span><span class="symbol">(</span>"city"<span class="symbol">)</span> <span class="identifier" id="com.example.anton.sb.service.ApiService$createAd(kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String)/city">city</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier">@Field</span><span class="symbol">(</span>"description_ad"<span class="symbol">)</span> <span class="identifier" id="com.example.anton.sb.service.ApiService$createAd(kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String)/description">description</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Single</span><span class="symbol">&lt;</span><a href="../../com.example.anton.sb.data/-result-ad/index.html"><span class="identifier">ResultAd</span></a><span class="symbol">&gt;</span></code>
+<p>The createAd() method is defined to create ad.
+The endpoint is defined as "ads/new” with POST HTTP method.</p>
+<p><strong>Header</strong><br/>
+Cookie - session_id of user session</p>
+<p><strong>Field</strong><br/>
+title - title of ad</p>
+<p><strong>Field</strong><br/>
+price - price of ad</p>
+<p><strong>Field</strong><br/>
+city - city of ad</p>
+<p><strong>Field</strong><br/>
+description_ad - description of ad</p>
+<p><strong>Return</strong><br/>
+Single</p>
+</BODY>
+</HTML>

@@ -31,7 +31,7 @@ android {
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
     dokka {
         outputFormat = 'html'
-        outputDirectory = "docs"
+        outputDirectory = "public"
         includeNonPublic = true
     }
 }

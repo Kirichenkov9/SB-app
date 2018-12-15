@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>login - app</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="index.html">com.example.anton.sb.service</a>&nbsp;/&nbsp;<a href="./login.html">login</a><br/>
+<br/>
+<h1>login</h1>
+<a name="com.example.anton.sb.service$login(kotlin.String, kotlin.String, android.widget.ProgressBar, android.content.Context)"></a>
+<code><span class="keyword">fun </span><span class="identifier">login</span><span class="symbol">(</span><span class="identifier" id="com.example.anton.sb.service$login(kotlin.String, kotlin.String, android.widget.ProgressBar, android.content.Context)/emailStr">emailStr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$login(kotlin.String, kotlin.String, android.widget.ProgressBar, android.content.Context)/passwordStr">passwordStr</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$login(kotlin.String, kotlin.String, android.widget.ProgressBar, android.content.Context)/progressBar_login">progressBar_login</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/ProgressBar.html"><span class="identifier">ProgressBar</span></a><span class="symbol">, </span><span class="identifier" id="com.example.anton.sb.service$login(kotlin.String, kotlin.String, android.widget.ProgressBar, android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Log in user. This method use <a href="-api-service/login-user.html">ApiService.loginUser</a> and processing response from server.
+If response is successful, user login and saving his email, full name, session_id, else - display error
+processing by <a href="../com.example.anton.sb.extensions/handle-error.html">handleError</a>.</p>
+<h3>Parameters</h3>
+<p><a name="emailStr"></a>
+<code>emailStr</code> - user email</p>
+<p><a name="passwordStr"></a>
+<code>passwordStr</code> - user password</p>
+<p><a name="progressBar_login"></a>
+<code>progressBar_login</code> - ProgressBar</p>
+<p><a name="context"></a>
+<code>context</code> - </p>
+<p><strong>See Also</strong><br/>
+<p><a href="-api-service/login-user.html">ApiService.loginUser</a></p>
+<p><a href="../com.example.anton.sb.extensions/handle-error.html">handleError</a></p>
+</p>
+</BODY>
+</HTML>

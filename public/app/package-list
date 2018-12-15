@@ -1,0 +1,10 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+com.example.anton.sb.data
+com.example.anton.sb.extensions
+com.example.anton.sb.service
+com.example.anton.sb.ui.activities
+com.example.anton.sb.ui.activities.adActivity
+com.example.anton.sb.ui.activities.userActivity
+com.example.anton.sb.ui.adapters
