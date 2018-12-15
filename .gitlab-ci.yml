@@ -3,7 +3,7 @@ image: ruby:alpine
 stages:
   - deploy
  
- pages:
+pages:
   stage: deploy
   artifacts:
     paths:
