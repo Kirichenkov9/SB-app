@@ -10,7 +10,8 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.service.Api
+import com.example.anton.sb.service.adData
+import com.example.anton.sb.service.deleteAd
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_my_ad_settings.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
@@ -79,8 +80,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
         val button = find<Button>(R.id.delete_ad)
 
         doAsync {
-            val api = Api()
-            val ad = api.adData(adId, this@MyAdSettingsActivity)
+            val ad = adData(adId, this@MyAdSettingsActivity)
             uiThread {
                 progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
                 if (ad != null) {
@@ -146,7 +146,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
         city.text = ad.city
         description.text = ad.description_ad
         price.text = ad.price.toString()
-        if (ad.ad_images[0].isNotEmpty()) {
+        if (ad.ad_images.size != 0) {
             Picasso
                 .with(this@MyAdSettingsActivity)
                 .load(ad.ad_images[0])
@@ -167,8 +167,7 @@ class MyAdSettingsActivity : AppCompatActivity() {
     private fun deleteAdAlert() {
         alert(message = "Вы уверены, что хотите удалить объявление?") {
             positiveButton("Да") {
-                val api = Api()
-                api.deleteAd(adId, token, progressBar_ad_settings, this@MyAdSettingsActivity)
+                deleteAd(adId, token, progressBar_ad_settings, this@MyAdSettingsActivity)
                 progressBar_ad_settings.visibility = ProgressBar.VISIBLE
             }
             negativeButton("Нет") {}

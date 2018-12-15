@@ -9,7 +9,7 @@ import android.widget.ProgressBar
 import com.example.anton.sb.R
 import com.example.anton.sb.extensions.isEmailValid
 import com.example.anton.sb.extensions.isPasswordValid
-import com.example.anton.sb.service.Api
+import com.example.anton.sb.service.login
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
@@ -99,8 +99,7 @@ class LoginActivity : AppCompatActivity() {
         } else {
             // Show a progress spinner and to
             // perform the user login attempt.
-            val api = Api()
-            api.login(emailStr, passwordStr, progressBar_login, this)
+            login(emailStr, passwordStr, progressBar_login, this)
             progressBar_login.visibility = ProgressBar.VISIBLE
         }
     }

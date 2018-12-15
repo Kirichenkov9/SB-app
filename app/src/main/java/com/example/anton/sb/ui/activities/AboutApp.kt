@@ -107,7 +107,7 @@ class AboutApp : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         }
 
         web.setOnClickListener {
-            browse("https://search-build.herokuapp.com/ads")
+            browse("https://sb-service.herokuapp.com")
         }
     }
 

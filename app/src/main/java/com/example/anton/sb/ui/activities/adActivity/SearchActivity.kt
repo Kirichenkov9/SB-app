@@ -60,15 +60,17 @@ class SearchActivity : AppCompatActivity() {
         }
 
         searchButton.setOnClickListener {
-            if (searchText.text.isNullOrEmpty())
-                toast("Вы ничего не вввели")
-            else if (list.size == 0) {
-                searchString = searchText.text.toString()
-                displayAds(list, searchText, recyclerView, layoutManager)
-            } else if (searchText.text.toString() != searchString) {
-                list.clear()
-                displayAds(list, searchText, recyclerView, layoutManager)
-                searchString = searchText.text.toString()
+            when {
+                searchText.text.isNullOrEmpty() -> toast("Вы ничего не вввели")
+                list.size == 0 -> {
+                    searchString = searchText.text.toString()
+                    displayAds(list, searchText, recyclerView, layoutManager)
+                }
+                searchText.text.toString() != searchString -> {
+                    list.clear()
+                    displayAds(list, searchText, recyclerView, layoutManager)
+                    searchString = searchText.text.toString()
+                }
             }
         }
     }

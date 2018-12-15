@@ -12,7 +12,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.service.Api
+import com.example.anton.sb.service.addAd
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
@@ -181,8 +181,7 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             focusView?.requestFocus()
         } else {
             // Ad add
-            val api = Api()
-            api.addAd(
+            addAd(
                 nameStr,
                 cityStr,
                 aboutStr,

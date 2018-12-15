@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.service.Api
+import com.example.anton.sb.service.adData
 import com.example.anton.sb.ui.activities.userActivity.UserViewActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_ad_view.* // ktlint-disable no-wildcard-imports
@@ -88,8 +88,7 @@ class AdViewActivity : AppCompatActivity() {
         val button = find<Button>(R.id.go_to_user)
 
         doAsync {
-            val api = Api()
-            val ad = api.adData(adId, this@AdViewActivity)
+            val ad = adData(adId, this@AdViewActivity)
             uiThread {
                 progressBar_ad_view.visibility = ProgressBar.INVISIBLE
                 Log.d("result", "$ad")
@@ -102,7 +101,7 @@ class AdViewActivity : AppCompatActivity() {
                     telephone.text = ad.owner_ad.tel_number
                     phone = telephone.text.toString()
                     userId = ad.owner_ad.id
-                    if (ad.ad_images[0].isNotEmpty()) {
+                    if (ad.ad_images.size != 0) {
                         Picasso
                             .with(this@AdViewActivity)
                             .load(ad.ad_images[0])
