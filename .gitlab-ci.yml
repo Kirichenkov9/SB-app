@@ -1,3 +1,5 @@
+image ruby:alpine
+
 stages:
   - deploy
  
