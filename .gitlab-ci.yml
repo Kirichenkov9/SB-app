@@ -1,0 +1,9 @@
+stages:
+  - deploy
+ 
+ pages:
+  stage: deploy
+  artifacts:
+    paths:
+      - public
+        
