@@ -12,12 +12,12 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.service.addAd
+import com.example.anton.sb.service.Api
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
-import kotlinx.android.synthetic.main.activity_add_ad.* // ktlint-disable no-wildcard-imports
-import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_add_ad.*
+import kotlinx.android.synthetic.main.app_bar_other.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 
@@ -181,7 +181,8 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             focusView?.requestFocus()
         } else {
             // Ad add
-            addAd(
+            val api = Api()
+            api.addAd(
                 nameStr,
                 cityStr,
                 aboutStr,
@@ -189,7 +190,7 @@ class AddAdActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 token.toString(),
                 progressBar_add_ad,
                 this
-                )
+            )
             progressBar_add_ad.visibility = ProgressBar.VISIBLE
         }
     }

@@ -10,7 +10,7 @@ import android.widget.ProgressBar
 import com.example.anton.sb.R
 import com.example.anton.sb.extensions.isEmailValid
 import com.example.anton.sb.extensions.isPasswordValid
-import com.example.anton.sb.service.adUser
+import com.example.anton.sb.service.Api
 import kotlinx.android.synthetic.main.activity_registration.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
@@ -131,7 +131,8 @@ class RegistrationActivity : AppCompatActivity() {
             focusView?.requestFocus()
         } else {
             // Ad add
-            adUser(
+            val api = Api()
+            api.adUser(
                 firstNameRegistrationStr,
                 lastNameRegistrationStr,
                 emailRegistrationStr,

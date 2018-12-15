@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.service.userViewData
+import com.example.anton.sb.service.Api
 import com.example.anton.sb.ui.activities.adActivity.AdViewActivity
 import kotlinx.android.synthetic.main.activity_user_view.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
@@ -65,7 +65,8 @@ class UserViewActivity : AppCompatActivity() {
         }
 
         doAsync {
-            val user = userViewData(id, this@UserViewActivity)
+            val api = Api()
+            val user = api.userViewData(id, this@UserViewActivity)
             uiThread {
                 progressBar_user_view.visibility = ProgressBar.INVISIBLE
                 if (user != null) {

@@ -14,7 +14,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.service.getUserAd
+import com.example.anton.sb.service.Api
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
@@ -124,7 +124,8 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     private fun displayAds(recyclerView: RecyclerView, idUser: Long) {
 
         doAsync {
-            val list = getUserAd(idUser, this@MyAdsActivity)
+            val api = Api()
+            val list = api.getUserAd(idUser, this@MyAdsActivity)
             uiThread {
                 progressBar_my_ad.visibility = ProgressBar.INVISIBLE
                 recyclerView.adapter = MainAdapter(list,

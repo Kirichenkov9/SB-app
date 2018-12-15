@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.extensions.updateSearchList
 import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.extensions.updateSearchList
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
@@ -89,7 +89,8 @@ class SearchAdapter(private val ads: ArrayList<ResultAd>, private val itemClick:
                         .fit()
                         .centerInside()
                         .into(photoView)
-                }
+                } else
+                    photoView.setImageResource(R.drawable.ic_image_ad)
                 titleView.text = title
                 cityView.text = city
                 itemView.setOnClickListener { itemClick(this) }

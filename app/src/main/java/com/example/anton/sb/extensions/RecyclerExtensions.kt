@@ -1,6 +1,7 @@
 package com.example.anton.sb.extensions
 
 import android.content.Context
+import android.util.Log
 import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.service.ApiService
 import org.jetbrains.anko.runOnUiThread

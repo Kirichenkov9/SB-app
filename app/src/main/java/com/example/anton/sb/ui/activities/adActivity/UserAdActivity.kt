@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.widget.ProgressBar
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ResultAd
-import com.example.anton.sb.service.getUserAd
+import com.example.anton.sb.service.Api
 import com.example.anton.sb.ui.adapters.MainAdapter
 import kotlinx.android.synthetic.main.activity_user_ad.*
 import org.jetbrains.anko.doAsync
@@ -59,7 +59,8 @@ class UserAdActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         doAsync {
-            list = getUserAd(userId, this@UserAdActivity)
+            val api = Api()
+            list = api.getUserAd(userId, this@UserAdActivity)
             uiThread {
                 progressBar_user_ad.visibility = ProgressBar.INVISIBLE
                 recyclerView.adapter = MainAdapter(list,

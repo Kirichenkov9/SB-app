@@ -11,9 +11,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.service.delete
-import com.example.anton.sb.service.logout
-import com.example.anton.sb.service.userData
+import com.example.anton.sb.service.Api
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
@@ -98,7 +96,8 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         val about = find<TextView>(R.id.user_about)
 
         doAsync {
-            val user = userData(token.toString(), this@UserSettingsActivity)
+            val api = Api()
+            val user = api.userData(token.toString(), this@UserSettingsActivity)
             uiThread {
                 progressBar_user_settings.visibility = ProgressBar.INVISIBLE
                 if (user != null) {
@@ -185,7 +184,8 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     private fun logOutAlert(token: String?, progressBar_user_settings: ProgressBar) {
         alert(message = "Вы уверены, что хотите выйти из аккаунта?") {
             positiveButton("Да") {
-                logout(token, progressBar_user_settings, this@UserSettingsActivity)
+                val api = Api()
+                api.logout(token, progressBar_user_settings, this@UserSettingsActivity)
                 progressBar_user_settings.visibility = ProgressBar.VISIBLE
             }
             negativeButton("Нет") {}
@@ -204,7 +204,8 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     private fun deleteAlert(token: String?, progressBar_user_settings: ProgressBar) {
         alert(message = "Вы уверены, что хотите удалить аккаунт?") {
             positiveButton("Да") {
-                delete(token, progressBar_user_settings, this@UserSettingsActivity)
+                val api = Api()
+                api.delete(token, progressBar_user_settings, this@UserSettingsActivity)
                 progressBar_user_settings.visibility = ProgressBar.VISIBLE
             }
             negativeButton("Нет") {}

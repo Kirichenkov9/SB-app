@@ -11,8 +11,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ResultUser
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.service.changeData
-import com.example.anton.sb.service.userData
+import com.example.anton.sb.service.Api
 import kotlinx.android.synthetic.main.activity_change_user.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
@@ -52,7 +51,8 @@ class ChangeUserActivity : AppCompatActivity() {
         val about = find<EditText>(R.id.change_about)
 
         doAsync {
-            val user = userData(token.toString(), this@ChangeUserActivity)
+            val api = Api()
+            val user = api.userData(token.toString(), this@ChangeUserActivity)
             uiThread {
                 progressBar_user_change.visibility = ProgressBar.INVISIBLE
                 if (user != null)
@@ -164,7 +164,8 @@ class ChangeUserActivity : AppCompatActivity() {
     ) {
         alert(message = "Сохранить измнения") {
             positiveButton("Да") {
-                changeData(
+                val api = Api()
+                api.changeData(
                     token,
                     firstNameStr,
                     lastNameStr,

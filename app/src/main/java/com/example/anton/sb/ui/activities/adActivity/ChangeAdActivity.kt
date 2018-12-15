@@ -10,8 +10,7 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.extensions.readUserData
-import com.example.anton.sb.service.adChange
-import com.example.anton.sb.service.adData
+import com.example.anton.sb.service.Api
 import kotlinx.android.synthetic.main.activity_change_ad.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
@@ -62,7 +61,8 @@ class ChangeAdActivity : AppCompatActivity() {
         val photo: ArrayList<String> = ArrayList()
 
         doAsync {
-            val ad = adData(adId, this@ChangeAdActivity)
+            val api = Api()
+            val ad = api.adData(adId, this@ChangeAdActivity)
             uiThread {
                 progressBar_ad_change.visibility = ProgressBar.INVISIBLE
                 if (ad != null) {
@@ -150,7 +150,8 @@ class ChangeAdActivity : AppCompatActivity() {
     ) {
         alert(message = "Сохранить измнения?") {
             positiveButton("Да") {
-                adChange(
+                val api = Api()
+                api.adChange(
                     adId,
                     title.text.toString(),
                     city.text.toString(),

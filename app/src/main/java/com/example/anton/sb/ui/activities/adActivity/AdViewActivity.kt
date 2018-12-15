@@ -6,13 +6,14 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.service.adData
+import com.example.anton.sb.service.Api
 import com.example.anton.sb.ui.activities.userActivity.UserViewActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_ad_view.* // ktlint-disable no-wildcard-imports
@@ -87,9 +88,11 @@ class AdViewActivity : AppCompatActivity() {
         val button = find<Button>(R.id.go_to_user)
 
         doAsync {
-            val ad = adData(adId, this@AdViewActivity)
+            val api = Api()
+            val ad = api.adData(adId, this@AdViewActivity)
             uiThread {
                 progressBar_ad_view.visibility = ProgressBar.INVISIBLE
+                Log.d("result", "$ad")
                 if (ad != null) {
                     title.text = ad.title
                     city.text = ad.city
