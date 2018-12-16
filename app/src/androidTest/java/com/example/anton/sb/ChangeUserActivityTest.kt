@@ -96,7 +96,6 @@ class ChangeUserActivityInstrumentationTest {
         Intents.intended(IntentMatchers.hasComponent(UserSettingsActivity::class.java.name))
 
         Intents.release()
-
     }
 }
 
