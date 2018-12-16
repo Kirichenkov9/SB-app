@@ -1,5 +1,7 @@
 [![Ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Documentation](https://img.shields.io/badge/code-documentation-brightgreen.svg)](https://developers34.pages.bmstu.codes/android-application/app/)
+
 # Android app for SB service
 
 ![Screenshot](app/src/main/ic_launcher-web.png)
