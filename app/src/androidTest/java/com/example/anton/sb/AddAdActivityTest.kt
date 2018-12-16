@@ -1,6 +1,5 @@
 package com.example.anton.sb
 
-
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
@@ -18,13 +17,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class AddAdActivityInstrumentationTest {
-
-    val login = "qwerty@mail.ru"
-    val password = "123456"
-    val fistName = "Vasya"
-    val lastName = "Pupkin"
-    val phoneNumber = "8800553535"
+class AddAdActivityTest {
 
     @Rule
     @JvmField

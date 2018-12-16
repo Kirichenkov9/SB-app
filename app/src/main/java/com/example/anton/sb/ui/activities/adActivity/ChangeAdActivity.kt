@@ -2,7 +2,9 @@ package com.example.anton.sb.ui.activities.adActivity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -73,13 +75,60 @@ class ChangeAdActivity : AppCompatActivity() {
         }
         progressBar_ad_change.visibility = ProgressBar.VISIBLE
 
-        button.setOnClickListener {
+        button.setOnClickListener { attemptForm(photo) }
+    }
+
+
+    /**
+     * Checking entered data and change data or display error.
+     * This method called [changeAdAlert].
+     *
+     * @param photo Array of photo URL
+     */
+    private fun attemptForm(photo: ArrayList<String>) {
+        // Reset errors.
+        change_title.error = null
+        change_city.error = null
+        change_description.error = null
+
+        // Store values
+        val nameStr = change_title.text.toString()
+        val cityStr = change_city.text.toString()
+        val aboutStr = change_description.text.toString()
+
+        var cancel = false
+        var focusView: View? = null
+
+        // Field check
+        if (TextUtils.isEmpty(nameStr)) {
+            change_title.error = getString(R.string.error_field_required)
+            focusView = change_title
+            cancel = true
+        }
+
+        if (TextUtils.isEmpty(aboutStr)) {
+            change_description.error = getString(R.string.error_field_required)
+            focusView = change_description
+            cancel = true
+        }
+
+        if (TextUtils.isEmpty(cityStr)) {
+            change_city.error = getString(R.string.error_field_required)
+            focusView = change_city
+            cancel = true
+        }
+
+        if (cancel) {
+            // There was an error
+            focusView?.requestFocus()
+        } else {
+            // Ad add
             changeAdAlert(
                 adId,
-                title,
-                city,
-                description,
-                price,
+                nameStr,
+                cityStr,
+                aboutStr,
+                change_price.text.toString().toInt(),
                 photo,
                 token.toString(),
                 progressBar_ad_change
@@ -140,10 +189,10 @@ class ChangeAdActivity : AppCompatActivity() {
      */
     private fun changeAdAlert(
         adId: Long,
-        title: EditText,
-        city: EditText,
-        description: EditText,
-        price: EditText,
+        title: String,
+        city: String,
+        description: String,
+        price: Int,
         photo: ArrayList<String>,
         token: String?,
         progressBar_ad_change: ProgressBar
@@ -152,10 +201,10 @@ class ChangeAdActivity : AppCompatActivity() {
             positiveButton("Да") {
                 adChange(
                     adId,
-                    title.text.toString(),
-                    city.text.toString(),
-                    description.text.toString(),
-                    price.text.toString().toInt(),
+                    title,
+                    city,
+                    description,
+                    price,
                     photo,
                     token.toString(),
                     progressBar_ad_change,

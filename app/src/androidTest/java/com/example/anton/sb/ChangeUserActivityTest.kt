@@ -19,7 +19,7 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class ChangeUserActivityInstrumentationTest {
+class ChangeUserActivityTest {
 
     val login = "qwerty@mail.ru"
     val password = "123456"
@@ -79,7 +79,7 @@ class ChangeUserActivityInstrumentationTest {
         Thread.sleep(2000)
 
         Espresso.onView((ViewMatchers.withId(R.id.change_first_name)))
-            .perform(ViewActions.closeSoftKeyboard())
+            .perform(ViewActions.clearText(), ViewActions.typeText("Anton"), ViewActions.closeSoftKeyboard())
 
         Espresso.onView(ViewMatchers.withId(R.id.change_user))
             .perform(ViewActions.click())
@@ -94,6 +94,9 @@ class ChangeUserActivityInstrumentationTest {
             .check(ViewAssertions.doesNotExist())
 
         Intents.intended(IntentMatchers.hasComponent(UserSettingsActivity::class.java.name))
+
+        Espresso.onView((ViewMatchers.withId(R.id.first_user_name)))
+            .check(ViewAssertions.matches(ViewMatchers.withText("Anton")))
 
         Intents.release()
     }

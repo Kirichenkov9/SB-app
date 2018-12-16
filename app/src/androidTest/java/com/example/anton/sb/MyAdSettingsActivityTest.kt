@@ -24,13 +24,7 @@ import org.hamcrest.Matchers
 
 
 @RunWith(AndroidJUnit4::class)
-class RegistrationActivityInstrumentationTest {
-
-    val login = "qwerty@mail.ru"
-    val password = "123456"
-    val fistName = "Vasya"
-    val lastName = "Pupkin"
-    val phoneNumber = "8800553535"
+class MyAdSettingsActivityTest {
 
     @Rule
     @JvmField

@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class UserSettingsActivityInstrumentationTest {
+class UserSettingsActivityTest {
 
     val login = "qwerty@mail.ru"
     val password = "123456"
