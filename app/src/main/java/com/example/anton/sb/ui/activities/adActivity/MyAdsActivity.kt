@@ -123,7 +123,6 @@ class MyAdsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
      * @see [MainAdapter]
      */
     private fun displayAds(recyclerView: RecyclerView, idUser: Long) {
-
         doAsync {
             val list = getUserAd(idUser, this@MyAdsActivity)
             uiThread {

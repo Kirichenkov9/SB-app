@@ -272,7 +272,17 @@ fun userData(
         .subscribe({ result ->
             user = result
         }, { error ->
-            context.runOnUiThread { context.toast(handleError(error)) }
+            val errorStr = handleError(error)
+            context.runOnUiThread {
+                when (errorStr) {
+                    "Что-то пошло не так... Попробуйте войти в аккаунт заново" -> {
+                        context.toast(errorStr)
+                        removeUserData(context)
+                        context.startActivity<LoginActivity>()
+                    }
+                    else -> context.toast(errorStr)
+                }
+            }
         })
     return user
 }
