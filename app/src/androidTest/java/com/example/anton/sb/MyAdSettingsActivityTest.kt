@@ -13,15 +13,10 @@ import android.content.Intent
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.intent.Intents
-import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.espresso.matcher.RootMatchers
 import android.support.test.espresso.matcher.ViewMatchers
-import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
-import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import junit.framework.TestCase
 import org.hamcrest.Matchers
-
 
 @RunWith(AndroidJUnit4::class)
 class MyAdSettingsActivityTest {
@@ -62,12 +57,11 @@ class MyAdSettingsActivityTest {
 
         Thread.sleep(2000)
 
-
         Espresso.onView(ViewMatchers.withId(R.id.delete_ad))
             .perform(ViewActions.scrollTo(), ViewActions.click())
 
-        Espresso.onView(ViewMatchers.withId(android.R.id.button1)).
-            perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(android.R.id.button1))
+            .perform(ViewActions.click())
 
         Thread.sleep(2000)
 

@@ -10,7 +10,7 @@ import com.example.anton.sb.R
 import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.service.getUserAd
 import com.example.anton.sb.ui.adapters.MainAdapter
-import kotlinx.android.synthetic.main.activity_user_ad.*
+import kotlinx.android.synthetic.main.activity_user_ad.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity

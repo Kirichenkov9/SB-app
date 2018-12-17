@@ -11,12 +11,10 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.example.anton.sb.ui.activities.userActivity.ChangeUserActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
-import junit.framework.TestCase
 import org.hamcrest.Matchers
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
 
 @RunWith(AndroidJUnit4::class)
 class ChangeUserActivityTest {
@@ -84,8 +82,8 @@ class ChangeUserActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.change_user))
             .perform(ViewActions.click())
 
-        Espresso.onView(ViewMatchers.withId(android.R.id.button1)).
-            perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(android.R.id.button1))
+            .perform(ViewActions.click())
 
         Thread.sleep(2000)
 
@@ -101,4 +99,3 @@ class ChangeUserActivityTest {
         Intents.release()
     }
 }
-

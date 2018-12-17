@@ -11,7 +11,7 @@ import com.example.anton.sb.extensions.isEmailValid
 import com.example.anton.sb.extensions.isPasswordValid
 import com.example.anton.sb.service.login
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.startActivity
 
 /**

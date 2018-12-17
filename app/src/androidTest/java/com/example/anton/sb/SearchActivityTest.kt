@@ -20,7 +20,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 @RunWith(AndroidJUnit4::class)
 class SearchActivityTest {
 
@@ -54,7 +53,6 @@ class SearchActivityTest {
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
             Intents.intended(IntentMatchers.hasComponent(AdViewActivity::class.java.name))
-
         } else {
             Espresso.onView(ViewMatchers.withText("Объявления не найдены"))
                 .inRoot(RootMatchers.withDecorView(Matchers.not(rule.activity.window.decorView)))
@@ -62,6 +60,5 @@ class SearchActivityTest {
         }
 
         Intents.release()
-
     }
 }

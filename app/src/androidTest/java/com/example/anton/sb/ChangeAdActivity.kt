@@ -2,7 +2,6 @@ package com.example.anton.sb
 
 import android.content.Intent
 import android.support.test.espresso.Espresso
-import android.support.test.espresso.ViewAssertion
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.intent.Intents
@@ -16,7 +15,6 @@ import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.getUserAd
 import com.example.anton.sb.ui.activities.adActivity.ChangeAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity
-import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import org.hamcrest.Matchers
 import org.junit.Rule
 import org.junit.Test
@@ -77,7 +75,6 @@ class ChangeAdActivity {
             .check(ViewAssertions.doesNotExist())
 
         Intents.intended(IntentMatchers.hasComponent(MyAdSettingsActivity::class.java.name))
-
 
         Espresso.onView(ViewMatchers.withId(R.id.title_ad_settings))
             .check(ViewAssertions.matches(ViewMatchers.withText("Building")))

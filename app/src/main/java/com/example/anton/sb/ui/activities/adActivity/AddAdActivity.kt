@@ -16,8 +16,8 @@ import com.example.anton.sb.service.addAd
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
-import kotlinx.android.synthetic.main.activity_add_ad.*
-import kotlinx.android.synthetic.main.app_bar_other.*
+import kotlinx.android.synthetic.main.activity_add_ad.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 

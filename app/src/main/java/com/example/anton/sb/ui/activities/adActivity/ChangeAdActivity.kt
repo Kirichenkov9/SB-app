@@ -14,8 +14,8 @@ import com.example.anton.sb.data.ResultAd
 import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.adChange
 import com.example.anton.sb.service.adData
-import kotlinx.android.synthetic.main.activity_change_ad.*
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.activity_change_ad.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
 
 /**
  * A screen changing ad
@@ -77,7 +77,6 @@ class ChangeAdActivity : AppCompatActivity() {
 
         button.setOnClickListener { attemptForm(photo) }
     }
-
 
     /**
      * Checking entered data and change data or display error.

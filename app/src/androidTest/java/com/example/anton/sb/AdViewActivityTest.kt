@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 @RunWith(AndroidJUnit4::class)
 class AdViewActivityTest {
 
@@ -53,6 +52,6 @@ class AdViewActivityTest {
 
             Intents.intended(IntentMatchers.hasComponent(UserAdActivity::class.java.name))
         }
-            Intents.release()
+        Intents.release()
     }
 }

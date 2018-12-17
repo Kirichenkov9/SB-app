@@ -11,8 +11,8 @@ import android.widget.TextView
 import com.example.anton.sb.R
 import com.example.anton.sb.service.userViewData
 import com.example.anton.sb.ui.activities.adActivity.AdViewActivity
-import kotlinx.android.synthetic.main.activity_user_view.* // ktlint-disable no-wildcard-imports
-import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_user_view.*
+import org.jetbrains.anko.*
 
 /**
  * A screen information about user
@@ -56,13 +56,9 @@ class UserViewActivity : AppCompatActivity() {
         val telephone = find<TextView>(R.id.user_phone_number_view)
         val about = find<TextView>(R.id.user_about_view)
 
-        telephone.setOnClickListener {
-            phoneAlert(phone)
-        }
+        telephone.setOnClickListener { phoneAlert(phone) }
 
-        email.setOnClickListener {
-            emailAlert(email.text.toString())
-        }
+        email.setOnClickListener { emailAlert(email.text.toString()) }
 
         doAsync {
             val user = userViewData(id, this@UserViewActivity)
@@ -75,6 +71,7 @@ class UserViewActivity : AppCompatActivity() {
                     telephone.text = user.tel_number
                     about.text = user.about
                     actionBar.title = firstName.text.toString() + " " + lastName.text.toString()
+                    phone = user.tel_number
                 }
             }
         }
@@ -132,9 +129,7 @@ class UserViewActivity : AppCompatActivity() {
      */
     private fun phoneAlert(string: String) {
         alert(message = "Позвонить владельцу объявления?") {
-            positiveButton("Да") {
-                makePhoneCall(string)
-            }
+            positiveButton("Да") { makePhoneCall(string) }
             negativeButton("Нет") {}
         }.show()
     }
@@ -147,9 +142,7 @@ class UserViewActivity : AppCompatActivity() {
      */
     private fun emailAlert(string: String) {
         alert(message = "Написать на email владельцу объявления?") {
-            positiveButton("Да") {
-                email(string)
-            }
+            positiveButton("Да") { email(string) }
             negativeButton("Нет") {}
         }.show()
     }
