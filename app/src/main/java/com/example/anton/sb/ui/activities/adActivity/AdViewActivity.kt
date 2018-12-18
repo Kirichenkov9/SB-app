@@ -15,8 +15,8 @@ import com.example.anton.sb.R
 import com.example.anton.sb.service.adData
 import com.example.anton.sb.ui.activities.userActivity.UserViewActivity
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_ad_view.*
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.activity_ad_view.*// ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.*// ktlint-disable no-wildcard-imports
 
 /**
  * A screen of ad information
