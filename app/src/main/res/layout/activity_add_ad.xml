@@ -19,6 +19,7 @@
             android:id="@+id/add_ad_form"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp">
 
-                <EditText
+                <AutoCompleteTextView
                         android:id="@+id/name"
                         android:drawableStart="@drawable/ic_ad"
                         android:drawablePadding="10dp"
@@ -46,15 +47,16 @@
                         android:inputType="textShortMessage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccent">
+                        android:textColor="@color/colorAccent"/>
 
-                </EditText>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <EditText
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                <AutoCompleteTextView
                         android:id="@+id/about"
                         android:hint="@string/about_ad_add"
                         android:textColorHint="@color/colorAccent"
@@ -67,13 +69,14 @@
                         android:gravity="top"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccent">
-                </EditText>
+                        android:textColor="@color/colorAccent"/>
+
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
 
                 <EditText
                         android:id="@+id/price"
@@ -93,8 +96,10 @@
 
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <EditText
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                <AutoCompleteTextView
                         android:id="@+id/city"
                         android:hint="@string/city_ad_add"
                         android:textColorHint="@color/colorAccent"
@@ -106,22 +111,19 @@
                         android:inputType="text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccent">
-                </EditText>
+                        android:textColor="@color/colorAccent"/>
+
             </android.support.design.widget.TextInputLayout>
 
 
             <Button
                     android:id="@+id/button_ad_photo"
                     android:layout_marginTop="15dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:text="@string/add_ad_photo"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:background="@drawable/button"
+                    android:textColor="@color/colorAccent"
+                    android:background="@color/background"
                     android:theme="@style/RoundedCornerButton"/>
 
             <ImageView
@@ -131,26 +133,26 @@
 
             <Button
                     android:id="@+id/button_ad_add"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/add_ad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:background="@drawable/button"
+                    android:textColor="@color/colorAccent"
+                    android:background="@color/background"
                     android:theme="@style/RoundedCornerButton"/>
         </LinearLayout>
     </ScrollView>
+
         <ProgressBar
                 android:id="@+id/progressBar_add_ad"
                 android:visibility="invisible"
-                android:layout_height="100dp"
-                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_width="80dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView
@@ -159,9 +161,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            android:background="@color/colorPrimary"
-            app:itemTextColor="@color/colorAccent"
-            app:itemIconTint="@color/colorAccent"
+            android:background="@color/white"
+            app:itemTextColor="@color/black"
+            app:itemIconTint="@color/black"
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/activity_main_drawer"/>
 </android.support.v4.widget.DrawerLayout>

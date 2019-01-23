@@ -36,8 +36,8 @@
         <ProgressBar
                 android:id="@+id/progressBar_my_ad"
                 android:visibility="invisible"
-                android:layout_height="100dp"
-                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_width="80dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,10 +52,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            android:background="@color/colorPrimary"
-            app:itemTextColor="@color/colorAccent"
-            app:itemIconTint="@color/colorAccent"
+            android:background="@color/white"
+            app:itemTextColor="@color/black"
+            app:itemIconTint="@color/black"
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/activity_main_drawer"/>
-
 </android.support.v4.widget.DrawerLayout>

@@ -35,10 +35,10 @@
                     android:text="@string/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:layout_marginStart="30dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textColor="@color/darkGrey"/>
             <TextView
                     android:id="@+id/title_ad"
                     android:layout_width="match_parent"
@@ -47,24 +47,28 @@
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
                     android:textSize="20sp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/black"/>
 
             <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="1dp"
                     android:layout_marginTop="15dp"
-                    android:background="@color/colorPrimary">
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/grey">
             </View>
 
             <TextView
                     android:text="@string/city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textColor="@color/darkGrey"/>
             <TextView
                     android:id="@+id/city_ad"
                     android:layout_width="match_parent"
@@ -73,24 +77,30 @@
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
                     android:textSize="20sp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/black"/>
 
             <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="1dp"
                     android:layout_marginTop="15dp"
-                    android:background="@color/colorPrimary">
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/grey">
             </View>
+
 
             <TextView
                     android:text="@string/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textColor="@color/darkGrey"/>
+
             <TextView
                     android:id="@+id/about_ad"
                     android:layout_width="match_parent"
@@ -99,14 +109,17 @@
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
                     android:textSize="20sp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/black"/>
 
             <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="1dp"
                     android:layout_marginTop="15dp"
-                    android:background="@color/colorPrimary">
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/grey">
             </View>
 
 
@@ -114,11 +127,11 @@
                     android:text="@string/price_ad_add"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
-
+                    android:textColor="@color/darkGrey"/>
 
             <TextView
                     android:id="@+id/price_ad"
@@ -128,24 +141,28 @@
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
                     android:textSize="20sp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/black"/>
 
             <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="1dp"
                     android:layout_marginTop="15dp"
-                    android:background="@color/colorPrimary">
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/grey">
             </View>
 
             <TextView
                     android:text="@string/user_agent_ad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textColor="@color/darkGrey"/>
 
 
             <TextView
@@ -157,8 +174,19 @@
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
                     android:textSize="20sp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/black"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/grey">
+            </View>
+
             <TextView
                     android:id="@+id/user_phone_number_ad"
                     android:layout_marginBottom="10dp"
@@ -171,32 +199,31 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:textSize="20sp"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/black"/>
 
             <Button
                     android:id="@+id/go_to_user"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="15dp"
                     android:layout_gravity="center"
                     android:text="@string/go_to_user_ad"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:background="@drawable/button"
+                    android:textColor="@color/colorAccent"
+                    android:background="@color/background"
                     android:theme="@style/RoundedCornerButton"/>
-
         </LinearLayout>
 
         <ProgressBar
                 android:id="@+id/progressBar_ad_view"
                 android:visibility="invisible"
-                android:layout_height="100dp"
-                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_width="80dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
     </android.support.constraint.ConstraintLayout>
+
 </ScrollView>

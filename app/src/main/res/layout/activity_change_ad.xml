@@ -19,20 +19,12 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-            <TextView
-                    android:text="@string/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="30dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
-
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <EditText
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                <AutoCompleteTextView
                         android:id="@+id/change_title"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
@@ -44,24 +36,15 @@
                         android:lines="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccent">
-                </EditText>
+                        android:textColor="@color/colorAccent"/>
             </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                    android:text="@string/city"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
 
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <EditText
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                <AutoCompleteTextView
                         android:id="@+id/change_city"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
@@ -73,24 +56,15 @@
                         android:lines="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccent">
-                </EditText>
+                        android:textColor="@color/colorAccent"/>
             </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                    android:text="@string/description"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
 
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <EditText
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                <AutoCompleteTextView
                         android:id="@+id/change_description"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
@@ -101,23 +75,14 @@
                         android:inputType="textMultiLine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccent">
-                </EditText>
-            </android.support.design.widget.TextInputLayout>
+                        android:textColor="@color/colorAccent"/>
 
-            <TextView
-                    android:text="@string/price_ad_add"
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
+            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
                 <EditText
                         android:id="@+id/change_price"
                         android:layout_marginLeft="20dp"
@@ -136,14 +101,13 @@
 
             <Button
                     android:id="@+id/change_ad"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/save_change"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:background="@drawable/button"
+                    android:textColor="@color/colorAccent"
+                    android:background="@color/background"
                     android:theme="@style/RoundedCornerButton"
                     android:layout_gravity="center"/>
         </LinearLayout>
@@ -151,8 +115,8 @@
         <ProgressBar
                 android:id="@+id/progressBar_ad_change"
                 android:visibility="invisible"
-                android:layout_height="100dp"
-                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_width="80dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
