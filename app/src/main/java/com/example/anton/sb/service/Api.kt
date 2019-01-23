@@ -15,10 +15,16 @@ import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
+import android.support.design.widget.Snackbar
+import android.view.View
+import android.widget.EditText
+import com.example.anton.sb.R
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.find
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import java.nio.file.Files.find
 
 /**
  * Function for operation with server.

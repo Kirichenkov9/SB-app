@@ -1,5 +1,6 @@
 package com.example.anton.sb.ui.activities.adActivity
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -93,18 +94,22 @@ class MyAdSettingsActivity : AppCompatActivity() {
         progressBar_ad_settings.visibility = ProgressBar.VISIBLE
 
         title.setOnClickListener {
+            if (progressBar_ad_settings.visibility == ProgressBar.VISIBLE)
             startActivity<ChangeAdActivity>("adId" to adId)
         }
 
         city.setOnClickListener {
+            if (progressBar_ad_settings.visibility == ProgressBar.VISIBLE)
             startActivity<ChangeAdActivity>("adId" to adId)
         }
 
         description.setOnClickListener {
+            if (progressBar_ad_settings.visibility == ProgressBar.VISIBLE)
             startActivity<ChangeAdActivity>("adId" to adId)
         }
 
         price.setOnClickListener {
+            if (progressBar_ad_settings.visibility == ProgressBar.VISIBLE)
             startActivity<ChangeAdActivity>("adId" to adId)
         }
 

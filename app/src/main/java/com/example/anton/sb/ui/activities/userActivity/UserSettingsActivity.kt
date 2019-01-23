@@ -113,18 +113,22 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         progressBar_user_settings.visibility = ProgressBar.VISIBLE
 
         firstName.setOnClickListener {
-            startActivity<ChangeUserActivity>()
+            if (progressBar_user_settings.visibility == ProgressBar.VISIBLE)
+                startActivity<ChangeUserActivity>()
         }
 
         lastName.setOnClickListener {
+            if (progressBar_user_settings.visibility == ProgressBar.VISIBLE)
             startActivity<ChangeUserActivity>()
         }
 
         telephone.setOnClickListener {
+            if (progressBar_user_settings.visibility == ProgressBar.VISIBLE)
             startActivity<ChangeUserActivity>()
         }
 
         about.setOnClickListener {
+            if (progressBar_user_settings.visibility == ProgressBar.VISIBLE)
             startActivity<ChangeUserActivity>()
         }
 
