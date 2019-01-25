@@ -10,7 +10,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.adChange
 import com.example.anton.sb.service.adData

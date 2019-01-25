@@ -9,7 +9,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ResultUser
+import com.example.anton.sb.model.ResultUser
 import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.changeData
 import com.example.anton.sb.service.userData

@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.widget.ProgressBar
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.service.getUserAd
 import com.example.anton.sb.ui.adapters.MainAdapter
 import kotlinx.android.synthetic.main.activity_user_ad.* // ktlint-disable no-wildcard-imports

@@ -133,7 +133,7 @@
 
             <Button
                     android:id="@+id/button_ad_add"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:text="@string/add_ad"
                     android:layout_width="match_parent"

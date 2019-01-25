@@ -23,7 +23,7 @@
                     android:id="@+id/ad_photos"
                     android:layout_width="300dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_image_ad"
+                    android:src="@drawable/ic_image"
                     android:layout_height="300dp"/>
 
 

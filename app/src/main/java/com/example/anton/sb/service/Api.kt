@@ -3,28 +3,24 @@ package com.example.anton.sb.service
 import android.app.Activity
 import android.content.Context
 import android.widget.ProgressBar
-import com.example.anton.sb.data.ResultAd
-import com.example.anton.sb.data.ResultUser
 import com.example.anton.sb.extensions.changeUser
 import com.example.anton.sb.extensions.handleError
 import com.example.anton.sb.extensions.removeUserData
 import com.example.anton.sb.extensions.saveUsername
+import com.example.anton.sb.model.ResultAd
+import com.example.anton.sb.model.ResultUser
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity
 import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
-import android.support.design.widget.Snackbar
-import android.view.View
-import android.widget.EditText
-import com.example.anton.sb.R
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.find
+import org.jetbrains.anko.contentView
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import java.nio.file.Files.find
 
 /**
  * Function for operation with server.
@@ -61,11 +57,13 @@ fun addAd(
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe({
+
             progressBar_add_ad.visibility = ProgressBar.INVISIBLE
 
             context.toast("Объявление добавлено")
 
             context.startActivity<MyAdsActivity>()
+
             (context as Activity).finish()
         }, { error ->
             progressBar_add_ad.visibility = ProgressBar.INVISIBLE
@@ -76,7 +74,7 @@ fun addAd(
                 removeUserData(context)
                 context.startActivity<LoginActivity>()
             } else
-                context.toast(errorStr)
+                (context as Activity).contentView?.snackbar(errorStr)
         })
 }
 
@@ -105,7 +103,7 @@ fun adData(
             ad = result
         }, { error ->
             context.runOnUiThread {
-                context.toast(handleError(error))
+                (context as Activity).contentView?.snackbar(handleError(error))
             }
         })
     return ad
@@ -160,7 +158,7 @@ fun adChange(
                 context.startActivity<MyAdSettingsActivity>("adId" to adId)
                 (context as Activity).finish()
             } else
-                context.toast(errorStr)
+                (context as Activity).contentView?.snackbar(errorStr)
         })
 }
 
@@ -191,7 +189,7 @@ fun getUserAd(
 
             if (result.isEmpty())
                 context.runOnUiThread {
-                    context.toast("Объявлений нет")
+                    (context as Activity).contentView?.snackbar("Объявлений нет")
                 }
         }, { error ->
             val errorStr = handleError(error)
@@ -199,7 +197,8 @@ fun getUserAd(
                 if (errorStr == "Что-то пошло не так... Попробуйте войти в аккаунт заново") {
                     removeUserData(context)
                     context.startActivity<LoginActivity>()
-                } else context.toast(errorStr)
+                } else
+                    (context as Activity).contentView?.snackbar(errorStr)
             }
         })
     return ads
@@ -249,7 +248,7 @@ fun deleteAd(
                     removeUserData(context)
                     context.startActivity<LoginActivity>()
                 }
-                else -> context.toast(errorStr)
+                else -> (context as Activity).contentView?.snackbar(errorStr)
             }
         })
 }
@@ -286,7 +285,7 @@ fun userData(
                         removeUserData(context)
                         context.startActivity<LoginActivity>()
                     }
-                    else -> context.toast(errorStr)
+                    else -> (context as Activity).contentView?.snackbar(errorStr)
                 }
             }
         })
@@ -347,7 +346,7 @@ fun changeData(
                     context.startActivity<UserSettingsActivity>()
                     (context as Activity).finish()
                 } else
-                    context.toast(errorString)
+                    (context as Activity).contentView?.snackbar(errorString)
             })
 }
 
@@ -374,7 +373,7 @@ fun userViewData(
         .subscribe({ result ->
             user = result
         }, { error ->
-            context.runOnUiThread { context.toast(handleError(error)) }
+            context.runOnUiThread { (context as Activity).contentView?.snackbar(handleError(error)) }
         })
     return user
 }
@@ -420,10 +419,10 @@ fun login(
                 context.startActivity<MainActivity>()
                 (context as Activity).finish()
             } else
-                context.toast("Неверный пароль или логин")
+                (context as Activity).contentView?.snackbar("Неверный пароль или логин")
         }, { error ->
             progressBar_login.visibility = ProgressBar.INVISIBLE
-            context.toast(handleError(error))
+            (context as Activity).contentView?.snackbar(handleError(error))
         })
 }
 
@@ -468,7 +467,7 @@ fun adUser(
             (context as Activity).finish()
         }, { error ->
             progressBar_registration.visibility = ProgressBar.INVISIBLE
-            context.toast(handleError(error))
+            (context as Activity).contentView?.snackbar(handleError(error))
         })
 }
 
@@ -513,7 +512,7 @@ fun logout(
                     removeUserData(context)
                     context.startActivity<LoginActivity>()
                 }
-                else -> context.toast(errorStr)
+                else -> (context as Activity).contentView?.snackbar(errorStr)
             }
         })
 }
@@ -568,7 +567,74 @@ fun delete(
                         removeUserData(context)
                         context.startActivity<LoginActivity>()
                     }
-                    else -> context.toast(errorStr)
+                    else -> (context as Activity).contentView?.snackbar(errorStr)
                 }
             })
+}
+
+/**
+ *  This method uses for update items of recyclerView in MainActivity.
+ *  Method called [ApiService.getAds] with parameters dataList.size and limit (10).
+ *  If result isn't successful, then display error message from [handleError].
+ *
+ *  @param dataList [ArrayList]
+ *  @param context
+ *
+ *  @return [ArrayList]
+ *
+ *  @see ApiService.getAds
+ *  @see handleError
+ */
+fun updateDataList(dataList: ArrayList<ResultAd>, context: Context): ArrayList<ResultAd> {
+    val apiService: ApiService = ApiService.create()
+    apiService.getAds(dataList.size, 10)
+        .subscribe({ result ->
+            dataList.addAll(result)
+            if (dataList.isEmpty())
+                context.runOnUiThread {
+                    (context as Activity).contentView?.snackbar("Объявлений нет")
+                }
+        }, { error ->
+            context.runOnUiThread {
+                (context as Activity).contentView?.snackbar(handleError(error))
+            }
+        })
+    return dataList
+}
+
+/**
+ *  This method uses for update items of recyclerView in SearchActivity.
+ *  Method called [ApiService.getAdsSearch] with parameters string, searchList.size and limit (10).
+ *  If result isn't successful, then display error message from [handleError].
+ *
+ *  @param searchList [ArrayList]
+ *  @param string search line
+ *  @param context
+ *
+ *  @return [ArrayList]
+ *
+ *  @see ApiService.getAdsSearch
+ *  @see handleError
+ */
+fun updateSearchList(
+    searchList: ArrayList<ResultAd>,
+    string: String,
+    context: Context
+): ArrayList<ResultAd> {
+
+    val apiService: ApiService = ApiService.create()
+
+    apiService.getAdsSearch(string, searchList.size, 10)
+        .subscribe({ result ->
+            searchList.addAll(result)
+            if (searchList.isEmpty())
+                context.runOnUiThread {
+                    (context as Activity).contentView?.snackbar("Объявления не найдены")
+                }
+        }, { error ->
+            context.runOnUiThread {
+                (context as Activity).contentView?.snackbar(handleError(error))
+            }
+        })
+    return searchList
 }

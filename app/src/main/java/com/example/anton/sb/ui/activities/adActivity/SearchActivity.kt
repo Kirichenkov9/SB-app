@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.KeyEvent
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import com.example.anton.sb.R
-import com.example.anton.sb.extensions.updateSearchList
-import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.model.ResultAd
+import com.example.anton.sb.service.updateSearchList
 import com.example.anton.sb.ui.adapters.SearchAdapter
-import kotlinx.android.synthetic.main.activity_search.* // ktlint-disable no-wildcard-imports
-import kotlinx.android.synthetic.main.app_bar_search.*  // ktlint-disable no-wildcard-imports
-import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.app_bar_search.*
+import org.jetbrains.anko.*
+import org.jetbrains.anko.design.snackbar
 
 /**
  * A screen searching ad
@@ -59,9 +61,28 @@ class SearchActivity : AppCompatActivity() {
             displayAds(list, searchText, recyclerView, layoutManager)
         }
 
+        searchText.setOnKeyListener{ _, keyCode, _ ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                when {
+                    searchText.text.isNullOrEmpty() -> this.contentView?.snackbar("Вы ничего не ввели")
+                    list.size == 0 -> {
+                        searchString = searchText.text.toString()
+                        displayAds(list, searchText, recyclerView, layoutManager)
+                    }
+                    searchText.text.toString() != searchString -> {
+                        list.clear()
+                        displayAds(list, searchText, recyclerView, layoutManager)
+                        searchString = searchText.text.toString()
+                    }
+                }
+                return@setOnKeyListener true
+            }
+            false
+        }
+
         searchButton.setOnClickListener {
             when {
-                searchText.text.isNullOrEmpty() -> toast("Вы ничего не вввели")
+                searchText.text.isNullOrEmpty() -> it.snackbar("Вы ничего не ввели")
                 list.size == 0 -> {
                     searchString = searchText.text.toString()
                     displayAds(list, searchText, recyclerView, layoutManager)
@@ -74,6 +95,7 @@ class SearchActivity : AppCompatActivity() {
             }
         }
     }
+
     /**
      * Method for display searching ads with recyclerView Adapter.
      * If have problems with connection server or no ads,

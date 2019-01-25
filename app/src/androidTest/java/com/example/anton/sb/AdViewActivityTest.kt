@@ -9,7 +9,7 @@ import android.support.test.espresso.intent.matcher.IntentMatchers
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.extensions.updateDataList
 import com.example.anton.sb.ui.activities.adActivity.AdViewActivity
 import com.example.anton.sb.ui.activities.adActivity.UserAdActivity

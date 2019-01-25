@@ -17,6 +17,7 @@ import com.example.anton.sb.ui.activities.userActivity.UserViewActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_ad_view.*// ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.*// ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.design.snackbar
 
 /**
  * A screen of ad information
@@ -116,20 +117,32 @@ class AdViewActivity : AppCompatActivity() {
         progressBar_ad_view.visibility = ProgressBar.VISIBLE
 
         button.setOnClickListener {
-            startActivity<UserAdActivity>(
-                "userId" to userId,
-                "preAdId" to adId
-            )
+            if (title.text != "")
+                startActivity<UserAdActivity>(
+                    "userId" to userId,
+                    "preAdId" to adId
+                )
+            else if (progressBar_ad_view.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
         username.setOnClickListener {
-            startActivity<UserViewActivity>(
-                "userId" to userId,
-                "adId" to adId
-            )
+            if (title.text != "")
+                startActivity<UserViewActivity>(
+                    "userId" to userId,
+                    "adId" to adId
+                )
+            else if (progressBar_ad_view.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
-        telephone.setOnClickListener { phoneAlert(phone) }
+        telephone.setOnClickListener {
+            if (title.text != "")
+                phoneAlert(phone)
+
+            else if (progressBar_ad_view.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
+        }
     }
 
     /**
@@ -152,7 +165,7 @@ class AdViewActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 makeCall(phone)
             else
-                toast("Нет разрешения совершать звонки")
+                contentView?.snackbar("Нет разрешения совершать звонки")
         }
     }
 

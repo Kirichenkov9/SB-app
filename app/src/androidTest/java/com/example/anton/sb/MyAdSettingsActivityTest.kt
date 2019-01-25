@@ -2,7 +2,7 @@ package com.example.anton.sb
 
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.getUserAd
 import com.example.anton.sb.ui.activities.adActivity.MyAdSettingsActivity

@@ -1,5 +1,6 @@
 package com.example.anton.sb.ui.activities.userActivity
 
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -13,6 +14,7 @@ import com.example.anton.sb.service.userViewData
 import com.example.anton.sb.ui.activities.adActivity.AdViewActivity
 import kotlinx.android.synthetic.main.activity_user_view.*
 import org.jetbrains.anko.*
+import org.jetbrains.anko.design.snackbar
 
 /**
  * A screen information about user
@@ -56,9 +58,11 @@ class UserViewActivity : AppCompatActivity() {
         val telephone = find<TextView>(R.id.user_phone_number_view)
         val about = find<TextView>(R.id.user_about_view)
 
-        telephone.setOnClickListener { phoneAlert(phone) }
+        telephone.setOnClickListener {
+            phoneAlert(phone) }
 
-        email.setOnClickListener { emailAlert(email.text.toString()) }
+        email.setOnClickListener {
+            emailAlert(email.text.toString()) }
 
         doAsync {
             val user = userViewData(id, this@UserViewActivity)
@@ -102,7 +106,7 @@ class UserViewActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 makeCall(phone)
             else
-                toast("Нет разрешения совершать звонки")
+                this.contentView?.snackbar("Нет разрешения совершать звонки")
         }
     }
 

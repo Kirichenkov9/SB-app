@@ -1,21 +1,22 @@
 package com.example.anton.sb.ui.activities.adActivity
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.adData
 import com.example.anton.sb.service.deleteAd
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_my_ad_settings.* // ktlint-disable no-wildcard-imports
-import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_my_ad_settings.*
+import org.jetbrains.anko.*
+import org.jetbrains.anko.design.snackbar
 
 /**
  * A screen ad view of logged ih user
@@ -93,24 +94,32 @@ class MyAdSettingsActivity : AppCompatActivity() {
 
         progressBar_ad_settings.visibility = ProgressBar.VISIBLE
 
-        title.setOnClickListener {
-            if (progressBar_ad_settings.visibility == ProgressBar.VISIBLE)
-            startActivity<ChangeAdActivity>("adId" to adId)
+        View.OnClickListener {
+            if (!title.text.isNullOrEmpty())
+                startActivity<ChangeAdActivity>("adId" to adId)
+            else if (progressBar_ad_settings.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
         city.setOnClickListener {
-            if (progressBar_ad_settings.visibility == ProgressBar.VISIBLE)
-            startActivity<ChangeAdActivity>("adId" to adId)
+            if (!title.text.isNullOrEmpty())
+                startActivity<ChangeAdActivity>("adId" to adId)
+            else if (progressBar_ad_settings.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
         description.setOnClickListener {
-            if (progressBar_ad_settings.visibility == ProgressBar.VISIBLE)
-            startActivity<ChangeAdActivity>("adId" to adId)
+            if (!title.text.isNullOrEmpty())
+                startActivity<ChangeAdActivity>("adId" to adId)
+            else if (progressBar_ad_settings.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
         price.setOnClickListener {
-            if (progressBar_ad_settings.visibility == ProgressBar.VISIBLE)
-            startActivity<ChangeAdActivity>("adId" to adId)
+            if (!title.text.isNullOrEmpty())
+                startActivity<ChangeAdActivity>("adId" to adId)
+            else if (progressBar_ad_settings.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
         button.setOnClickListener { deleteAdAlert() }

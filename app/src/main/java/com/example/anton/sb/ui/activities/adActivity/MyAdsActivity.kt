@@ -12,7 +12,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ResultAd
+import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.extensions.readUserData
 import com.example.anton.sb.service.getUserAd
 import com.example.anton.sb.ui.activities.AboutApp

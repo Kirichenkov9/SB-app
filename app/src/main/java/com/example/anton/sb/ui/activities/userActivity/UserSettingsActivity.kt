@@ -21,6 +21,7 @@ import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
 import kotlinx.android.synthetic.main.activity_user_settings.* // ktlint-disable no-wildcard-imports
 import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
 import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
+import org.jetbrains.anko.design.snackbar
 
 /**
  * A screen user settings
@@ -113,23 +114,31 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         progressBar_user_settings.visibility = ProgressBar.VISIBLE
 
         firstName.setOnClickListener {
-            if (progressBar_user_settings.visibility == ProgressBar.VISIBLE)
+            if (!firstName.text.isNullOrEmpty())
                 startActivity<ChangeUserActivity>()
+            else if (progressBar_user_settings.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
         lastName.setOnClickListener {
-            if (progressBar_user_settings.visibility == ProgressBar.VISIBLE)
-            startActivity<ChangeUserActivity>()
+            if (!firstName.text.isNullOrEmpty())
+                startActivity<ChangeUserActivity>()
+            else if (progressBar_user_settings.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
         telephone.setOnClickListener {
-            if (progressBar_user_settings.visibility == ProgressBar.VISIBLE)
-            startActivity<ChangeUserActivity>()
+            if (!firstName.text.isNullOrEmpty())
+                startActivity<ChangeUserActivity>()
+            else if (progressBar_user_settings.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
         about.setOnClickListener {
-            if (progressBar_user_settings.visibility == ProgressBar.VISIBLE)
-            startActivity<ChangeUserActivity>()
+            if (!firstName.text.isNullOrEmpty())
+                startActivity<ChangeUserActivity>()
+            else if (progressBar_user_settings.visibility == ProgressBar.INVISIBLE)
+                it.snackbar("Не удалось загрузить данные")
         }
 
         exit_account.setOnClickListener {

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.data.ResultAd
-import com.example.anton.sb.extensions.updateSearchList
+import com.example.anton.sb.model.ResultAd
+import com.example.anton.sb.service.updateSearchList
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find

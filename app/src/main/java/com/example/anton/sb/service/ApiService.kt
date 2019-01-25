@@ -1,7 +1,7 @@
 package com.example.anton.sb.service
 
-import com.example.anton.sb.data.ResultAd
-import com.example.anton.sb.data.ResultUser
+import com.example.anton.sb.model.ResultAd
+import com.example.anton.sb.model.ResultUser
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
