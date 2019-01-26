@@ -3,6 +3,7 @@ package com.example.anton.sb.ui.activities.adActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -13,15 +14,15 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.extensions.readUserData
+import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.service.updateDataList
 import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.userActivity.LoginActivity
 import com.example.anton.sb.ui.activities.userActivity.UserSettingsActivity
 import com.example.anton.sb.ui.adapters.MainAdapter
-import kotlinx.android.synthetic.main.activity_main.* // ktlint-disable no-wildcard-imports
-import kotlinx.android.synthetic.main.app_bar_main.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         token = readUserData(keyToken, this)
 
-        val list: ArrayList<ResultAd> = ArrayList()
+        var list: ArrayList<ResultAd> = ArrayList()
 
         val recyclerView = find<RecyclerView>(R.id.ad_list)
         val layoutManager = LinearLayoutManager(this)
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val userEmail = header.find<TextView>(R.id.mail)
         val navViewHeader = header.find<View>(R.id.nav_view_header)
         val searchButton = find<ImageButton>(R.id.search_button)
+        val refresh = find<SwipeRefreshLayout>(R.id.main_refresh)
 
         searchButton.setOnClickListener {
             startActivity<SearchActivity>()
@@ -108,9 +110,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity<UserSettingsActivity>()
             }
         }
-        displayAds(list, recyclerView, layoutManager)
+
+        doAsync {
+            list = updateDataList(ArrayList(), this@MainActivity)
+            uiThread {
+                displayAds(list, recyclerView, layoutManager)
+            }
+        }
 
         progressBar_main.visibility = ProgressBar.VISIBLE
+
+        refresh.setOnRefreshListener {
+            list.clear()
+            recyclerView.adapter?.notifyDataSetChanged()
+
+            doAsync {
+
+                list.addAll(updateDataList(ArrayList(), this@MainActivity))
+
+                uiThread {
+                    refresh.isRefreshing = false
+
+                }
+            }
+        }
     }
 
     /**
@@ -130,28 +153,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerView: RecyclerView,
         layoutManager: LinearLayoutManager
     ) {
-        doAsync {
-            val dataList = updateDataList(list, this@MainActivity)
-            uiThread {
-                progressBar_main.visibility = ProgressBar.INVISIBLE
-                val adapter =
-                    MainAdapter(dataList, object : MainAdapter.OnItemClickListener {
-                        override fun invoke(ad: ResultAd) {
-                            startActivity<AdViewActivity>("adId" to ad.id)
-                        }
-                    })
-                recyclerView.layoutManager = layoutManager
-                recyclerView.adapter = adapter
-                recyclerView.addOnScrollListener(
-                    MainAdapter.OnScrollListener(
-                        layoutManager,
-                        adapter,
-                        dataList,
-                        this@MainActivity
-                    )
-                )
-            }
-        }
+        progressBar_main.visibility = ProgressBar.INVISIBLE
+        val adapter =
+            MainAdapter(list, object : MainAdapter.OnItemClickListener {
+                override fun invoke(ad: ResultAd) {
+                    startActivity<AdViewActivity>("adId" to ad.id)
+                }
+            })
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+        recyclerView.addOnScrollListener(
+            MainAdapter.OnScrollListener(
+                layoutManager,
+                adapter,
+                list,
+                this@MainActivity
+            )
+        )
     }
 
     /**
@@ -219,3 +237,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 }
+

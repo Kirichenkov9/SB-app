@@ -22,12 +22,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
+            <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/main_refresh"
+                    android:paddingTop="?attr/actionBarSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
             <android.support.v7.widget.RecyclerView
                     android:id="@+id/ad_list"
-                    android:paddingTop="?attr/actionBarSize"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
 
             <include
                     layout="@layout/app_bar_main"
