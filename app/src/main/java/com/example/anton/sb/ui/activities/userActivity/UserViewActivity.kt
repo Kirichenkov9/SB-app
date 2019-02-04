@@ -1,6 +1,5 @@
 package com.example.anton.sb.ui.activities.userActivity
 
-import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -37,6 +36,13 @@ class UserViewActivity : AppCompatActivity() {
      */
     private var phone: String = ""
 
+    private lateinit var firstName: TextView
+    private lateinit var lastName: TextView
+    private lateinit var email: TextView
+    private lateinit var telephone: TextView
+    private lateinit var about: TextView
+    private lateinit var time: TextView
+
     /**
      * @suppress
      */
@@ -52,17 +58,20 @@ class UserViewActivity : AppCompatActivity() {
         val id = intent.getLongExtra("userId", 0)
         adId = intent.getLongExtra("adId", 0)
 
-        val firstName = find<TextView>(R.id.first_user_name_view)
-        val lastName = find<TextView>(R.id.last_user_name_view)
-        val email = find<TextView>(R.id.user_email_view)
-        val telephone = find<TextView>(R.id.user_phone_number_view)
-        val about = find<TextView>(R.id.user_about_view)
+        firstName = find(R.id.first_user_name_view)
+        lastName = find(R.id.last_user_name_view)
+        email = find(R.id.user_email_view)
+        telephone = find(R.id.user_phone_number_view)
+        about = find(R.id.user_about_view)
+        time = find(R.id.user_reg_time)
 
         telephone.setOnClickListener {
-            phoneAlert(phone) }
+            phoneAlert(phone)
+        }
 
         email.setOnClickListener {
-            emailAlert(email.text.toString()) }
+            emailAlert(email.text.toString())
+        }
 
         doAsync {
             val user = userViewData(id, this@UserViewActivity)
@@ -76,6 +85,7 @@ class UserViewActivity : AppCompatActivity() {
                     about.text = user.about
                     actionBar.title = firstName.text.toString() + " " + lastName.text.toString()
                     phone = user.tel_number
+                    time.text = user.reg_time.toLocaleString()
                 }
             }
         }

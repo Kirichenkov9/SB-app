@@ -1,5 +1,7 @@
 package com.example.anton.sb.model
 
+import java.util.*
+
 /**
  * @author Anton Kirichenkov
  */
@@ -35,7 +37,9 @@ data class ResultAd(
     /**
      * description of ad
      */
-    val description_ad: String
+    val description_ad: String,
+
+    val creation_time: Date
 )
 
 /**
@@ -69,5 +73,7 @@ data class ResultUser(
     /**
      * information about user
      */
-    val about: String
+    val about: String,
+
+    val reg_time: Date
 )

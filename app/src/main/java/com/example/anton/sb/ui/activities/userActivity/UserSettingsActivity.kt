@@ -18,9 +18,9 @@ import com.example.anton.sb.ui.activities.AboutApp
 import com.example.anton.sb.ui.activities.adActivity.AddAdActivity
 import com.example.anton.sb.ui.activities.adActivity.MainActivity
 import com.example.anton.sb.ui.activities.adActivity.MyAdsActivity
-import kotlinx.android.synthetic.main.activity_user_settings.* // ktlint-disable no-wildcard-imports
-import kotlinx.android.synthetic.main.app_bar_other.* // ktlint-disable no-wildcard-imports
-import org.jetbrains.anko.* // ktlint-disable no-wildcard-imports
+import kotlinx.android.synthetic.main.activity_user_settings.*
+import kotlinx.android.synthetic.main.app_bar_other.*
+import org.jetbrains.anko.*
 import org.jetbrains.anko.design.snackbar
 
 /**
@@ -55,6 +55,18 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
      */
     private val mail: String = "email"
 
+    private lateinit var header: View
+    private lateinit var nameUser: TextView
+    private lateinit var userEmail: TextView
+    private lateinit var navViewHeader: View
+    private lateinit var firstName: TextView
+    private lateinit var lastName: TextView
+    private lateinit var email: TextView
+    private lateinit var telephone: TextView
+    private lateinit var about: TextView
+    private lateinit var time: TextView
+
+
     /**
      * @suppress
      */
@@ -75,11 +87,11 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         toggle.syncState()
 
         nav_view_settings.setNavigationItemSelectedListener(this)
-        val header = find<NavigationView>(R.id.nav_view_settings).getHeaderView(0)
+        header = find<NavigationView>(R.id.nav_view_settings).getHeaderView(0)
 
-        val nameUser = header.find<TextView>(R.id.user_first_name)
-        val userEmail = header.find<TextView>(R.id.mail)
-        val navViewHeader = header.find<View>(R.id.nav_view_header)
+        nameUser = header.find(R.id.user_first_name)
+        userEmail = header.find(R.id.mail)
+        navViewHeader = header.find(R.id.nav_view_header)
 
         navViewHeader.setOnClickListener {
             if (token.isNullOrEmpty()) {
@@ -92,11 +104,12 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         nameUser.text = readUserData(name, this)
         userEmail.text = readUserData(mail, this)
 
-        val firstName = find<TextView>(R.id.first_user_name)
-        val lastName = find<TextView>(R.id.last_user_name)
-        val email = find<TextView>(R.id.user_email)
-        val telephone = find<TextView>(R.id.user_phone_number)
-        val about = find<TextView>(R.id.user_about)
+        firstName = find(R.id.first_user_name)
+        lastName = find(R.id.last_user_name)
+        email = find(R.id.user_email)
+        telephone = find(R.id.user_phone_number)
+        about = find(R.id.user_about)
+        time = find(R.id.my_reg_time)
 
         doAsync {
             val user = userData(token.toString(), this@UserSettingsActivity)
@@ -108,6 +121,7 @@ class UserSettingsActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                     email.text = user.email
                     telephone.text = user.tel_number
                     about.text = user.about
+                    time.text = user.reg_time.toLocaleString()
                 }
             }
         }

@@ -129,6 +129,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 list.addAll(updateDataList(ArrayList(), this@MainActivity))
 
                 uiThread {
+                    displayAds(list, recyclerView, layoutManager)
                     refresh.isRefreshing = false
 
                 }

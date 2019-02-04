@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.anton.sb.R
-import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.extensions.readUserData
+import com.example.anton.sb.model.ResultAd
 import com.example.anton.sb.service.adData
 import com.example.anton.sb.service.deleteAd
 import com.squareup.picasso.Picasso
@@ -58,6 +58,14 @@ class MyAdSettingsActivity : AppCompatActivity() {
      */
     private var adId: Long = 0
 
+    private lateinit var title: TextView
+    private lateinit var city: TextView
+    private lateinit var description: TextView
+    private lateinit var price: TextView
+    private lateinit var photo: ImageView
+    private lateinit var button: Button
+    private lateinit var time: TextView
+
     /**
      * @suppress
      */
@@ -74,19 +82,20 @@ class MyAdSettingsActivity : AppCompatActivity() {
 
         token = readUserData("token", this)
 
-        val title = find<TextView>(R.id.title_ad_settings)
-        val city = find<TextView>(R.id.city_ad_settings)
-        val description = find<TextView>(R.id.about_ad_settings)
-        val price = find<TextView>(R.id.price_ad_settings)
-        val photo = find<ImageView>(R.id.ad_photos)
-        val button = find<Button>(R.id.delete_ad)
+        title = find(R.id.title_ad_settings)
+        city = find(R.id.city_ad_settings)
+        description = find(R.id.about_ad_settings)
+        price = find(R.id.price_ad_settings)
+        photo = find(R.id.ad_photos)
+        button = find(R.id.delete_ad)
+        time = find(R.id.reg_my_ad_time)
 
         doAsync {
             val ad = adData(adId, this@MyAdSettingsActivity)
             uiThread {
                 progressBar_ad_settings.visibility = ProgressBar.INVISIBLE
                 if (ad != null) {
-                    setData(ad, title, city, description, price, photo)
+                    setData(ad)
                     actionBar.title = ad.title
                 }
             }
@@ -148,18 +157,13 @@ class MyAdSettingsActivity : AppCompatActivity() {
      * @param price field of EditText with ad price
      * @param photo ad photo
      */
-    private fun setData(
-        ad: ResultAd,
-        title: TextView,
-        city: TextView,
-        description: TextView,
-        price: TextView,
-        photo: ImageView
-    ) {
+    private fun setData(ad: ResultAd) {
         title.text = ad.title
         city.text = ad.city
         description.text = ad.description_ad
         price.text = ad.price.toString()
+        time.text = ad.creation_time.toLocaleString()
+
         if (ad.ad_images.size != 0) {
             Picasso
                 .with(this@MyAdSettingsActivity)

@@ -163,6 +163,16 @@
                     android:textColor="@color/colorAccent"
                     android:background="@color/background"
                     android:theme="@style/RoundedCornerButton"/>
+
+            <TextView
+                    android:id="@+id/reg_my_ad_time"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:textColor="@color/darkGrey"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <ProgressBar

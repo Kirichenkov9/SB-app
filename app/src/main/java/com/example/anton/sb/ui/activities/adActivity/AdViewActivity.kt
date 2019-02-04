@@ -86,6 +86,7 @@ class AdViewActivity : AppCompatActivity() {
         val telephone = find<TextView>(R.id.user_phone_number_ad)
         val photo = find<ImageView>(R.id.ad_photos)
         val button = find<Button>(R.id.go_to_user)
+        val time = find<TextView>(R.id.reg_ad_time)
 
         doAsync {
             val ad = adData(adId, this@AdViewActivity)
@@ -100,6 +101,8 @@ class AdViewActivity : AppCompatActivity() {
                     telephone.text = ad.owner_ad.tel_number
                     phone = telephone.text.toString()
                     userId = ad.owner_ad.id
+                    time.text = ad.creation_time.toLocaleString()
+
                     if (ad.ad_images.size != 0) {
                         Picasso
                             .with(this@AdViewActivity)
@@ -139,7 +142,6 @@ class AdViewActivity : AppCompatActivity() {
         telephone.setOnClickListener {
             if (title.text != "")
                 phoneAlert(phone)
-
             else if (progressBar_ad_view.visibility == ProgressBar.INVISIBLE)
                 it.snackbar("Не удалось загрузить данные")
         }
