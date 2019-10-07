@@ -596,7 +596,8 @@ fun updateDataList(dataList: ArrayList<ResultAd>, context: Context): ArrayList<R
                 }
         }, { error ->
             context.runOnUiThread {
-                (context as Activity).contentView?.snackbar(handleError(error))
+                toast(error.toString())
+               // (context as Activity).contentView?.snackbar(handleError(error))
             }
         })
     return dataList

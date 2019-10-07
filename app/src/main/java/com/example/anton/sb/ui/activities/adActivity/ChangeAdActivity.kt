@@ -53,6 +53,7 @@ class ChangeAdActivity : AppCompatActivity() {
 
         token = readUserData("token", this)
 
+
         val intent = intent
         adId = intent.getLongExtra("adId", 0)
 

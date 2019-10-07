@@ -19,41 +19,39 @@ import java.net.SocketTimeoutException
  */
 fun handleError(throwable: Throwable): String {
     var string: String = ""
-    if (throwable is retrofit2.HttpException) {
-        val statusCode = throwable.code()
-        val errorJsonString = throwable.response().errorBody()?.string()
-        val error = JsonParser().parse(errorJsonString).asJsonObject["error"].asString
+    when (throwable) {
+        is retrofit2.HttpException -> {
+            val statusCode = throwable.code()
+            val errorJsonString = throwable.response().errorBody()?.string()
+            val error = JsonParser().parse(errorJsonString).asJsonObject["error"].asString
 
-        if (statusCode == 400) {
-            when (error) {
-                "UserIsExistsError" -> string = " Пользователь уже существует"
-                "BadAuth" -> string = "Неверный логин или пароль"
-                "RequestDataValidError" -> string = "Данные введены неверно"
+            when (statusCode) {
+                400 -> {
+                    when (error) {
+                        "UserIsExistsError" -> string = " Пользователь уже существует"
+                        "BadAuth" -> string = "Неверный логин или пароль"
+                        "RequestDataValidError" -> string = "Данные введены неверно"
+                    }
+                }
+
+                401 -> string = "Что-то пошло не так... Попробуйте войти в аккаунт заново"
+
+                403 -> string = "Что-то пошло не так... Попробуйте войти в аккаунт заново"
+
+
+                500 ->  {
+                    string = if (error == "BadCookieError")
+                        "Что-то пошло не так... Попробуйте войти в аккаунт заново"
+                    else
+                        "Нет соединения с сервером"
+                }
             }
         }
-
-        if (statusCode == 401) {
-            string = "Что-то пошло не так... Попробуйте войти в аккаунт заново"
-        }
-
-        if (statusCode == 403) {
-            string = "Что-то пошло не так... Попробуйте войти в аккаунт заново"
-        }
-
-        if (statusCode == 500) {
-            string = if (error == "BadCookieError")
-                "Что-то пошло не так... Попробуйте войти в аккаунт заново"
-            else
-                "Нет соединения с сервером"
-        }
-    } else if (throwable is SocketTimeoutException)
-        string = "Нет соединения с сервером"
-    else if (throwable is EOFException)
-        string = "empty body"
-    else if (throwable is IOException)
-        string = "Нет соединения с сервером"
-    else
-        string = "Что-то пошло не так..."
+        is SocketTimeoutException -> string = "Нет соединения с сервером"
+        is EOFException -> string = "empty body"
+        is IOException -> string = "Нет соединения с сервером"
+        else -> string = "Что-то пошло не так..."
+    }
 
     return string
 }

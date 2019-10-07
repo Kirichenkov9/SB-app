@@ -26,6 +26,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
+import java.util.*
 
 /**
  * A main screen of app with updating list of ads.
